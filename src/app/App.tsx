@@ -10,7 +10,7 @@ export default function App() {
       dpr={[1, 2]}
       camera={{ position: [0, 0, 8], fov: 45 }}
     >
-      <ScrollControls pages={5} damping={0.25}>
+      <ScrollControls pages={6} damping={0.25}>
         <Experience />
       </ScrollControls>
     </Canvas>
