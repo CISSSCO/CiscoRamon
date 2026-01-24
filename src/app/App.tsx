@@ -1,19 +1,40 @@
 import { Canvas } from '@react-three/fiber'
-import { ScrollControls, Scroll } from '@react-three/drei'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 import Experience from './Experience'
-import ProjectsHTML from '../html/ProjectsHTML'
+import Home from '../pages/Home'
+import ProjectPage from '../pages/ProjectPage'
+
+function Background3D() {
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 8], fov: 45 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 0
+      }}
+    >
+      <Experience />
+    </Canvas>
+  )
+}
 
 export default function App() {
-  return (
-    <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-      <ScrollControls pages={6} damping={0.25}>
-        <Experience />
+  const location = useLocation()
 
-        <Scroll html>
-          <ProjectsHTML />
-        </Scroll>
-      </ScrollControls>
-    </Canvas>
+  return (
+    <>
+      {/* 3D background only on home */}
+      {location.pathname === '/' && <Background3D />}
+
+      {/* HTML content */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/project/:id" element={<ProjectPage />} />
+        </Routes>
+      </div>
+    </>
   )
 }

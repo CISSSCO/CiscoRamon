@@ -1,29 +1,62 @@
-import { Fog } from 'three'
-import { useThree } from '@react-three/fiber'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { useThree, useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 
-import CameraRig from '../canvas/CameraRig'
 import Lights from '../canvas/Lights'
 import Environment from '../canvas/Environment'
+import HeroOrb from '../sections/HeroOrb'
 
-import IntroSection from '../sections/IntroSection'
-import ProjectsSection from '../sections/ProjectsSection'
+/**
+ * Smooth easing function (cinematic)
+ */
+function easeInOutCubic(t: number) {
+  return t < 0.5
+    ? 4 * t * t * t
+    : 1 - Math.pow(-2 * t + 2, 3) / 2
+}
 
 export default function Experience() {
-  const { scene } = useThree()
+  const { camera } = useThree()
+  const targetZ = useRef(8)
 
   useEffect(() => {
-    scene.fog = new Fog('#000000', 6, 18)
-  }, [scene])
+    camera.lookAt(0, 0, 0)
+  }, [camera])
+
+  useFrame(() => {
+    const scrollY = window.scrollY
+    const maxScroll =
+      document.body.scrollHeight - window.innerHeight
+
+    // Normalize scroll (0 → 1)
+    const rawT = maxScroll > 0 ? scrollY / maxScroll : 0
+
+    // Apply easing
+    const t = easeInOutCubic(rawT)
+
+    // 🔥 SLOWER, SHORTER CAMERA TRAVEL
+    const startZ = 9
+    const endZ = -10
+
+    targetZ.current = THREE.MathUtils.lerp(
+      startZ,
+      endZ,
+      t
+    )
+
+    // Smooth camera motion (lerp)
+    camera.position.z = THREE.MathUtils.lerp(
+      camera.position.z,
+      targetZ.current,
+      0.06
+    )
+  })
 
   return (
     <>
-      <CameraRig />
       <Lights />
       <Environment />
-
-      <IntroSection />
-      <ProjectsSection />
+      <HeroOrb />
     </>
   )
 }
