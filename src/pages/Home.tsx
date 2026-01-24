@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
 import '../styles/home.css'
+import { useOrbState } from '../app/OrbStateContext'
+import { useEffect, useRef } from 'react'
+import { saveScroll, restoreScroll } from '../app/ScrollMemory'
 
 const projects = [
   {
@@ -20,6 +23,32 @@ const projects = [
 ]
 
 export default function Home() {
+  const { setMode } = useOrbState()
+  const cardsRef = useRef<HTMLAnchorElement[]>([])
+
+  // ✅ Restore scroll when coming back from project page
+  useEffect(() => {
+    restoreScroll()
+  }, [])
+
+  // ✅ Reveal cards on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    cardsRef.current.forEach((el) => el && observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       {/* HERO */}
@@ -33,11 +62,17 @@ export default function Home() {
         <h2 className="section-title">Selected Projects</h2>
 
         <div className="projects-grid">
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <Link
               key={p.id}
+              ref={(el) => {
+                if (el) cardsRef.current[i] = el
+              }}
               to={`/project/${p.id}`}
               className="project-card"
+              onClick={saveScroll}          // ✅ SAVE SCROLL
+              onMouseEnter={() => setMode('project')}
+              onMouseLeave={() => setMode('idle')}
             >
               <h3>{p.title}</h3>
               <p>{p.description}</p>

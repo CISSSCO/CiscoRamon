@@ -1,18 +1,61 @@
 import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { ProceduralMaterial } from './ProceduralMaterial'
+import { useOrbState } from '../app/OrbStateContext'
 
-export default function HeroOrb() {
+type Props = {
+  scrollT: React.MutableRefObject<number>
+}
+
+export default function HeroOrb({ scrollT }: Props) {
   const mesh = useRef<THREE.Mesh>(null!)
+  const { mouse } = useThree()
+  const { mode } = useOrbState()
 
-useFrame((_, delta) => {
-  mesh.current.rotation.y += delta * 0.2
-  ProceduralMaterial.uniforms.uTime.value += delta
+  useFrame((_, delta) => {
+    const t = scrollT.current
 
-  const s = 1 + Math.sin(ProceduralMaterial.uniforms.uTime.value * 0.5) * 0.05
-  mesh.current.scale.setScalar(s)
-})
+    // Time
+    ProceduralMaterial.uniforms.uTime.value +=
+      delta * (mode === 'project' ? 1.2 : 0.6)
+
+    // Base motion
+    mesh.current.rotation.y += delta * 0.15
+    mesh.current.rotation.x += delta * 0.05
+
+    /**
+     * 🧲 Mouse attraction (subtle!)
+     */
+    const targetX = mouse.x * 0.6
+    const targetY = mouse.y * 0.4
+
+    mesh.current.position.x = THREE.MathUtils.lerp(
+      mesh.current.position.x,
+      targetX,
+      0.05
+    )
+
+    mesh.current.position.y = THREE.MathUtils.lerp(
+      mesh.current.position.y,
+      targetY,
+      0.05
+    )
+
+    // Z stays scroll-based
+    mesh.current.position.z = THREE.MathUtils.lerp(0, -12, t)
+
+    /**
+     * SCALE
+     */
+    const baseScale = THREE.MathUtils.lerp(0.8, 3.0, t)
+    const pulse =
+      mode === 'project'
+        ? 1 + Math.sin(ProceduralMaterial.uniforms.uTime.value * 3) * 0.05
+        : 1
+
+    mesh.current.scale.setScalar(baseScale * pulse)
+  })
 
   return (
     <mesh ref={mesh}>

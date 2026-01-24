@@ -4,6 +4,8 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Experience from './Experience'
 import Home from '../pages/Home'
 import ProjectPage from '../pages/ProjectPage'
+import { useOrbState } from './OrbStateContext'
+import { useEffect } from 'react'
 
 function Background3D() {
   return (
@@ -22,11 +24,21 @@ function Background3D() {
 
 export default function App() {
   const location = useLocation()
+  const { setMode } = useOrbState()
+
+  // 🔁 Switch orb mode per route
+  useEffect(() => {
+    if (location.pathname.startsWith('/project')) {
+      setMode('project')
+    } else {
+      setMode('idle')
+    }
+  }, [location.pathname, setMode])
 
   return (
     <>
-      {/* 3D background only on home */}
-      {location.pathname === '/' && <Background3D />}
+      {/* Always render background */}
+      <Background3D />
 
       {/* HTML content */}
       <div style={{ position: 'relative', zIndex: 1 }}>

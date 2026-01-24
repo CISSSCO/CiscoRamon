@@ -6,48 +6,34 @@ import Lights from '../canvas/Lights'
 import Environment from '../canvas/Environment'
 import HeroOrb from '../sections/HeroOrb'
 
-/**
- * Smooth easing function (cinematic)
- */
-function easeInOutCubic(t: number) {
-  return t < 0.5
-    ? 4 * t * t * t
-    : 1 - Math.pow(-2 * t + 2, 3) / 2
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3)
 }
 
 export default function Experience() {
   const { camera } = useThree()
-  const targetZ = useRef(8)
+  const scrollT = useRef(0)
 
   useEffect(() => {
+    camera.position.set(0, 0, 6)
     camera.lookAt(0, 0, 0)
   }, [camera])
 
   useFrame(() => {
-    const scrollY = window.scrollY
     const maxScroll =
       document.body.scrollHeight - window.innerHeight
 
-    // Normalize scroll (0 → 1)
-    const rawT = maxScroll > 0 ? scrollY / maxScroll : 0
+    const raw =
+      maxScroll > 0 ? window.scrollY / maxScroll : 0
 
-    // Apply easing
-    const t = easeInOutCubic(rawT)
-
-    // 🔥 SLOWER, SHORTER CAMERA TRAVEL
-    const startZ = 9
-    const endZ = -10
-
-    targetZ.current = THREE.MathUtils.lerp(
-      startZ,
-      endZ,
-      t
+    scrollT.current = easeOutCubic(
+      THREE.MathUtils.clamp(raw, 0, 1)
     )
 
-    // Smooth camera motion (lerp)
+    // camera stays stable (important)
     camera.position.z = THREE.MathUtils.lerp(
       camera.position.z,
-      targetZ.current,
+      5.8,
       0.06
     )
   })
@@ -56,7 +42,7 @@ export default function Experience() {
     <>
       <Lights />
       <Environment />
-      <HeroOrb />
+      <HeroOrb scrollT={scrollT} />
     </>
   )
 }

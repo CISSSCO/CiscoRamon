@@ -48,7 +48,7 @@
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-50px);
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.8),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -80,4 +80,17 @@
   .hero h1 {
     font-size: 3rem;
   }
+}
+
+.project-card {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
