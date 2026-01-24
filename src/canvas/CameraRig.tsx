@@ -8,7 +8,7 @@ export default function CameraRig() {
   const { camera } = useThree()
   const { focused } = useProjectFocus()
 
-  // Scroll-controlled camera state
+  // Scroll-driven camera state
   const position = useRef(new THREE.Vector3(0, 0, 8))
   const lookAt = useRef(new THREE.Vector3(0, 0, 0))
 
@@ -22,21 +22,21 @@ export default function CameraRig() {
 
   useFrame(() => {
     if (focused) {
-      // 🎯 Temporary focus override
+      // Temporary focus
       const target = new THREE.Vector3(
         focused.position[0],
         focused.position[1],
         focused.position[2] + 3
       )
 
-      camera.position.lerp(target, 0.08)
+      camera.position.lerp(target, 0.1)
       camera.lookAt(
         focused.position[0],
         focused.position[1],
         focused.position[2]
       )
     } else {
-      // 🔑 Scroll immediately regains authority
+      // Scroll is authoritative
       camera.position.copy(position.current)
       camera.lookAt(lookAt.current)
     }
