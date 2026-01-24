@@ -1,4 +1,3 @@
-
 import * as THREE from 'three'
 
 export const ProceduralMaterial = new THREE.ShaderMaterial({
@@ -12,24 +11,46 @@ export const ProceduralMaterial = new THREE.ShaderMaterial({
     uniform float uTime;
 
     varying vec3 vNormal;
-    varying float vElevation;
+    varying float vDist;
 
-    // Simple hash noise (cheap & stable)
+    float hash(vec3 p) {
+      return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453);
+    }
+
     float noise(vec3 p) {
-      return sin(p.x) * sin(p.y) * sin(p.z);
+      vec3 i = floor(p);
+      vec3 f = fract(p);
+      f = f * f * (3.0 - 2.0 * f);
+
+      float n = mix(
+        mix(mix(hash(i), hash(i + vec3(1,0,0)), f.x),
+            mix(hash(i + vec3(0,1,0)), hash(i + vec3(1,1,0)), f.x), f.y),
+        mix(mix(hash(i + vec3(0,0,1)), hash(i + vec3(1,0,1)), f.x),
+            mix(hash(i + vec3(0,1,1)), hash(i + vec3(1,1,1)), f.x), f.y),
+        f.z
+      );
+      return n;
+    }
+
+    float fbm(vec3 p) {
+      float v = 0.0;
+      float a = 0.5;
+      for (int i = 0; i < 4; i++) {
+        v += a * noise(p);
+        p *= 2.0;
+        a *= 0.5;
+      }
+      return v;
     }
 
     void main() {
       vNormal = normal;
 
       vec3 pos = position;
+      float n = fbm(pos * 1.2 + uTime * 0.4);
+      pos += normal * n * 0.6;
 
-      float n = noise(pos * 1.5 + uTime * 0.8);
-      float elevation = n * 0.4;
-
-      pos += normal * elevation;
-      vElevation = elevation;
-
+      vDist = length(pos);
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     }
   `,
@@ -39,16 +60,18 @@ export const ProceduralMaterial = new THREE.ShaderMaterial({
     uniform vec3 uColorB;
 
     varying vec3 vNormal;
-    varying float vElevation;
+    varying float vDist;
 
     void main() {
-      float intensity = dot(normalize(vNormal), vec3(0.0, 0.0, 1.0));
-      intensity = smoothstep(0.0, 1.0, intensity);
+      float fresnel = pow(
+        1.0 - dot(normalize(vNormal), vec3(0.0, 0.0, 1.0)),
+        3.0
+      );
 
-      float mixStrength = vElevation * 2.0 + 0.5;
-      vec3 color = mix(uColorA, uColorB, mixStrength);
+      vec3 color = mix(uColorA, uColorB, vDist * 0.15);
+      color += fresnel * 0.8;
 
-      gl_FragColor = vec4(color * intensity, 1.0);
+      gl_FragColor = vec4(color, 1.0);
     }
   `
 })

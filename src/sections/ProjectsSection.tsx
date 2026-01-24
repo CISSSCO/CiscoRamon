@@ -14,7 +14,7 @@ export default function ProjectsSection() {
   useScrollTimeline((tl) => {
     tl.fromTo(
       group.current.position,
-      { z: -2 },
+      { z: -3 },
       { z: 0, duration: 1 }
     )
   })
@@ -22,7 +22,10 @@ export default function ProjectsSection() {
   return (
     <group ref={group}>
       {projects.map((p) => (
-        <mesh key={p.id} position={p.position as any}>
+        <mesh
+          key={p.id}
+          position={p.position as [number, number, number]}
+        >
           <boxGeometry args={[1, 1, 1]} />
           <meshStandardMaterial color={p.color} />
         </mesh>

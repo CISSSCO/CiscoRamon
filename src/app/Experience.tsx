@@ -1,12 +1,13 @@
-import { Fog } from 'three'
-import { useThree } from '@react-three/fiber'
 import { useEffect } from 'react'
-import ProjectsSection from '../sections/ProjectsSection'
+import { useThree } from '@react-three/fiber'
+import { Fog } from 'three'
 
 import CameraRig from '../canvas/CameraRig'
 import Lights from '../canvas/Lights'
 import Environment from '../canvas/Environment'
+
 import IntroSection from '../sections/IntroSection'
+import ProjectsSection from '../sections/ProjectsSection'
 
 export default function Experience() {
   const { scene } = useThree()
@@ -20,8 +21,9 @@ export default function Experience() {
       <CameraRig />
       <Lights />
       <Environment />
-      //<IntroSection />
-      //<ProjectsSection />
+
+      <IntroSection />
+      <ProjectsSection />
     </>
   )
 }
