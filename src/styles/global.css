@@ -9,3 +9,20 @@ html, body, #root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+.html-section {
+  position: absolute;
+  top: 120vh; /* aligns with Projects section */
+  left: 10vw;
+  max-width: 400px;
+  pointer-events: none;
+}
+
+.html-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.html-section p {
+  font-size: 1rem;
+  opacity: 0.8;
+}

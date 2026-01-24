@@ -1,6 +1,7 @@
 import { Fog } from 'three'
 import { useThree } from '@react-three/fiber'
 import { useEffect } from 'react'
+import ProjectsSection from '../sections/ProjectsSection'
 
 import CameraRig from '../canvas/CameraRig'
 import Lights from '../canvas/Lights'
@@ -19,7 +20,8 @@ export default function Experience() {
       <CameraRig />
       <Lights />
       <Environment />
-      <IntroSection />
+      //<IntroSection />
+      //<ProjectsSection />
     </>
   )
 }
