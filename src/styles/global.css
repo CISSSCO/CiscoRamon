@@ -26,3 +26,58 @@ html, body, #root {
   font-size: 1rem;
   opacity: 0.8;
 }
+
+.project-panel {
+  position: absolute;
+  right: 8vw;
+  top: 20vh;
+  width: 320px;
+
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+
+  border-radius: 12px;
+  padding: 1.5rem;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+}
+
+.project-panel h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-panel .description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.project-panel .stack {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project-panel .stack li {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.project-panel .links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-panel .links a {
+  font-size: 0.85rem;
+  color: #6b8bff;
+  text-decoration: none;
+}

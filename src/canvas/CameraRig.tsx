@@ -2,13 +2,10 @@ import { useThree, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { useScrollTimeline } from '../hooks/useScrollTimeline'
-import { useProjectFocus } from '../app/ProjectFocusContext'
 
 export default function CameraRig() {
   const { camera } = useThree()
-  const { focused } = useProjectFocus()
 
-  // Scroll-driven camera state
   const position = useRef(new THREE.Vector3(0, 0, 8))
   const lookAt = useRef(new THREE.Vector3(0, 0, 0))
 
@@ -21,25 +18,8 @@ export default function CameraRig() {
   })
 
   useFrame(() => {
-    if (focused) {
-      // Temporary focus
-      const target = new THREE.Vector3(
-        focused.position[0],
-        focused.position[1],
-        focused.position[2] + 3
-      )
-
-      camera.position.lerp(target, 0.1)
-      camera.lookAt(
-        focused.position[0],
-        focused.position[1],
-        focused.position[2]
-      )
-    } else {
-      // Scroll is authoritative
-      camera.position.copy(position.current)
-      camera.lookAt(lookAt.current)
-    }
+    camera.position.copy(position.current)
+    camera.lookAt(lookAt.current)
   })
 
   return null

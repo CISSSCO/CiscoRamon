@@ -1,23 +1,15 @@
 import { Canvas } from '@react-three/fiber'
 import { ScrollControls, Scroll } from '@react-three/drei'
-import { useProjectFocus } from './ProjectFocusContext'
 
 import Experience from './Experience'
 import ProjectsHTML from '../html/ProjectsHTML'
 
 export default function App() {
-const { clear } = useProjectFocus()
   return (
-    <Canvas
-      gl={{ antialias: true }}
-      dpr={[1, 2]}
-      camera={{ position: [0, 0, 8], fov: 45 }}
-    >
+    <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
       <ScrollControls pages={6} damping={0.25}>
-        {/* 3D scene */}
         <Experience />
 
-        {/* HTML overlay (same scroll context) */}
         <Scroll html>
           <ProjectsHTML />
         </Scroll>
