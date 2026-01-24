@@ -1,10 +1,12 @@
 import { Canvas } from '@react-three/fiber'
 import { ScrollControls, Scroll } from '@react-three/drei'
+import { useProjectFocus } from './ProjectFocusContext'
 
 import Experience from './Experience'
 import ProjectsHTML from '../html/ProjectsHTML'
 
 export default function App() {
+const { clear } = useProjectFocus()
   return (
     <Canvas
       gl={{ antialias: true }}

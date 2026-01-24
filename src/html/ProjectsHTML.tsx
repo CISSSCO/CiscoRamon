@@ -1,6 +1,4 @@
 
-import { useEffect, useRef } from 'react'
-
 export default function ProjectsHTML() {
   return (
     <div className="html-section">

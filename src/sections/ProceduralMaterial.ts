@@ -1,6 +1,10 @@
 import * as THREE from 'three'
 
 export const ProceduralMaterial = new THREE.ShaderMaterial({
+  transparent: true,
+  depthWrite: false, // ✅ CRITICAL FIX
+  depthTest: true,
+
   uniforms: {
     uTime: { value: 0 },
     uColorA: { value: new THREE.Color('#ffffff') },

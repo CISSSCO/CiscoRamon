@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
-import { useThree } from '@react-three/fiber'
 import { Fog } from 'three'
+import { useThree } from '@react-three/fiber'
+import { useEffect } from 'react'
 
 import CameraRig from '../canvas/CameraRig'
 import Lights from '../canvas/Lights'
