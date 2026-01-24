@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import '../styles/home.css'
 import { useOrbState } from '../app/OrbStateContext'
 import { useEffect, useRef } from 'react'
@@ -24,14 +24,21 @@ const projects = [
 
 export default function Home() {
   const { setMode } = useOrbState()
+  const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
 
-  // ✅ Restore scroll when coming back from project page
+  /**
+   * ✅ Restore scroll ONLY when coming back from a project page
+   */
   useEffect(() => {
-    restoreScroll()
-  }, [])
+    if (location.state?.fromProject) {
+      restoreScroll()
+    }
+  }, [location.state])
 
-  // ✅ Reveal cards on scroll
+  /**
+   * ✅ Reveal cards on scroll
+   */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -45,7 +52,6 @@ export default function Home() {
     )
 
     cardsRef.current.forEach((el) => el && observer.observe(el))
-
     return () => observer.disconnect()
   }, [])
 
@@ -69,8 +75,12 @@ export default function Home() {
                 if (el) cardsRef.current[i] = el
               }}
               to={`/project/${p.id}`}
+              state={{ fromHome: true }}   // 👈 mark navigation source
               className="project-card"
-              onClick={saveScroll}          // ✅ SAVE SCROLL
+              onClick={() => {
+                saveScroll()              // ✅ save before leaving
+                window.scrollTo(0, 0)     // ✅ ensure project page starts at top
+              }}
               onMouseEnter={() => setMode('project')}
               onMouseLeave={() => setMode('idle')}
             >

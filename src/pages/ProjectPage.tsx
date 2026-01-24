@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 import '../styles/project.css'
@@ -11,11 +10,13 @@ export default function ProjectPage() {
 
   return (
     <article className="project-page">
-      <Link to="/" className="back-link">
+      {/* 👇 tell Home that we’re returning */}
+      <Link to="/" state={{ fromProject: true }} className="back-link">
         ← Back
       </Link>
 
       <h1>{project.title}</h1>
+
       <p className="project-description">
         {project.description}
       </p>
