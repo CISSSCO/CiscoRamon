@@ -27,18 +27,14 @@ export default function Home() {
   const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
 
-  /**
-   * ✅ Restore scroll ONLY when coming back from a project page
-   */
+  // ✅ Restore scroll ONLY when coming back from project page
   useEffect(() => {
     if (location.state?.fromProject) {
       restoreScroll()
     }
   }, [location.state])
 
-  /**
-   * ✅ Reveal cards on scroll
-   */
+  // ✅ Reveal cards on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -75,12 +71,9 @@ export default function Home() {
                 if (el) cardsRef.current[i] = el
               }}
               to={`/project/${p.id}`}
-              state={{ fromHome: true }}   // 👈 mark navigation source
+              state={{ fromHome: true }}
               className="project-card"
-              onClick={() => {
-                saveScroll()              // ✅ save before leaving
-                window.scrollTo(0, 0)     // ✅ ensure project page starts at top
-              }}
+              onClick={saveScroll}               // ✅ ONLY save scroll
               onMouseEnter={() => setMode('project')}
               onMouseLeave={() => setMode('idle')}
             >

@@ -16,39 +16,48 @@ export default function HeroOrb({ scrollT }: Props) {
   useFrame((_, delta) => {
     const t = scrollT.current
 
-    // Time
+    /**
+     * TIME
+     */
     ProceduralMaterial.uniforms.uTime.value +=
       delta * (mode === 'project' ? 1.2 : 0.6)
 
-    // Base motion
+    /**
+     * ROTATION
+     */
     mesh.current.rotation.y += delta * 0.15
     mesh.current.rotation.x += delta * 0.05
 
     /**
-     * 🧲 Mouse attraction (subtle!)
+     * 🧲 MOUSE ATTRACTION (subtle)
      */
+    const baseX = 1.2   // 👈 push orb right (important)
+    const baseY = 0
+
     const targetX = mouse.x * 0.6
     const targetY = mouse.y * 0.4
 
     mesh.current.position.x = THREE.MathUtils.lerp(
       mesh.current.position.x,
-      targetX,
+      baseX + targetX,
       0.05
     )
 
     mesh.current.position.y = THREE.MathUtils.lerp(
       mesh.current.position.y,
-      targetY,
+      baseY + targetY,
       0.05
     )
 
-    // Z stays scroll-based
+    /**
+     * Z — scroll driven
+     */
     mesh.current.position.z = THREE.MathUtils.lerp(0, -12, t)
 
     /**
-     * SCALE
+     * SCALE — reduced so it doesn’t eat UI
      */
-    const baseScale = THREE.MathUtils.lerp(0.8, 3.0, t)
+    const baseScale = THREE.MathUtils.lerp(0.7, 2.4, t)
     const pulse =
       mode === 'project'
         ? 1 + Math.sin(ProceduralMaterial.uniforms.uTime.value * 3) * 0.05

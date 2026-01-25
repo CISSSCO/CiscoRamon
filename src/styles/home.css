@@ -2,6 +2,12 @@
   min-height: 100vh;
   padding: 18vh 10vw;
   pointer-events: auto;
+
+  /* 🔒 constrain content so it doesn't collide with orb */
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
 .section-title {
@@ -30,25 +36,28 @@
 
 /* PROJECT CARD */
 .project-card {
-  background: rgba(15, 15, 15, 0.65);
+  background: rgba(20, 20, 20, 0.8);
   backdrop-filter: blur(14px);
   border-radius: 18px;
   padding: 2rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
 
   color: inherit;
   text-decoration: none;
 
   box-shadow:
     0 30px 60px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 
   transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
+/* 👆 lift + focus, not jump */
 .project-card:hover {
-  transform: translateY(-50px);
+  transform: translateY(-12px) scale(1.04);
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.8),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -71,17 +80,7 @@
   opacity: 0.9;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-  }
-}
-
+/* REVEAL ANIMATION */
 .project-card {
   opacity: 0;
   transform: translateY(40px);
@@ -93,4 +92,15 @@
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
 }
