@@ -3,38 +3,21 @@ import '../styles/home.css'
 import { useOrbState } from '../app/OrbStateContext'
 import { useEffect, useRef } from 'react'
 import { saveScroll, restoreScroll } from '../app/ScrollMemory'
-
-const projects = [
-  {
-    id: 'one',
-    title: 'Project One',
-    description: 'Experimental systems exploring visuals and interaction.'
-  },
-  {
-    id: 'two',
-    title: 'Project Two',
-    description: 'Procedural form, spatial composition, and shaders.'
-  },
-  {
-    id: 'three',
-    title: 'Project Three',
-    description: 'Creative tooling and developer experience.'
-  }
-]
+import projects from '../data/projects.json'
 
 export default function Home() {
   const { setMode } = useOrbState()
   const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
 
-  // ✅ Restore scroll ONLY when coming back from project page
+  // Restore scroll when coming back from project page
   useEffect(() => {
     if (location.state?.fromProject) {
       restoreScroll()
     }
   }, [location.state])
 
-  // ✅ Reveal cards on scroll
+  // Reveal cards on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -64,21 +47,24 @@ export default function Home() {
         <h2 className="section-title">Selected Projects</h2>
 
         <div className="projects-grid">
-          {projects.map((p, i) => (
+          {projects.map((project, i) => (
             <Link
-              key={p.id}
+              key={project.id}
               ref={(el) => {
                 if (el) cardsRef.current[i] = el
               }}
-              to={`/project/${p.id}`}
+              to={`/project/${project.id}`}
               state={{ fromHome: true }}
               className="project-card"
-              onClick={saveScroll}               // ✅ ONLY save scroll
+              onClick={() => {
+                saveScroll()
+                window.scrollTo(0, 0)
+              }}
               onMouseEnter={() => setMode('project')}
               onMouseLeave={() => setMode('idle')}
             >
-              <h3>{p.title}</h3>
-              <p>{p.description}</p>
+              <h3>{project.title}</h3>
+              <p>{project.excerpt}</p>
               <span className="cta">View Project →</span>
             </Link>
           ))}

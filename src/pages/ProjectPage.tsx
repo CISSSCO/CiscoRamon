@@ -1,18 +1,19 @@
 import { useParams, Link } from 'react-router-dom'
-import { projects } from '../data/projects'
+import projects from '../data/projects.json'
 import '../styles/project.css'
-import { useEffect } from 'react'
 
 export default function ProjectPage() {
   const { id } = useParams()
   const project = projects.find((p) => p.id === id)
 
-  // ✅ Ensure project page always starts at top
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' })
-  }, [])
-
-  if (!project) return <p>Project not found</p>
+  if (!project) {
+    return (
+      <article className="project-page">
+        <Link to="/" className="back-link">← Back</Link>
+        <h1>Project not found</h1>
+      </article>
+    )
+  }
 
   return (
     <article className="project-page">
@@ -34,8 +35,8 @@ export default function ProjectPage() {
 
       <div className="project-content">
         <p>
-          This page scrolls independently while the
-          Three.js orb remains alive in the background.
+          This page is fully data-driven. Add content, images, videos,
+          or demos here.
         </p>
 
         <p style={{ height: '120vh' }}>
