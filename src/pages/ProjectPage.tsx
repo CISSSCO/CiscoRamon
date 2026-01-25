@@ -1,4 +1,5 @@
 import { useParams, Link, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import projects from '../data/projects.json'
 import '../styles/project.css'
 
@@ -7,17 +8,27 @@ export default function ProjectPage() {
   const location = useLocation()
   const project = projects.find((p) => p.id === id)
 
+  // ✅ Always start project page at top
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
+
   if (!project) return <p>Project not found</p>
 
   const backTarget =
     location.state?.from === 'projects' ? '/projects' : '/'
 
+  const backState =
+    location.state?.from === 'projects'
+      ? { from: 'project' }
+      : { from: 'project' }
+
   return (
     <article className="project-page">
       <Link
         to={backTarget}
-        state={{ from: 'project' }}
-        className="back-btn"
+        state={backState}
+        className="back-btn project-back"
       >
         ← Back
       </Link>
@@ -46,7 +57,11 @@ export default function ProjectPage() {
       )}
 
       <div className="project-content">
-        <p>Detailed explanation, media, demos go here.</p>
+        <p>
+          This section scrolls independently while the 3D
+          environment remains alive in the background.
+        </p>
+
         <p style={{ height: '120vh' }} />
       </div>
     </article>

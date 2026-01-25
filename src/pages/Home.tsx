@@ -3,7 +3,6 @@ import '../styles/home.css'
 import { useOrbState } from '../app/OrbStateContext'
 import { useEffect, useRef } from 'react'
 import { saveScroll, restoreScroll } from '../app/ScrollMemory'
-
 import projects from '../data/projects.json'
 
 export default function Home() {
@@ -11,26 +10,38 @@ export default function Home() {
   const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
 
-  // ✅ Restore scroll ONLY when coming back from project
+  /**
+   * ✅ Restore scroll ONLY when returning from project or project list
+   */
   useEffect(() => {
-    if (location.state?.from === 'project') {
+    if (
+      location.state?.from === 'project' ||
+      location.state?.from === 'projects'
+    ) {
       restoreScroll()
     }
   }, [location.state])
 
-  // Reveal cards on scroll
+  /**
+   * ✅ Reveal cards on scroll
+   */
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible')
-        }),
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
       { threshold: 0.2 }
     )
 
     cardsRef.current.forEach((el) => el && observer.observe(el))
     return () => observer.disconnect()
   }, [])
+
+  const selectedProjects = projects.slice(0, 3)
 
   return (
     <>
@@ -41,18 +52,23 @@ export default function Home() {
       </section>
 
       {/* SELECTED PROJECTS */}
-      <section className="section" id="projects">
+      <section className="section">
         <h2 className="section-title">Selected Projects</h2>
 
         <div className="projects-grid">
-          {projects.slice(0, 3).map((p, i) => (
+          {selectedProjects.map((p, i) => (
             <Link
               key={p.id}
-              ref={(el) => el && (cardsRef.current[i] = el)}
+              ref={(el) => {
+                if (el) cardsRef.current[i] = el
+              }}
               to={`/project/${p.id}`}
               state={{ from: 'home' }}
               className="project-card"
-              onClick={saveScroll}
+              onClick={() => {
+                saveScroll()
+                window.scrollTo(0, 0)
+              }}
               onMouseEnter={() => setMode('project')}
               onMouseLeave={() => setMode('idle')}
             >
@@ -65,7 +81,15 @@ export default function Home() {
 
         {/* SHOW ALL */}
         <div className="show-all">
-          <Link to="/projects" className="show-all-btn">
+          <Link
+            to="/projects"
+            state={{ from: 'home' }}
+            className="show-all-btn"
+            onClick={() => {
+              saveScroll()
+              window.scrollTo(0, 0)
+            }}
+          >
             Show all projects →
           </Link>
         </div>

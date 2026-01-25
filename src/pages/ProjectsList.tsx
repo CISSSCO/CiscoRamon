@@ -1,12 +1,22 @@
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import projects from '../data/projects.json'
 import '../styles/home.css'
 
 export default function ProjectsList() {
+  // ✅ Always start list page at top
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
+
   return (
     <section className="section">
       <div className="list-header">
-        <Link to="/" state={{ from: 'project-list' }} className="back-btn">
+        <Link
+          to="/"
+          className="back-btn list-back"
+          state={{ from: 'projects' }}
+        >
           ← Back to Selected Projects
         </Link>
 
