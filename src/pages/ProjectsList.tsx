@@ -41,7 +41,7 @@ export default function ProjectsList() {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            ← Back to Selected Projects
+            ← Back to Projects
           </Link>
         </div>
 

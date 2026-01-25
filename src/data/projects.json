@@ -1,35 +1,38 @@
 [
   {
-    "id": "one",
-    "title": "Project One",
-    "excerpt": "Experimental systems exploring visuals and interaction.",
-    "description": "A deep exploration of visual systems, interaction design, and real-time graphics using Three.js.",
-    "stack": ["React", "Three.js", "GSAP", "TypeScript"],
+    "id": "cerrfix",
+    "title": "CerrFix",
+    "excerpt": "Rule-based error analysis and fix suggestion tool for Linux systems",
+    "description": "cerrfix is a lightweight, extensible command-line tool designed to help users and system administrators diagnose and resolve common errors on Linux-based systems.",
+    "stack": ["Python", "Bash Scripting", "YAML"],
     "featured": true,
-    "url": "https://project-one.com"
+    "repo": "https://github.com/CISSSCO/cerrfix",
+    "url": "https://cisssco.github.io/cerrfix"
   },
   {
-    "id": "two",
-    "title": "Project Two",
-    "excerpt": "Procedural form, spatial composition, and shaders.",
-    "description": "Research-driven work focused on procedural geometry, GLSL shaders, and spatial composition.",
-    "stack": ["WebGL", "GLSL", "React"],
+    "id": "gitpush",
+    "title": "GitPush",
+    "excerpt": "Minimal CLI helper to automate common git workflows",
+    "description": "A simple tool for git to automate some of the commonly used tasks.",
+    "stack": ["Bash Scripting"],
+    "repo": "https://github.com/CISSSCO/gitpush",
     "featured": true
   },
   {
-    "id": "three",
-    "title": "Project Three",
-    "excerpt": "Creative tooling and developer experience.",
-    "description": "Tooling experiments focused on DX, reusable systems, and rapid iteration.",
-    "stack": ["TypeScript", "Vite", "UI Systems"],
+    "id": "dotfiles",
+    "title": "Dotfiles",
+    "excerpt": "Reproducible Linux shell and development environment configuration",
+    "description": "Personal configurations for Linux shell and development environment, managed with GNU Stow for easy reproducibility across different systems.",
+    "stack": ["Bash Scripting", "Vimscript", "Python", "Lisp", "YAML"],
+    "repo": "https://github.com/CISSSCO/dotfiles",
     "featured": true
   },
   {
-    "id": "four",
-    "title": "Project Four",
-    "excerpt": "Design systems and interaction tooling.",
-    "description": "Extended design system experiments.",
-    "stack": ["Design Systems", "React"],
-    "url": "https://external-site.com"
+    "id": "myvimrc",
+    "title": "My VimRC",
+    "excerpt": "Customized Vim configuration for personal use and efficient editing",
+    "description": "A personalized Vim configuration file (.vimrc) that enhances the functionality of the Vim text editor with custom settings, key mappings, and plugins to improve productivity and streamline the editing experience.",
+    "stack": ["Vimscript", "Bash Scripting"],
+    "repo": "https://github.com/CISSSCO/myvimrc_config"
   }
 ]

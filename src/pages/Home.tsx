@@ -47,13 +47,15 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="section hero">
-        <h1>Hi, I’m Abhi.</h1>
-        <p>Creative developer focused on 3D & systems.</p>
+        <h1>Hi,</h1>
+      <h1>I’m Abhishek Raj.</h1>
+      <h2>Cisco Ramon on <a href="https://github.com/CISSSCO" target="_blank">GitHub</a></h2>
+        <p>Scientific Programmer and Linux Enthusiast.</p>
       </section>
 
       {/* SELECTED PROJECTS */}
       <section className="section">
-        <h2 className="section-title">Selected Projects</h2>
+        <h2 className="section-title">Projects</h2>
 
         <div className="projects-grid">
           {selectedProjects.map((p, i) => (
