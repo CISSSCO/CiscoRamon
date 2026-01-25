@@ -3,24 +3,7 @@ import '../styles/home.css'
 import { useOrbState } from '../app/OrbStateContext'
 import { useEffect, useRef } from 'react'
 import { saveScroll, restoreScroll } from '../app/ScrollMemory'
-
-const projects = [
-  {
-    id: 'one',
-    title: 'Project One',
-    description: 'Experimental systems exploring visuals and interaction.'
-  },
-  {
-    id: 'two',
-    title: 'Project Two',
-    description: 'Procedural form, spatial composition, and shaders.'
-  },
-  {
-    id: 'three',
-    title: 'Project Three',
-    description: 'Creative tooling and developer experience.'
-  }
-]
+import projects from '../data/projects.json'
 
 export default function Home() {
   const { setMode } = useOrbState()
@@ -28,10 +11,13 @@ export default function Home() {
   const cardsRef = useRef<HTMLAnchorElement[]>([])
 
   /**
-   * ✅ Restore scroll ONLY when coming back from a project page
+   * ✅ Restore scroll ONLY when returning from project or project list
    */
   useEffect(() => {
-    if (location.state?.fromProject) {
+    if (
+      location.state?.from === 'project' ||
+      location.state?.from === 'projects'
+    ) {
       restoreScroll()
     }
   }, [location.state])
@@ -55,6 +41,8 @@ export default function Home() {
     return () => observer.disconnect()
   }, [])
 
+  const selectedProjects = projects.slice(0, 3)
+
   return (
     <>
       {/* HERO */}
@@ -63,32 +51,47 @@ export default function Home() {
         <p>Creative developer focused on 3D & systems.</p>
       </section>
 
-      {/* PROJECTS */}
+      {/* SELECTED PROJECTS */}
       <section className="section">
         <h2 className="section-title">Selected Projects</h2>
 
         <div className="projects-grid">
-          {projects.map((p, i) => (
+          {selectedProjects.map((p, i) => (
             <Link
               key={p.id}
               ref={(el) => {
                 if (el) cardsRef.current[i] = el
               }}
               to={`/project/${p.id}`}
-              state={{ fromHome: true }}   // 👈 mark navigation source
+              state={{ from: 'home' }}
               className="project-card"
               onClick={() => {
-                saveScroll()              // ✅ save before leaving
-                window.scrollTo(0, 0)     // ✅ ensure project page starts at top
+                saveScroll()
+                window.scrollTo(0, 0)
               }}
               onMouseEnter={() => setMode('project')}
               onMouseLeave={() => setMode('idle')}
             >
               <h3>{p.title}</h3>
-              <p>{p.description}</p>
+              <p>{p.excerpt}</p>
               <span className="cta">View Project →</span>
             </Link>
           ))}
+        </div>
+
+        {/* SHOW ALL */}
+        <div className="show-all">
+          <Link
+            to="/projects"
+            state={{ from: 'home' }}
+            className="show-all-btn"
+            onClick={() => {
+              saveScroll()
+              window.scrollTo(0, 0)
+            }}
+          >
+            Show all projects →
+          </Link>
         </div>
       </section>
 
