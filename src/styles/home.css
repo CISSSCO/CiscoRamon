@@ -219,3 +219,24 @@
   opacity: 1;
   transform: translateX(-4px);
 }
+
+/* 🔒 FORCE projects list back button styling */
+.projects-list-back-btn {
+  display: inline-block;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  color: #9aa7ff !important;
+  text-decoration: none !important;
+
+  opacity: 0.9;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.projects-list-back-btn:hover {
+  opacity: 1;
+  transform: translateX(-6px);
+}

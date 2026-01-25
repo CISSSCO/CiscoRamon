@@ -154,3 +154,24 @@
   opacity: 1;
   transform: translateX(-4px);
 }
+
+.project-back-btn {
+  display: inline-block;
+  margin-bottom: 3rem;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  color: #9aa7ff !important;
+  text-decoration: none !important;
+
+  opacity: 0.9;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.project-back-btn:hover {
+  opacity: 1;
+  transform: translateX(-6px);
+}

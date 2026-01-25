@@ -25,13 +25,38 @@ export default function ProjectPage() {
 
   return (
     <article className="project-page">
+    <div style={{ marginBottom: '4rem' }}>
       <Link
         to={backTarget}
         state={backState}
-        className="back-btn project-back"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          padding: '0.6rem 1.2rem',
+          borderRadius: '999px',
+          background: 'rgba(79,107,255,0.15)',
+          color: '#fff',
+          fontSize: '0.95rem',
+          fontWeight: 500,
+          textDecoration: 'none',
+          border: '1px solid rgba(255,255,255,0.12)',
+          backdropFilter: 'blur(10px)',
+          transition: 'transform 0.25s ease, box-shadow 0.25s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateX(-4px)'
+          e.currentTarget.style.boxShadow =
+            '0 12px 30px rgba(79,107,255,0.35)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateX(0)'
+          e.currentTarget.style.boxShadow = 'none'
+        }}
       >
         ← Back
       </Link>
+    </div>
 
       <h1>{project.title}</h1>
 
