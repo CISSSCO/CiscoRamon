@@ -104,3 +104,20 @@
     font-size: 3rem;
   }
 }
+
+.show-all {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.show-all-btn {
+  font-size: 1rem;
+  text-decoration: none;
+  color: #6b8bff;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.show-all-btn:hover {
+  opacity: 1;
+}

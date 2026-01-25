@@ -41,3 +41,27 @@
   color: #6b8bff;
   font-size: 0.9rem;
 }
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: #6b8bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.project-link {
+  display: inline-block;
+  margin-bottom: 4rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(107, 139, 255, 0.15);
+  color: #6b8bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.project-link:hover {
+  background: rgba(107, 139, 255, 0.25);
+}

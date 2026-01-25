@@ -5,10 +5,8 @@
     "excerpt": "Experimental systems exploring visuals and interaction.",
     "description": "A deep exploration of visual systems, interaction design, and real-time graphics using Three.js.",
     "stack": ["React", "Three.js", "GSAP", "TypeScript"],
-    "links": {
-      "github": "https://github.com/yourname/project-one",
-      "live": "https://project-one.com"
-    }
+    "featured": true,
+    "url": "https://project-one.com"
   },
   {
     "id": "two",
@@ -16,25 +14,22 @@
     "excerpt": "Procedural form, spatial composition, and shaders.",
     "description": "Research-driven work focused on procedural geometry, GLSL shaders, and spatial composition.",
     "stack": ["WebGL", "GLSL", "React"],
-    "links": {
-      "github": "https://github.com/yourname/project-two"
-    }
+    "featured": true
   },
   {
     "id": "three",
     "title": "Project Three",
     "excerpt": "Creative tooling and developer experience.",
     "description": "Tooling experiments focused on DX, reusable systems, and rapid iteration.",
-    "stack": ["TypeScript", "Vite", "UI Systems"]
+    "stack": ["TypeScript", "Vite", "UI Systems"],
+    "featured": true
   },
   {
-    "id": "Four",
+    "id": "four",
     "title": "Project Four",
-    "excerpt": "Experimental systems exploring visuals and interaction.",
-    "description": "A deep exploration of visual systems, interaction design, and real-time graphics using Three.js.",
-    "stack": ["React", "Three.js", "GSAP", "JavaScript"],
-    "links": {
-      "github": "https://github.com/yourname/project-four"
-    }
+    "excerpt": "Design systems and interaction tooling.",
+    "description": "Extended design system experiments.",
+    "stack": ["Design Systems", "React"],
+    "url": "https://external-site.com"
   }
 ]

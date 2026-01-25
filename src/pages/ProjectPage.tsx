@@ -1,23 +1,24 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import projects from '../data/projects.json'
 import '../styles/project.css'
 
 export default function ProjectPage() {
   const { id } = useParams()
+  const location = useLocation()
   const project = projects.find((p) => p.id === id)
 
-  if (!project) {
-    return (
-      <article className="project-page">
-        <Link to="/" className="back-link">← Back</Link>
-        <h1>Project not found</h1>
-      </article>
-    )
-  }
+  if (!project) return <p>Project not found</p>
+
+  const backTarget =
+    location.state?.from === 'projects' ? '/projects' : '/'
 
   return (
     <article className="project-page">
-      <Link to="/" state={{ fromProject: true }} className="back-link">
+      <Link
+        to={backTarget}
+        state={{ from: 'project' }}
+        className="back-btn"
+      >
         ← Back
       </Link>
 
@@ -33,15 +34,20 @@ export default function ProjectPage() {
         ))}
       </ul>
 
-      <div className="project-content">
-        <p>
-          This page is fully data-driven. Add content, images, videos,
-          or demos here.
-        </p>
+      {project.url && (
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-link"
+        >
+          Visit Project Website →
+        </a>
+      )}
 
-        <p style={{ height: '120vh' }}>
-          (Intentional scroll space)
-        </p>
+      <div className="project-content">
+        <p>Detailed explanation, media, demos go here.</p>
+        <p style={{ height: '120vh' }} />
       </div>
     </article>
   )
