@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { ProceduralMaterial } from './ProceduralMaterial'
 import { useOrbState } from '../app/OrbStateContext'
+import { useSectionIndex } from '../app/SectionIndexContext'
 
 type Props = {
   scrollT: React.MutableRefObject<number>
@@ -11,59 +12,143 @@ type Props = {
 export default function HeroOrb({ scrollT }: Props) {
   const mesh = useRef<THREE.Mesh>(null!)
   const { mouse } = useThree()
-  const { mode } = useOrbState()
+  const { mode, color: projectColor } = useOrbState()
+  const { index } = useSectionIndex()
+
+  // 🎨 persistent color state (VERY important)
+  const currentColor = useRef(new THREE.Color('#00e5ff'))
+  const targetColor = useRef(new THREE.Color('#00e5ff'))
+
+  // cyberpunk accent colors
+  const CYAN = new THREE.Color('#00e5ff')
+  const VIOLET = new THREE.Color('#8b5cf6')
+  const MAGENTA = new THREE.Color('#ff4fd8')
+  const TEAL = new THREE.Color('#2dd4bf')
 
   useFrame((_, delta) => {
     const t = scrollT.current
 
-    /**
-     * TIME
-     */
+    /* ===============================
+       SECTION PARAMETERS
+    =============================== */
+    let speed = 0.6
+    let scaleBias = 1
+    let rotationSpeed = 1
+
+    /* ===============================
+       SECTION COLOR TARGETS
+    =============================== */
+    if (index === 0) {
+      // HERO — electric cyan
+      targetColor.current.copy(CYAN)
+      speed = 0.6
+    }
+
+    if (index === 1) {
+      // PROJECTS — neon violet
+      targetColor.current.copy(VIOLET)
+      speed = 1.1
+      scaleBias = 1.05
+      rotationSpeed = 1.2
+    }
+
+    if (index === 2) {
+      // EXPERIENCE — cyberpunk magenta
+      targetColor.current.copy(MAGENTA)
+      speed = 1.4
+      scaleBias = 0.95
+      rotationSpeed = 1.4
+    }
+
+    if (index === 3) {
+      // CONTACT — synthwave teal
+      targetColor.current.copy(TEAL)
+      speed = 0.45
+      rotationSpeed = 0.6
+    }
+
+    /* ===============================
+       PROJECT HOVER OVERRIDE
+    =============================== */
+    if (projectColor) {
+      targetColor.current.copy(projectColor)
+    }
+
+    /* ===============================
+       CYBERPUNK COLOR DRIFT
+       (subtle breathing glow)
+    =============================== */
+    const glowPhase =
+      Math.sin(ProceduralMaterial.uniforms.uTime.value * 0.6) * 0.08
+
+    const glowColor = targetColor.current
+      .clone()
+      .lerp(MAGENTA, glowPhase)
+
+    /* ===============================
+       SMOOTH COLOR TRANSITION
+    =============================== */
+    currentColor.current.lerp(
+      glowColor,
+      1 - Math.exp(-delta * 4)
+    )
+
+    ProceduralMaterial.uniforms.uColor.value.copy(
+      currentColor.current
+    )
+
+    /* ===============================
+       TIME / DEFORMATION
+    =============================== */
     ProceduralMaterial.uniforms.uTime.value +=
-      delta * (mode === 'project' ? 1.2 : 0.6)
+      delta * speed * (mode === 'project' ? 1.3 : 1)
 
-    /**
-     * ROTATION
-     */
-    mesh.current.rotation.y += delta * 0.15
-    mesh.current.rotation.x += delta * 0.05
+    /* ===============================
+       ROTATION
+    =============================== */
+    mesh.current.rotation.y += delta * 0.15 * rotationSpeed
+    mesh.current.rotation.x += delta * 0.05 * rotationSpeed
 
-    /**
-     * 🧲 MOUSE ATTRACTION (subtle)
-     */
-    const baseX = 1.2   // 👈 push orb right (important)
+    /* ===============================
+       MOUSE ATTRACTION
+    =============================== */
+    const baseX = 1.5
     const baseY = 0
-
-    const targetX = mouse.x * 0.6
-    const targetY = mouse.y * 0.4
 
     mesh.current.position.x = THREE.MathUtils.lerp(
       mesh.current.position.x,
-      baseX + targetX,
+      baseX + mouse.x * 0.6,
       0.05
     )
 
     mesh.current.position.y = THREE.MathUtils.lerp(
       mesh.current.position.y,
-      baseY + targetY,
+      baseY + mouse.y * 0.4,
       0.05
     )
 
-    /**
-     * Z — scroll driven
-     */
+    /* ===============================
+       SCROLL DEPTH
+    =============================== */
     mesh.current.position.z = THREE.MathUtils.lerp(0, -12, t)
 
-    /**
-     * SCALE — reduced so it doesn’t eat UI
-     */
-    const baseScale = THREE.MathUtils.lerp(0.7, 2.4, t)
+    /* ===============================
+       SCALE + MICRO WOBBLE
+       (cyberpunk feel)
+    =============================== */
+    const baseScale = THREE.MathUtils.lerp(0.7, 6.0, t)
+
     const pulse =
       mode === 'project'
-        ? 1 + Math.sin(ProceduralMaterial.uniforms.uTime.value * 3) * 0.05
+        ? 1 + Math.sin(ProceduralMaterial.uniforms.uTime.value * 3) * 0.07
         : 1
 
-    mesh.current.scale.setScalar(baseScale * pulse)
+    const wobble =
+      1 + Math.sin(ProceduralMaterial.uniforms.uTime.value * 1.2) * 0.015
+
+    mesh.current.scale.setScalar(
+      baseScale * pulse * scaleBias * wobble
+    )
   })
 
   return (

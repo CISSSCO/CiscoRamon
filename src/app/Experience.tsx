@@ -6,6 +6,8 @@ import Lights from '../canvas/Lights'
 import Environment from '../canvas/Environment'
 import HeroOrb from '../sections/HeroOrb'
 
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
+
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3)
 }
@@ -30,7 +32,6 @@ export default function Experience() {
       THREE.MathUtils.clamp(raw, 0, 1)
     )
 
-    // camera stays stable (important)
     camera.position.z = THREE.MathUtils.lerp(
       camera.position.z,
       5.8,
@@ -40,9 +41,19 @@ export default function Experience() {
 
   return (
     <>
+      {/* 💡 KEEP LIGHTS SUBTLE */}
       <Lights />
       <Environment />
       <HeroOrb scrollT={scrollT} />
+
+      {/* ✨ CONTROLLED BLOOM */}
+      <EffectComposer multisampling={0}>
+        <Bloom
+          intensity={0.35}              // ⬇️ much lower
+          luminanceThreshold={0.75}     // ⬆️ bloom only bright rim
+          luminanceSmoothing={1.0}
+        />
+      </EffectComposer>
     </>
   )
 }

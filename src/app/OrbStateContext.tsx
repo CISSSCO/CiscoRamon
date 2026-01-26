@@ -1,4 +1,4 @@
-
+import * as THREE from 'three'
 import { createContext, useContext, useState } from 'react'
 
 type OrbMode = 'idle' | 'project'
@@ -6,11 +6,15 @@ type OrbMode = 'idle' | 'project'
 type OrbState = {
   mode: OrbMode
   setMode: (m: OrbMode) => void
+  color: THREE.Color | null
+  setColor: (c: THREE.Color | null) => void
 }
 
 const OrbStateContext = createContext<OrbState>({
   mode: 'idle',
-  setMode: () => {}
+  setMode: () => {},
+  color: null,
+  setColor: () => {}
 })
 
 export function OrbStateProvider({
@@ -19,9 +23,12 @@ export function OrbStateProvider({
   children: React.ReactNode
 }) {
   const [mode, setMode] = useState<OrbMode>('idle')
+  const [color, setColor] = useState<THREE.Color | null>(null)
 
   return (
-    <OrbStateContext.Provider value={{ mode, setMode }}>
+    <OrbStateContext.Provider
+      value={{ mode, setMode, color, setColor }}
+    >
       {children}
     </OrbStateContext.Provider>
   )

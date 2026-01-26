@@ -4,15 +4,42 @@ import { useOrbState } from '../app/OrbStateContext'
 import { useEffect, useRef } from 'react'
 import { saveScroll, restoreScroll } from '../app/ScrollMemory'
 import projects from '../data/projects.json'
+import { useSectionIndex } from '../app/SectionIndexContext'
+import * as THREE from 'three'
 
 export default function Home() {
-  const { setMode } = useOrbState()
+  const { setMode, setColor } = useOrbState()
   const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
+  const { setIndex } = useSectionIndex()
 
-  /**
-   * ✅ Restore scroll ONLY when returning from project or project list
-   */
+  /* ===============================
+     SECTION OBSERVER
+  =============================== */
+  useEffect(() => {
+    const sections = document.querySelectorAll('[data-section]')
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const i = Number(
+              (entry.target as HTMLElement).dataset.section
+            )
+            setIndex(i)
+          }
+        })
+      },
+      { threshold: 0.6 }
+    )
+
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [setIndex])
+
+  /* ===============================
+     SCROLL RESTORE
+  =============================== */
   useEffect(() => {
     if (
       location.state?.from === 'project' ||
@@ -22,9 +49,9 @@ export default function Home() {
     }
   }, [location.state])
 
-  /**
-   * ✅ Reveal cards on scroll
-   */
+  /* ===============================
+     CARD REVEAL
+  =============================== */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,20 +68,35 @@ export default function Home() {
     return () => observer.disconnect()
   }, [])
 
+  /* ===============================
+     PROJECT COLORS
+  =============================== */
+  const projectColors: Record<string, THREE.Color> = {
+    cerrfix: new THREE.Color('#4f6bff'),
+    gitpush: new THREE.Color('#6b8bff'),
+    dotfiles: new THREE.Color('#7f8cff'),
+    myvimrc: new THREE.Color('#5a6cff')
+  }
+
   const selectedProjects = projects.slice(0, 3)
 
   return (
     <>
       {/* HERO */}
-      <section className="section hero">
+      <section className="section hero" data-section="0">
         <h1>Hi,</h1>
-      <h1>I’m Abhishek Raj.</h1>
-      <h2>Cisco Ramon on <a href="https://github.com/CISSSCO" target="_blank">GitHub</a></h2>
+        <h1>I’m Abhishek Raj.</h1>
+        <h2>
+          Cisco Ramon on{' '}
+          <a href="https://github.com/CISSSCO" target="_blank">
+            GitHub
+          </a>
+        </h2>
         <p>Scientific Programmer and Linux Enthusiast.</p>
       </section>
 
-      {/* SELECTED PROJECTS */}
-      <section className="section">
+      {/* PROJECTS */}
+      <section className="section" data-section="1">
         <h2 className="section-title">Projects</h2>
 
         <div className="projects-grid">
@@ -71,8 +113,14 @@ export default function Home() {
                 saveScroll()
                 window.scrollTo(0, 0)
               }}
-              onMouseEnter={() => setMode('project')}
-              onMouseLeave={() => setMode('idle')}
+              onMouseEnter={() => {
+                setMode('project')
+                setColor(projectColors[p.id] ?? null)
+              }}
+              onMouseLeave={() => {
+                setMode('idle')
+                setColor(null)
+              }}
             >
               <h3>{p.title}</h3>
               <p>{p.excerpt}</p>
@@ -81,7 +129,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* SHOW ALL */}
         <div className="show-all">
           <Link
             to="/projects"
@@ -98,13 +145,13 @@ export default function Home() {
       </section>
 
       {/* EXPERIENCE */}
-      <section className="section">
+      <section className="section" data-section="2">
         <h2 className="section-title">Experience</h2>
         <p>Frontend · Creative Dev · Three.js · Systems</p>
       </section>
 
       {/* CONTACT */}
-      <section className="section">
+      <section className="section" data-section="3">
         <h2 className="section-title">Contact</h2>
         <p>abhi@email.com</p>
       </section>
