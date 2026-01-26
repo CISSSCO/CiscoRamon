@@ -245,3 +245,74 @@ h2 a {
   opacity: 1;
   transform: translateX(-6px);
 }
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 520px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(20, 20, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+
+  padding: 0.9rem 1.1rem;
+  color: #fff;
+  font-size: 0.95rem;
+
+  backdrop-filter: blur(10px);
+
+  outline: none;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(79, 107, 255, 0.5);
+  box-shadow: 0 0 0 2px rgba(79, 107, 255, 0.25);
+}
+
+.contact-form button {
+  align-self: flex-start;
+
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.6rem;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    rgba(79, 107, 255, 0.45),
+    rgba(79, 107, 255, 0.2)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.contact-form button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 36px rgba(79, 107, 255, 0.35);
+}

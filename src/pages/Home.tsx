@@ -150,11 +150,45 @@ export default function Home() {
         <p>Frontend · Creative Dev · Three.js · Systems</p>
       </section>
 
-      {/* CONTACT */}
-      <section className="section" data-section="3">
-        <h2 className="section-title">Contact</h2>
-        <p>abhi@email.com</p>
-      </section>
+        {/* CONTACT */}
+        <section className="section contact" data-section="3">
+          <h2 className="section-title">Contact</h2>
+
+          <p className="contact-intro">
+            Let’s build something useful.
+          </p>
+
+          <form
+            className="contact-form"
+            action="https://formspree.io/f/xeegawka"
+            method="POST"
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email"
+              required
+            />
+
+            <textarea
+              name="message"
+              rows={5}
+              placeholder="What do you want to talk about?"
+              required
+            />
+
+            <button type="submit">
+              Send message →
+            </button>
+          </form>
+        </section>
     </>
   )
 }
