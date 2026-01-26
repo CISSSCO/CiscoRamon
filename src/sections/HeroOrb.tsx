@@ -10,6 +10,9 @@ type Props = {
 }
 
 export default function HeroOrb({ scrollT }: Props) {
+    // 🔒 persistent scale bias (DO NOT jump per section)
+    const currentScaleBias = useRef(1)
+    const targetScaleBias = useRef(1)
   const mesh = useRef<THREE.Mesh>(null!)
   const { mouse } = useThree()
   const { mode, color: projectColor } = useOrbState()
@@ -41,29 +44,29 @@ export default function HeroOrb({ scrollT }: Props) {
     if (index === 0) {
       // HERO — electric cyan
       targetColor.current.copy(CYAN)
-      speed = 0.6
+      speed = 0.9
     }
 
     if (index === 1) {
       // PROJECTS — neon violet
       targetColor.current.copy(VIOLET)
-      speed = 1.1
-      scaleBias = 1.05
+      speed = 1.3
+      scaleBias = 1
       rotationSpeed = 1.2
     }
 
     if (index === 2) {
       // EXPERIENCE — cyberpunk magenta
       targetColor.current.copy(MAGENTA)
-      speed = 1.4
-      scaleBias = 0.95
+      speed = 1.7
+      scaleBias = 1
       rotationSpeed = 1.4
     }
 
     if (index === 3) {
       // CONTACT — synthwave teal
       targetColor.current.copy(TEAL)
-      speed = 0.45
+      speed = 2.0
       rotationSpeed = 0.6
     }
 
@@ -136,7 +139,7 @@ export default function HeroOrb({ scrollT }: Props) {
        SCALE + MICRO WOBBLE
        (cyberpunk feel)
     =============================== */
-    const baseScale = THREE.MathUtils.lerp(0.7, 6.0, t)
+    const baseScale = THREE.MathUtils.lerp(0.7, 6.5, t)
 
     const pulse =
       mode === 'project'
