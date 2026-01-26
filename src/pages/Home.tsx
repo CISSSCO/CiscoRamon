@@ -88,13 +88,21 @@ export default function Home() {
       <section className="section hero" data-section="0">
         <h1>Hi,</h1>
         <h1>I’m Abhishek Raj.</h1>
-        <h2>
-          Cisco Ramon on{' '}
-          <a href="https://github.com/CISSSCO" target="_blank">
+
+        <h2 className="hero-subtitle">
+          Also known as <strong>Cisco Ramon</strong> —
+          <a
+            href="https://github.com/CISSSCO"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub
           </a>
         </h2>
-        <p>Scientific Programmer and Linux Enthusiast.</p>
+
+        <p>
+          Scientific Programmer · Creative Developer · Linux Enthusiast
+        </p>
       </section>
 
       {/* PROJECTS */}
