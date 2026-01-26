@@ -6,12 +6,14 @@ import { saveScroll, restoreScroll } from '../app/ScrollMemory'
 import projects from '../data/projects.json'
 import { useSectionIndex } from '../app/SectionIndexContext'
 import * as THREE from 'three'
+import { useState } from 'react'
 
 export default function Home() {
   const { setMode, setColor } = useOrbState()
   const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
   const { setIndex } = useSectionIndex()
+  const [sent, setSent] = useState(false)
 
   /* ===============================
      SECTION OBSERVER
@@ -158,36 +160,78 @@ export default function Home() {
             Let’s build something useful.
           </p>
 
-          <form
-            className="contact-form"
-            action="https://formspree.io/f/xeegawka"
-            method="POST"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              required
-            />
+<form
+  className="contact-form"
+  onSubmit={async (e) => {
+    e.preventDefault()
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              required
-            />
+    const form = e.currentTarget
+    const data = new FormData(form)
 
-            <textarea
-              name="message"
-              rows={5}
-              placeholder="What do you want to talk about?"
-              required
-            />
+    try {
+      const res = await fetch(
+        'https://formspree.io/f/xeegawka', // 👈 FIX THIS
+        {
+          method: 'POST',
+          body: data,
+          headers: {
+            Accept: 'application/json'
+          }
+        }
+      )
 
-            <button type="submit">
-              Send message →
-            </button>
-          </form>
+      const json = await res.json()
+
+      if (!res.ok) {
+        console.error('Formspree error:', json)
+        alert('Something went wrong. Please try again.')
+        return
+      }
+
+      form.reset()
+      setSent(true)
+
+      setTimeout(() => setSent(false), 4000)
+    } catch (err) {
+      console.error(err)
+      alert('Network error. Please try again later.')
+    }
+  }}
+>
+  {/* 👇 Optional but recommended */}
+  <input type="hidden" name="_subject" value="New message from portfolio" />
+
+  <input
+    type="text"
+    name="name"
+    placeholder="Your name"
+    required
+  />
+
+  <input
+    type="email"
+    name="email"
+    placeholder="Your email"
+    required
+  />
+
+  <textarea
+    name="message"
+    rows={5}
+    placeholder="What do you want to talk about?"
+    required
+  />
+
+  <button type="submit">
+    Send message →
+  </button>
+
+  {sent && (
+    <p className="contact-success">
+      Message sent. I’ll get back to you ✨
+    </p>
+  )}
+</form>
         </section>
     </>
   )

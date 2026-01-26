@@ -316,3 +316,42 @@ h2 a {
   box-shadow:
     0 14px 36px rgba(79, 107, 255, 0.35);
 }
+
+.contact-success {
+  margin-top: 1.5rem;
+  padding: 1rem 1.4rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  font-size: 1.05rem;
+  font-weight: 500;
+
+  color: #0f172a;
+
+  background: linear-gradient(
+    135deg,
+    rgba(124, 255, 194, 0.95),
+    rgba(79, 255, 190, 0.9)
+  );
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+  animation: successPop 0.45s ease-out;
+}
+
+@keyframes successPop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
