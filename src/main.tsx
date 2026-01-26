@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './app/App'
 import { OrbStateProvider } from './app/OrbStateContext'
 import './styles/global.css'
+import { SectionIndexProvider } from './app/SectionIndexContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <OrbStateProvider>
+    <OrbStateProvider>
+      <SectionIndexProvider>
         <App />
-      </OrbStateProvider>
+      </SectionIndexProvider>
+    </OrbStateProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

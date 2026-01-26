@@ -4,27 +4,58 @@ import { useOrbState } from '../app/OrbStateContext'
 import { useEffect, useRef } from 'react'
 import { saveScroll, restoreScroll } from '../app/ScrollMemory'
 import projects from '../data/projects.json'
+import { useSectionIndex } from '../app/SectionIndexContext'
+import * as THREE from 'three'
+import { useState } from 'react'
+import experience from '../data/experience.json'
 
 export default function Home() {
-  const { setMode } = useOrbState()
+  const { setMode, setColor } = useOrbState()
   const location = useLocation()
   const cardsRef = useRef<HTMLAnchorElement[]>([])
+  const { setIndex } = useSectionIndex()
+  const [sent, setSent] = useState(false)
 
-  /**
-   * ✅ Restore scroll ONLY when returning from project or project list
-   */
+  /* ===============================
+     SECTION OBSERVER
+  =============================== */
+  useEffect(() => {
+    const sections = document.querySelectorAll('[data-section]')
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const i = Number(
+              (entry.target as HTMLElement).dataset.section
+            )
+            setIndex(i)
+          }
+        })
+      },
+      { threshold: 0.6 }
+    )
+
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [setIndex])
+
+  /* ===============================
+     SCROLL RESTORE
+  =============================== */
   useEffect(() => {
     if (
       location.state?.from === 'project' ||
-      location.state?.from === 'projects'
+      location.state?.from === 'projects' ||
+      location.state?.from === 'experience'
     ) {
       restoreScroll()
     }
   }, [location.state])
 
-  /**
-   * ✅ Reveal cards on scroll
-   */
+  /* ===============================
+     CARD REVEAL
+  =============================== */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,19 +72,44 @@ export default function Home() {
     return () => observer.disconnect()
   }, [])
 
+  /* ===============================
+     PROJECT COLORS
+  =============================== */
+  const projectColors: Record<string, THREE.Color> = {
+    cerrfix: new THREE.Color('#4f6bff'),
+    gitpush: new THREE.Color('#6b8bff'),
+    dotfiles: new THREE.Color('#7f8cff'),
+    myvimrc: new THREE.Color('#5a6cff')
+  }
+
   const selectedProjects = projects.slice(0, 3)
 
   return (
     <>
       {/* HERO */}
-      <section className="section hero">
-        <h1>Hi, I’m Abhi.</h1>
-        <p>Creative developer focused on 3D & systems.</p>
+      <section className="section hero" data-section="0">
+        <h1>Hi,</h1>
+        <h1>I’m Abhishek Raj.</h1>
+
+        <h2 className="hero-subtitle">
+          Also known as <strong>Cisco Ramon</strong> —
+          <a
+            href="https://github.com/CISSSCO"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </h2>
+
+        <p>
+          Scientific Programmer · Creative Developer · Linux Enthusiast
+        </p>
       </section>
 
-      {/* SELECTED PROJECTS */}
-      <section className="section">
-        <h2 className="section-title">Selected Projects</h2>
+      {/* PROJECTS */}
+      <section className="section" data-section="1">
+        <h2 className="section-title">Projects</h2>
 
         <div className="projects-grid">
           {selectedProjects.map((p, i) => (
@@ -69,8 +125,14 @@ export default function Home() {
                 saveScroll()
                 window.scrollTo(0, 0)
               }}
-              onMouseEnter={() => setMode('project')}
-              onMouseLeave={() => setMode('idle')}
+              onMouseEnter={() => {
+                setMode('project')
+                setColor(projectColors[p.id] ?? null)
+              }}
+              onMouseLeave={() => {
+                setMode('idle')
+                setColor(null)
+              }}
             >
               <h3>{p.title}</h3>
               <p>{p.excerpt}</p>
@@ -79,7 +141,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* SHOW ALL */}
         <div className="show-all">
           <Link
             to="/projects"
@@ -95,17 +156,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EXPERIENCE */}
-      <section className="section">
-        <h2 className="section-title">Experience</h2>
-        <p>Frontend · Creative Dev · Three.js · Systems</p>
-      </section>
+        {/* EXPERIENCE */}
+        <section className="section" data-section="2">
+          <h2 className="section-title">Experience</h2>
 
-      {/* CONTACT */}
-      <section className="section">
-        <h2 className="section-title">Contact</h2>
-        <p>abhi@email.com</p>
-      </section>
+          <div className="experience-list">
+            {experience.map((exp) => (
+                <Link
+                  to={`/experience/${exp.id}`}
+                  state={{ from: 'experience' }}
+                  onClick={() => {
+                    saveScroll()
+                    window.scrollTo(0, 0)
+                  }}
+                className="experience-card"
+                >
+                <h3>{exp.role}</h3>
+                <p className="experience-org">{exp.org}</p>
+                <p className="experience-duration">{exp.duration}</p>
+                <p className="experience-summary">{exp.summary}</p>
+
+                <span className="cta">View details →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <section className="section contact" data-section="3">
+          <h2 className="section-title">Contact</h2>
+
+          <p className="contact-intro">
+            Let’s build something useful.
+          </p>
+
+        <form
+          className="contact-form"
+          onSubmit={async (e) => {
+            e.preventDefault()
+
+            const form = e.currentTarget
+            const data = new FormData(form)
+
+            try {
+              const res = await fetch(
+                'https://formspree.io/f/xeegawka', // 👈 FIX THIS
+                {
+                  method: 'POST',
+                  body: data,
+                  headers: {
+                    Accept: 'application/json'
+                  }
+                }
+              )
+
+              const json = await res.json()
+
+              if (!res.ok) {
+                console.error('Formspree error:', json)
+                alert('Something went wrong. Please try again.')
+                return
+              }
+
+              form.reset()
+              setSent(true)
+
+              setTimeout(() => setSent(false), 4000)
+            } catch (err) {
+              console.error(err)
+              alert('Network error. Please try again later.')
+            }
+          }}
+        >
+          {/* 👇 Optional but recommended */}
+          <input type="hidden" name="_subject" value="New message from portfolio" />
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email"
+            required
+          />
+
+          <textarea
+            name="message"
+            rows={5}
+            placeholder="What do you want to talk about?"
+            required
+          />
+
+          <button type="submit">
+            Send message →
+          </button>
+
+          {sent && (
+            <p className="contact-success">
+              Message sent. I’ll get back to you ✨
+            </p>
+          )}
+        </form>
+        </section>
     </>
   )
 }

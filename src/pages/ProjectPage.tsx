@@ -69,6 +69,18 @@ export default function ProjectPage() {
           <li key={tech}>{tech}</li>
         ))}
       </ul>
+      
+      {project.repo && (
+        <a
+          href={project.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-link"
+        >
+          Visit GitHub Repo →
+        </a>
+      )}
+      <br/>
 
       {project.url && (
         <a
@@ -81,10 +93,9 @@ export default function ProjectPage() {
         </a>
       )}
 
+
       <div className="project-content">
         <p>
-          This section scrolls independently while the 3D
-          environment remains alive in the background.
         </p>
 
         <p style={{ height: '120vh' }} />
