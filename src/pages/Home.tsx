@@ -7,6 +7,7 @@ import projects from '../data/projects.json'
 import { useSectionIndex } from '../app/SectionIndexContext'
 import * as THREE from 'three'
 import { useState } from 'react'
+import experience from '../data/experience.json'
 
 export default function Home() {
   const { setMode, setColor } = useOrbState()
@@ -45,7 +46,8 @@ export default function Home() {
   useEffect(() => {
     if (
       location.state?.from === 'project' ||
-      location.state?.from === 'projects'
+      location.state?.from === 'projects' ||
+      location.state?.from === 'experience'
     ) {
       restoreScroll()
     }
@@ -154,11 +156,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EXPERIENCE */}
-      <section className="section" data-section="2">
-        <h2 className="section-title">Experience</h2>
-        <p>Frontend · Creative Dev · Three.js · Systems</p>
-      </section>
+        {/* EXPERIENCE */}
+        <section className="section" data-section="2">
+          <h2 className="section-title">Experience</h2>
+
+          <div className="experience-list">
+            {experience.map((exp) => (
+                <Link
+                  to={`/experience/${exp.id}`}
+                  state={{ from: 'experience' }}
+                  onClick={() => {
+                    saveScroll()
+                    window.scrollTo(0, 0)
+                  }}
+                className="experience-card"
+                >
+                <h3>{exp.role}</h3>
+                <p className="experience-org">{exp.org}</p>
+                <p className="experience-duration">{exp.duration}</p>
+                <p className="experience-summary">{exp.summary}</p>
+
+                <span className="cta">View details →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* CONTACT */}
         <section className="section contact" data-section="3">
@@ -168,78 +190,78 @@ export default function Home() {
             Let’s build something useful.
           </p>
 
-<form
-  className="contact-form"
-  onSubmit={async (e) => {
-    e.preventDefault()
+        <form
+          className="contact-form"
+          onSubmit={async (e) => {
+            e.preventDefault()
 
-    const form = e.currentTarget
-    const data = new FormData(form)
+            const form = e.currentTarget
+            const data = new FormData(form)
 
-    try {
-      const res = await fetch(
-        'https://formspree.io/f/xeegawka', // 👈 FIX THIS
-        {
-          method: 'POST',
-          body: data,
-          headers: {
-            Accept: 'application/json'
-          }
-        }
-      )
+            try {
+              const res = await fetch(
+                'https://formspree.io/f/xeegawka', // 👈 FIX THIS
+                {
+                  method: 'POST',
+                  body: data,
+                  headers: {
+                    Accept: 'application/json'
+                  }
+                }
+              )
 
-      const json = await res.json()
+              const json = await res.json()
 
-      if (!res.ok) {
-        console.error('Formspree error:', json)
-        alert('Something went wrong. Please try again.')
-        return
-      }
+              if (!res.ok) {
+                console.error('Formspree error:', json)
+                alert('Something went wrong. Please try again.')
+                return
+              }
 
-      form.reset()
-      setSent(true)
+              form.reset()
+              setSent(true)
 
-      setTimeout(() => setSent(false), 4000)
-    } catch (err) {
-      console.error(err)
-      alert('Network error. Please try again later.')
-    }
-  }}
->
-  {/* 👇 Optional but recommended */}
-  <input type="hidden" name="_subject" value="New message from portfolio" />
+              setTimeout(() => setSent(false), 4000)
+            } catch (err) {
+              console.error(err)
+              alert('Network error. Please try again later.')
+            }
+          }}
+        >
+          {/* 👇 Optional but recommended */}
+          <input type="hidden" name="_subject" value="New message from portfolio" />
 
-  <input
-    type="text"
-    name="name"
-    placeholder="Your name"
-    required
-  />
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            required
+          />
 
-  <input
-    type="email"
-    name="email"
-    placeholder="Your email"
-    required
-  />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email"
+            required
+          />
 
-  <textarea
-    name="message"
-    rows={5}
-    placeholder="What do you want to talk about?"
-    required
-  />
+          <textarea
+            name="message"
+            rows={5}
+            placeholder="What do you want to talk about?"
+            required
+          />
 
-  <button type="submit">
-    Send message →
-  </button>
+          <button type="submit">
+            Send message →
+          </button>
 
-  {sent && (
-    <p className="contact-success">
-      Message sent. I’ll get back to you ✨
-    </p>
-  )}
-</form>
+          {sent && (
+            <p className="contact-success">
+              Message sent. I’ll get back to you ✨
+            </p>
+          )}
+        </form>
         </section>
     </>
   )

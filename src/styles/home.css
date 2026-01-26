@@ -411,3 +411,65 @@ h2 a {
     font-size: 2.2rem;
   }
 }
+
+/* =========================
+   EXPERIENCE SECTION
+========================= */
+
+.experience-list {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.experience-card {
+  flex: 1 1 420px;
+  max-width: 520px;
+
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(14px);
+
+  padding: 2rem;
+  border-radius: 20px;
+
+  text-decoration: none;
+  color: inherit;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.8);
+}
+
+.experience-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.experience-org {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.experience-duration {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.experience-summary {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}

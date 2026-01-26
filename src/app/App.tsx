@@ -5,6 +5,7 @@ import Experience from './Experience'
 import Home from '../pages/Home'
 import ProjectPage from '../pages/ProjectPage'
 import ProjectsList from '../pages/ProjectsList'
+import ExperiencePage from '../pages/ExperiencePage'
 
 function Background3D() {
   return (
@@ -27,6 +28,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<ProjectsList />} />
           <Route path="/project/:id" element={<ProjectPage />} />
+          <Route path="/experience/:id" element={<ExperiencePage />} />
+
         </Routes>
       </div>
     </>
