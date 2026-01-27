@@ -26,6 +26,7 @@ export default function HeroOrb({ scrollT }: Props) {
   const CYAN = new THREE.Color('#00e5ff')
   const VIOLET = new THREE.Color('#8b5cf6')
   const MAGENTA = new THREE.Color('#ff4fd8')
+  const BLUE = new THREE.Color('#4f6bdf')     
   const TEAL = new THREE.Color('#2dd4bf')
 
   useFrame((_, delta) => {
@@ -50,7 +51,7 @@ export default function HeroOrb({ scrollT }: Props) {
     if (index === 1) {
       // PROJECTS — neon violet
       targetColor.current.copy(VIOLET)
-      speed = 1.3
+      speed = 1.1
       scaleBias = 1
       rotationSpeed = 1.2
     }
@@ -58,16 +59,23 @@ export default function HeroOrb({ scrollT }: Props) {
     if (index === 2) {
       // EXPERIENCE — cyberpunk magenta
       targetColor.current.copy(MAGENTA)
-      speed = 1.7
+      speed = 1.3
       scaleBias = 1
       rotationSpeed = 1.4
     }
 
     if (index === 3) {
+      targetColor.current.copy(BLUE)
+      speed = 1.55
+      scaleBias = 1
+      rotationSpeed = 1.5
+    }
+      
+    if (index === 4) {
       // CONTACT — synthwave teal
       targetColor.current.copy(TEAL)
-      speed = 2.0
-      rotationSpeed = 0.6
+      speed = 1.75
+      rotationSpeed = 1.6
     }
 
     /* ===============================
