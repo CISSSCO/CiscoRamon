@@ -195,45 +195,40 @@ export default function Home() {
         </section>
 
         {/* SKILLS PREVIEW */}
-        <section className="section skills-section" data-section="3">
-          <h2 className="section-title">Top Skills</h2>
+        <section className="section skills-preview" data-section="3">
+          <h2 className="section-title skills-section">Top Skills</h2>
 
-          <div className="skills-preview">
-            {skills
-              .filter((s) => s.featured)
-              .slice(0, 6)
-              .map((skill) => (
-                <div key={skill.id} className="skill-row">
-                  <div className="skill-header">
-                    <span>{skill.name}</span>
-                    <span>{skill.level}%</span>
-                  </div>
-
-                  <div className="skill-bar">
-                    <div
-                      className="skill-fill"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-
-                  <p className="skill-context">{skill.context}</p>
+          {skills
+            .filter((s) => s.featured)
+            .slice(0, 6)
+            .map((skill) => (
+              <div key={skill.id} className="skill-row">
+                <div className="skill-header">
+                  <span>{skill.name}</span>
+                  <span>{skill.level}%</span>
                 </div>
-              ))}
-          </div>
 
-            <div className="show-all-wrapper">
-              <Link
-                to="/skills"
-                state={{ from: 'home' }}
-                className="show-all-btn"
-                onClick={() => {
-                  saveScroll()
-                  window.scrollTo(0, 0)
-                }}
-              >
-                View all skills →
-              </Link>
-            </div>
+                <div className="skill-bar">
+                  <div
+                    className="skill-fill"
+                    style={{ '--level': skill.level / 100 } as React.CSSProperties}
+                  />
+                </div>
+
+                <p className="skill-context">{skill.context}</p>
+              </div>
+            ))}
+
+          <div className="show-all-wrapper">
+            <Link
+              to="/skills"
+              state={{ from: 'skills' }}
+              className="show-all-btn"
+              onClick={saveScroll}
+            >
+              View all skills →
+            </Link>
+          </div>
         </section>
         {/* CONTACT */}
 

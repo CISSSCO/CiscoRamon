@@ -23,15 +23,39 @@
 
 .stack {
   display: flex;
-  gap: 0.6rem;
-  margin-bottom: 4rem;
+  flex-wrap: wrap;          
+  gap: 0.6rem 0.5rem;
+  margin-bottom: 3rem;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+    .stack {
+      display: flex;
+      flex-wrap: wrap;          
+      gap: 0.6rem 0.5rem;
+      margin-bottom: 3rem;
+      justify-content: flex-start;
+
+      max-width: 100%;
+    }
 }
 
 .stack li {
   font-size: 0.75rem;
-  padding: 0.4rem 0.7rem;
+  padding: 0.35rem 0.65rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
+
+  white-space: nowrap; 
+}
+
+@media (max-width: 480px) {
+  .stack li {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
 }
 
 .back-link {
