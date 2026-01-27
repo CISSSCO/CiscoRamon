@@ -473,3 +473,49 @@ h2 a {
   line-height: 1.6;
   opacity: 0.85;
 }
+
+
+/* =========================
+   HERO "ABOUT ME" CTA
+========================= */
+
+.about-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  padding: 0.7rem 1.4rem;
+  margin-top: 2rem;
+
+  border-radius: 999px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+
+  color: #fff;
+  text-decoration: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(79, 107, 255, 0.35),
+    rgba(79, 107, 255, 0.15)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+
+  opacity: 0.95;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.about-cta:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow:
+    0 16px 36px rgba(79, 107, 255, 0.35);
+}

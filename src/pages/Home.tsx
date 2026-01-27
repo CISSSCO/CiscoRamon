@@ -105,6 +105,16 @@ export default function Home() {
         <p>
           Scientific Programmer · Creative Developer · Linux Enthusiast
         </p>
+        <p style={{ marginTop: '1.8rem' }}>
+            <Link
+              to="/about"
+              state={{ from: 'home' }}
+              onClick={() => saveScroll()}
+              className="about-cta"
+            >
+              Want to know more about me →
+            </Link>
+        </p>
       </section>
 
       {/* PROJECTS */}
