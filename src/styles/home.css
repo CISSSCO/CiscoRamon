@@ -519,3 +519,68 @@ h2 a {
   box-shadow:
     0 16px 36px rgba(79, 107, 255, 0.35);
 }
+
+
+/* =========================
+   SKILLS PREVIEW (REFINED)
+========================= */
+
+.skills-section{
+  max-width: 720px;
+  margin: 0 auto;
+
+}
+
+.skills-preview {
+  max-width: 720px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Centered bar container */
+.skill-bar {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+/* Smooth, calm fill */
+.skill-fill {
+  height: 100%;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(79, 107, 255, 0.85),
+    rgba(0, 229, 255, 0.85)
+  );
+
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-context {
+  font-size: 0.85rem;
+  opacity: 0.65;
+  line-height: 1.5;
+}

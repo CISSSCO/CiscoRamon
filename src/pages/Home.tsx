@@ -8,6 +8,7 @@ import { useSectionIndex } from '../app/SectionIndexContext'
 import * as THREE from 'three'
 import { useState } from 'react'
 import experience from '../data/experience.json'
+import skills from '../data/skills.json'
 
 export default function Home() {
   const { setMode, setColor } = useOrbState()
@@ -47,7 +48,8 @@ export default function Home() {
     if (
       location.state?.from === 'project' ||
       location.state?.from === 'projects' ||
-      location.state?.from === 'experience'
+      location.state?.from === 'experience' ||
+      location.state?.from === 'skills' 
     ) {
       restoreScroll()
     }
@@ -192,8 +194,50 @@ export default function Home() {
           </div>
         </section>
 
+        {/* SKILLS PREVIEW */}
+        <section className="section skills-section" data-section="3">
+          <h2 className="section-title">Top Skills</h2>
+
+          <div className="skills-preview">
+            {skills
+              .filter((s) => s.featured)
+              .slice(0, 6)
+              .map((skill) => (
+                <div key={skill.id} className="skill-row">
+                  <div className="skill-header">
+                    <span>{skill.name}</span>
+                    <span>{skill.level}%</span>
+                  </div>
+
+                  <div className="skill-bar">
+                    <div
+                      className="skill-fill"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+
+                  <p className="skill-context">{skill.context}</p>
+                </div>
+              ))}
+          </div>
+
+            <div className="show-all-wrapper">
+              <Link
+                to="/skills"
+                state={{ from: 'home' }}
+                className="show-all-btn"
+                onClick={() => {
+                  saveScroll()
+                  window.scrollTo(0, 0)
+                }}
+              >
+                View all skills →
+              </Link>
+            </div>
+        </section>
         {/* CONTACT */}
-        <section className="section contact" data-section="3">
+
+        <section className="section contact" data-section="4">
           <h2 className="section-title">Contact</h2>
 
           <p className="contact-intro">
