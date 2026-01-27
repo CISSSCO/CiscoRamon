@@ -74,23 +74,26 @@ h2 a {
     0 30px 60px rgba(0, 0, 0, 0.6),
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease,
+      box-shadow 0.35s ease;
 }
 
-/* 👆 lift + focus, not jump */
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .project-card:hover {
-  transform: translateY(-12px) scale(1.04);
+  transform: translateY(-10px) scale(1.035);
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.8),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.project-card h3 {
-  font-size: 1.6rem;
-  margin-bottom: 0.75rem;
-}
 
 .project-card p {
   font-size: 0.95rem;
@@ -104,19 +107,6 @@ h2 a {
   opacity: 0.9;
 }
 
-/* REVEAL ANIMATION */
-.project-card {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.project-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
-}
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
