@@ -519,3 +519,70 @@ h2 a {
   margin-right: auto;
   max-width: 720px;
 }
+
+
+.hero-tagline {
+  margin-top: 0.8rem;
+  margin-bottom: 1.4rem;
+}
+
+/* =========================
+   HERO LINKS
+========================= */
+
+.hero-links {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.hero-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  color: #fff;
+  text-decoration: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(79, 107, 255, 0.35),
+    rgba(79, 107, 255, 0.15)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+
+  opacity: 0.9;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.hero-links a:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow:
+    0 14px 36px rgba(79, 107, 255, 0.35);
+}
+
+/* Mobile tweak */
+@media (max-width: 480px) {
+  .hero-links {
+    gap: 0.6rem;
+  }
+
+  .hero-links a {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}

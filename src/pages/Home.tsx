@@ -9,6 +9,7 @@ import * as THREE from 'three'
 import { useState } from 'react'
 import experience from '../data/experience.json'
 import skills from '../data/skills.json'
+import { GitHubIcon, LinkedInIcon, MailIcon } from '../ui/HeroIcons'
 
 export default function Home() {
   const { setMode, setColor } = useOrbState()
@@ -93,6 +94,7 @@ export default function Home() {
         <h1>Hi,</h1>
         <h1>I’m Abhishek Raj.</h1>
 
+      {/*
         <h2 className="hero-subtitle">
           Also known as <strong>Cisco Ramon</strong> —
           <a
@@ -103,10 +105,41 @@ export default function Home() {
             GitHub
           </a>
         </h2>
+      */}
 
-        <p>
+        <p className="hero-tagline">
           Scientific Programmer · Creative Developer · Linux Enthusiast
         </p>
+
+        <div className="hero-links">
+          <a
+            href="https://github.com/CISSSCO"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <GitHubIcon />
+            GitHub
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/abhi581b"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <LinkedInIcon />
+            LinkedIn
+          </a>
+
+          <a
+            href="mailto:cisco581b@email.com"
+            aria-label="Email"
+          >
+            <MailIcon />
+            Email
+          </a>
+        </div>
         <p style={{ marginTop: '1.8rem' }}>
             <Link
               to="/about"
