@@ -91,8 +91,12 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="section hero" data-section="0">
-        <h1>Hi,</h1>
-        <h1>I’m Abhishek Raj.</h1>
+        <h1 className="hero-name">Hi,</h1>
+        <h1 className="hero-name">
+          I’m{' '}
+          <span className="hero-name-first">Abhishek</span>{' '}
+          <span className="hero-name-last">Raj</span>.
+        </h1>
 
       {/*
         <h2 className="hero-subtitle">
