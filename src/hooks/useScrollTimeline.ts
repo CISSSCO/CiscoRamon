@@ -4,24 +4,24 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 
 export function useScrollTimeline(
-  setup: (tl: gsap.core.Timeline) => void
+    setup: (tl: gsap.core.Timeline) => void
 ) {
-  const scroll = useScroll()
-  const timeline = useRef<gsap.core.Timeline | null>(null)
+    const scroll = useScroll()
+    const timeline = useRef<gsap.core.Timeline | null>(null)
 
-  useEffect(() => {
-    const tl = gsap.timeline({ paused: true })
-    setup(tl)
-    timeline.current = tl
+    useEffect(() => {
+        const tl = gsap.timeline({ paused: true })
+        setup(tl)
+        timeline.current = tl
 
-    return () => {
-      tl.kill()
-      timeline.current = null
-    }
-  }, [setup])
+        return () => {
+            tl.kill()
+            timeline.current = null
+        }
+    }, [setup])
 
-  useFrame(() => {
-    if (!timeline.current) return
-    timeline.current.progress(scroll.offset)
-  })
+    useFrame(() => {
+        if (!timeline.current) return
+        timeline.current.progress(scroll.offset)
+    })
 }

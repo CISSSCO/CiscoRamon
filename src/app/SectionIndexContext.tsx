@@ -1,29 +1,29 @@
 import { createContext, useContext, useState } from 'react'
 
 type SectionIndexContextType = {
-  index: number
-  setIndex: (i: number) => void
+    index: number
+    setIndex: (i: number) => void
 }
 
 const SectionIndexContext = createContext<SectionIndexContextType>({
-  index: 0,
-  setIndex: () => {}
+    index: 0,
+    setIndex: () => {}
 })
 
 export function SectionIndexProvider({
-  children
+    children
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
-  const [index, setIndex] = useState(0)
+    const [index, setIndex] = useState(0)
 
-  return (
-    <SectionIndexContext.Provider value={{ index, setIndex }}>
-      {children}
-    </SectionIndexContext.Provider>
-  )
+    return (
+        <SectionIndexContext.Provider value={{ index, setIndex }}>
+        {children}
+        </SectionIndexContext.Provider>
+    )
 }
 
 export function useSectionIndex() {
-  return useContext(SectionIndexContext)
+    return useContext(SectionIndexContext)
 }

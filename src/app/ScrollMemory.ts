@@ -2,14 +2,14 @@
 let savedScrollY = 0
 
 export function saveScroll() {
-  savedScrollY = window.scrollY
+    savedScrollY = window.scrollY
 }
 
 export function restoreScroll() {
-  requestAnimationFrame(() => {
-    window.scrollTo({
-      top: savedScrollY,
-      behavior: 'auto'
+    requestAnimationFrame(() => {
+        window.scrollTo({
+            top: savedScrollY,
+            behavior: 'auto'
+        })
     })
-  })
 }

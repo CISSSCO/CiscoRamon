@@ -1,80 +1,80 @@
 /* =========================
-   ABOUT PAGE
+ABOUT PAGE
 ========================= */
 
 .about-page {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 14vh 6vw 20vh;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14vh 6vw 20vh;
 
-  color: #fff;
-  pointer-events: auto;
+    color: #fff;
+    pointer-events: auto;
 }
 
 /* BACK BUTTON */
 .about-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 
-  padding: 0.6rem 1.2rem;
-  margin-bottom: 4rem;
+    padding: 0.6rem 1.2rem;
+    margin-bottom: 4rem;
 
-  border-radius: 999px;
+    border-radius: 999px;
 
-  background: rgba(79, 107, 255, 0.15);
-  color: #fff;
+    background: rgba(79, 107, 255, 0.15);
+    color: #fff;
 
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .about-back:hover {
-  transform: translateX(-4px);
-  box-shadow: 0 12px 30px rgba(79, 107, 255, 0.35);
+    transform: translateX(-4px);
+    box-shadow: 0 12px 30px rgba(79, 107, 255, 0.35);
 }
 
 /* HEADER */
 .about-title {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
 }
 
 /* SUBTITLE */
 .about-subtitle {
-  font-size: 1.15rem;
-  max-width: 680px;
-  opacity: 0.9;
-  margin-bottom: 3rem;
+    font-size: 1.15rem;
+    max-width: 680px;
+    opacity: 0.9;
+    margin-bottom: 3rem;
 }
 
 /* BODY TEXT */
 .about-text {
-  max-width: 680px;
-  line-height: 1.7;
-  opacity: 0.85;
-  margin-bottom: 2.5rem;
+    max-width: 680px;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 2.5rem;
 }
 
 /* SECTION HEADINGS */
 .about-section-title {
-  font-size: 1.6rem;
-  margin-bottom: 1.2rem;
-  letter-spacing: -0.01em;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
 }
 
 /* FOOTNOTE / PERSONAL NOTE */
 .about-note {
-  max-width: 680px;
-  line-height: 1.7;
-  opacity: 0.8;
-  margin-top: 3rem;
+    max-width: 680px;
+    line-height: 1.7;
+    opacity: 0.8;
+    margin-top: 3rem;
 }
