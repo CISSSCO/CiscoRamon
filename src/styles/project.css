@@ -91,111 +91,145 @@
 }
 
 
-/* =========================
-PROJECT PAGE NAV
-========================= */
+/*PROJECT PAGE NAV*/
 
-    .back-btn {
-        display: inline-block;
-        margin-bottom: 3rem;
+.back-btn {
+    display: inline-block;
+    margin-bottom: 3rem;
 
-        font-size: 0.9rem;
-        font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 500;
 
-        color: #9aa7ff;
-        text-decoration: none;
+    color: #9aa7ff;
+    text-decoration: none;
 
-        opacity: 0.85;
-        transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-    }
+    opacity: 0.85;
+    transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
 
-    .back-btn:hover {
-        opacity: 1;
-        transform: translateX(-4px);
-    }
+.back-btn:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
 
-    /* =========================
-    PROJECT WEBSITE LINK
-    ========================= */
+/*PROJECT WEBSITE LINK*/
 
-    .project-nav {
-        margin-bottom: 2.5rem;
-    }
-    .project-link {
-        display: inline-flex;
-        align-items: center;
+.project-nav {
+    margin-bottom: 2.5rem;
+}
+.project-link {
+    display: inline-flex;
+    align-items: center;
 
-        margin-bottom: 4rem;
+    margin-bottom: 4rem;
 
-        font-size: 0.95rem;
-        font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 500;
 
-        color: #fff;
-        text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 
-        padding: 0.75rem 1.4rem;
-        border-radius: 999px;
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
 
-        background: linear-gradient(
-        135deg,
-        rgba(79, 107, 255, 0.4),
-        rgba(79, 107, 255, 0.18)
-        );
+    background: linear-gradient(
+    135deg,
+    rgba(79, 107, 255, 0.4),
+    rgba(79, 107, 255, 0.18)
+    );
 
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
 
-        transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    }
+    transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
 
-    .project-link:hover {
-        transform: translateY(-3px);
-        box-shadow:
-        0 16px 36px rgba(79, 107, 255, 0.4);
-    }
+.project-link:hover {
+    transform: translateY(-3px);
+    box-shadow:
+    0 16px 36px rgba(79, 107, 255, 0.4);
+}
 
-    .project-back {
-        display: inline-block;
-        margin-bottom: 3rem;
+.project-back {
+    display: inline-block;
+    margin-bottom: 3rem;
 
-        font-size: 0.9rem;
-        font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 500;
 
-        color: #9aa7ff;
-        text-decoration: none;
+    color: #9aa7ff;
+    text-decoration: none;
 
-        opacity: 0.9;
-        transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-    }
+    opacity: 0.9;
+    transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
 
-    .project-back:hover {
-        opacity: 1;
-        transform: translateX(-4px);
-    }
+.project-back:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
 
-    .project-back-btn {
-        display: inline-block;
-        margin-bottom: 3rem;
+.project-back-btn {
+    display: inline-block;
+    margin-bottom: 3rem;
 
-        font-size: 0.95rem;
-        font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 500;
 
-        color: #9aa7ff !important;
-        text-decoration: none !important;
+    color: #9aa7ff !important;
+    text-decoration: none !important;
 
-        opacity: 0.9;
-        transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-    }
+    opacity: 0.9;
+    transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
 
-    .project-back-btn:hover {
-        opacity: 1;
-        transform: translateX(-6px);
-    }
+.project-back-btn:hover {
+    opacity: 1;
+    transform: translateX(-6px);
+}
+
+
+
+
+.markdown {
+    max-width: 720px;
+    line-height: 1.7;
+}
+
+.markdown h1 {
+    font-size: 2.6rem;
+    margin: 3rem 0 1.5rem;
+}
+
+.markdown h2 {
+    font-size: 1.8rem;
+    margin: 2.5rem 0 1rem;
+}
+
+.markdown p {
+    opacity: 0.9;
+    margin-bottom: 1.2rem;
+}
+
+.markdown code {
+    background: rgba(255,255,255,0.08);
+    padding: 0.25rem 0.4rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.markdown pre {
+    background: rgba(10,10,10,0.85);
+    padding: 1.2rem;
+    border-radius: 14px;
+    overflow-x: auto;
+    margin: 2rem 0;
+}

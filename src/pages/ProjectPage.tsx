@@ -92,7 +92,15 @@ export default function ProjectPage() {
             Visit Project Website →
             </a>
         )}
+        <br/>
 
+        <Link
+          to={`/project/${project.id}/docs`}
+          state={{ from: 'project' }}
+          className="project-link"
+        >
+          View Documentation →
+        </Link>
 
         <div className="project-content">
         <p>
