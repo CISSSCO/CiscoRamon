@@ -1,0 +1,67 @@
+[
+    {
+        "id": "linux",
+        "name": "Linux",
+        "category": "Systems",
+        "level": 92,
+        "context": "Primary environment for HPC clusters, system administration, and development",
+        "featured": true
+    },
+    {
+        "id": "c_cpp",
+        "name": "C / C++",
+        "category": "Programming",
+        "level": 88,
+        "context": "Performance-critical HPC and scientific applications",
+        "featured": true
+    },
+    {
+        "id": "mpi",
+        "name": "MPI",
+        "category": "Parallel Computing",
+        "level": 85,
+        "context": "Distributed-memory parallelism on multi-node clusters",
+        "featured": true
+    },
+    {
+        "id": "openmp",
+        "name": "OpenMP",
+        "category": "Parallel Computing",
+        "level": 80,
+        "context": "Shared-memory and hybrid parallel programming",
+        "featured": true
+    },
+    {
+        "id": "cuda",
+        "name": "CUDA",
+        "category": "GPU Computing",
+        "level": 70,
+        "context": "GPU acceleration for scientific and compute workloads",
+        "featured": false
+    },
+    {
+        "id": "slurm",
+        "name": "Slurm",
+        "category": "HPC Tools",
+        "level": 78,
+        "context": "Job scheduling and workload management on clusters",
+        "featured": true
+    },
+
+    {
+        "id": "python",
+        "name": "Python",
+        "category": "Programming",
+        "level": 75,
+        "context": "Automation, scripting, tooling",
+        "featured": false
+    },
+    {
+        "id": "shell",
+        "name": "Shell Scripting",
+        "category": "Systems",
+        "level": 82,
+        "context": "Workflow automation and system setup",
+        "featured": true
+    }
+]

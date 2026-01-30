@@ -7,13 +7,13 @@ import './styles/global.css'
 import { SectionIndexProvider } from './app/SectionIndexContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+    <React.StrictMode>
     <BrowserRouter>
     <OrbStateProvider>
-      <SectionIndexProvider>
-        <App />
-      </SectionIndexProvider>
+    <SectionIndexProvider>
+    <App />
+    </SectionIndexProvider>
     </OrbStateProvider>
     </BrowserRouter>
-  </React.StrictMode>
+    </React.StrictMode>
 )

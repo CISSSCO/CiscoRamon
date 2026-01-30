@@ -1,15 +1,15 @@
 import * as THREE from 'three'
 
 export const ProceduralMaterial = new THREE.ShaderMaterial({
-  transparent: true,
-  depthWrite: false,
+    transparent: true,
+    depthWrite: false,
 
-  uniforms: {
-    uTime: { value: 0 },
-    uColor: { value: new THREE.Color('#00e5ff') }
-  },
+    uniforms: {
+        uTime: { value: 0 },
+        uColor: { value: new THREE.Color('#00e5ff') }
+    },
 
-  vertexShader: `
+    vertexShader: `
     uniform float uTime;
     varying vec3 vNormal;
     varying vec3 vWorldPos;
@@ -28,7 +28,7 @@ export const ProceduralMaterial = new THREE.ShaderMaterial({
     }
   `,
 
-  fragmentShader: `
+    fragmentShader: `
     uniform vec3 uColor;
     uniform float uTime;
 
