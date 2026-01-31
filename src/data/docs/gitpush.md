@@ -1,4 +1,4 @@
-# GitPush [gitpush-1]
+# GitPush 
 
 A simple tool for git to automate some of the commonly used tasks.
 

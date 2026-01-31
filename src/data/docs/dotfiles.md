@@ -1,4 +1,4 @@
-# Dotfiles [dotfiles-1]
+# Dotfiles 
 
 This repository contains my personal dotfiles and configuration files.
 It exists so I can version, maintain, and quickly reproduce my working
