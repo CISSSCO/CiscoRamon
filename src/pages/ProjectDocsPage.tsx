@@ -5,10 +5,12 @@ import { restoreScroll } from '../app/ScrollMemory'
 import '../styles/project.css'
 
 import cerrfixDoc from '../data/docs/cerrfix.md?raw'
+import gitpushDoc from '../data/docs/gitpush.md?raw'
 // later you can map dynamically
 
 const docsMap: Record<string, string> = {
-  cerrfix: cerrfixDoc
+  cerrfix: cerrfixDoc,
+  gitpush: gitpushDoc
 }
 
 export default function ProjectDocsPage() {
