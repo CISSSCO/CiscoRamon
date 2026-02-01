@@ -36,11 +36,21 @@
         "repo": "https://github.com/CISSSCO/myvimrc_config"
     },
     {
+        "id": "cisssco",
+        "title": "CISSSCO.github.io",
+        "excerpt": "Terminal style Personal portfolio",
+        "description": "This repository contains my personal portfolio website in terminal style, built and hosted using GitHub Pages.",
+        "stack": ["JavaScript", "HTML", "CSS"],
+        "repo": "https://github.com/CISSSCO/CISSSCO.github.io",
+        "url": "https://cisssco.github.io"
+    },
+    {
         "id": "popularwebsitethemes",
         "title": "PopularWebsiteThemes",
-        "excerpt": "Awesome personal themes for popular websites",
+        "excerpt": "Custom themes for popular websites like 10fastfingers",
         "description": "This repo have some of my custom themes for popular websites.",
         "stack": ["CSS", "HTML"],
+        "url": "https://userstyles.org/user-profile/1051695",
         "repo": "https://github.com/CISSSCO/PopularWebsiteThemes"
     }
 

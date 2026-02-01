@@ -197,39 +197,112 @@
 }
 
 
+/*markdown*/
 
-
-.markdown {
-    max-width: 720px;
-    line-height: 1.7;
-}
-
-.markdown h1 {
-    font-size: 2.6rem;
-    margin: 3rem 0 1.5rem;
-}
-
-.markdown h2 {
-    font-size: 1.8rem;
-    margin: 2.5rem 0 1rem;
-}
-
-.markdown p {
-    opacity: 0.9;
-    margin-bottom: 1.2rem;
-}
-
-.markdown code {
-    background: rgba(255,255,255,0.08);
-    padding: 0.25rem 0.4rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-}
 
 .markdown pre {
-    background: rgba(10,10,10,0.85);
-    padding: 1.2rem;
-    border-radius: 14px;
-    overflow-x: auto;
-    margin: 2rem 0;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+
+  padding: 1.4rem 1.6rem;
+  margin: 1.8rem 0;
+
+  overflow-x: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* REMOVE per-line / per-token backgrounds */
+.markdown pre *,
+.markdown code {
+  background: transparent !important;
+}
+
+/* Inline code (non-block) */
+.markdown p code,
+.markdown li code {
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.9em;
+}
+
+/* Code blocks */
+.markdown pre {
+    background: rgba(20, 20, 20, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+
+    padding: 1.2rem 1.4rem;
+    margin: 2.2rem 0;
+
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Inline code */
+.markdown code {
+
+    padding: 0.25rem 0.45rem;
+    border-radius: 6px;
+
+    font-size: 1rem;
+}
+
+.markdown li code {
+
+    padding: 0.25rem 0.45rem;
+    border-radius: 6px;
+
+    font-size: 1rem;
+}
+/* =========================
+MARKDOWN LINKS
+========================= */
+
+.markdown a {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0.25rem 0.55rem;
+    margin: 0 0.1rem;
+
+    border-radius: 999px;
+
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+
+    background: rgba(79, 107, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        opacity 0.25s ease;
+}
+
+/* Hover effect (matches cards / buttons) */
+.markdown a:hover {
+    transform: translateY(-2px);
+    background: rgba(79, 107, 255, 0.28);
+
+    box-shadow:
+        0 14px 36px rgba(79, 107, 255, 0.35);
+}
+
+/* Prevent huge blocks when link wraps */
+.markdown p a {
+    line-height: 1.4;
 }
