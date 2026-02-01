@@ -34,5 +34,14 @@
         "description": "A personalized Vim configuration file (.vimrc) that enhances the functionality of the Vim text editor with custom settings, key mappings, and plugins to improve productivity and streamline the editing experience.",
         "stack": ["Vimscript", "Bash Scripting"],
         "repo": "https://github.com/CISSSCO/myvimrc_config"
+    },
+    {
+        "id": "popularwebsitethemes",
+        "title": "PopularWebsiteThemes",
+        "excerpt": "Awesome personal themes for popular websites",
+        "description": "This repo have some of my custom themes for popular websites.",
+        "stack": ["CSS", "HTML"],
+        "repo": "https://github.com/CISSSCO/PopularWebsiteThemes"
     }
+
 ]
