@@ -454,9 +454,9 @@ EXPERIENCE SECTION
 }
 
 .experience-duration {
-    font-size: 0.85rem;
+    display: inline;
+    font-size: 1.15rem;
     opacity: 0.6;
-    margin-bottom: 1rem;
 }
 
 .experience-summary {

@@ -11,8 +11,8 @@ type Props = {
 
 export default function HeroOrb({ scrollT }: Props) {
     // 🔒 persistent scale bias (DO NOT jump per section)
-    const currentScaleBias = useRef(1)
-    const targetScaleBias = useRef(1)
+    //const currentScaleBias = useRef(1)
+    //const targetScaleBias = useRef(1)
     const mesh = useRef<THREE.Mesh>(null!)
     const { mouse } = useThree()
     const { mode, color: projectColor } = useOrbState()

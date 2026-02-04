@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { restoreScroll } from '../app/ScrollMemory'
 import '../styles/project.css'
 import { useEffect } from 'react'
 import cerrfixDoc from '../data/docs/cerrfix.md?raw'
