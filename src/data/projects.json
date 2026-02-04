@@ -34,5 +34,24 @@
         "description": "A personalized Vim configuration file (.vimrc) that enhances the functionality of the Vim text editor with custom settings, key mappings, and plugins to improve productivity and streamline the editing experience.",
         "stack": ["Vimscript", "Bash Scripting"],
         "repo": "https://github.com/CISSSCO/myvimrc_config"
+    },
+    {
+        "id": "cisssco",
+        "title": "CISSSCO.github.io",
+        "excerpt": "Terminal style Personal portfolio",
+        "description": "This repository contains my personal portfolio website in terminal style, built and hosted using GitHub Pages.",
+        "stack": ["JavaScript", "HTML", "CSS"],
+        "repo": "https://github.com/CISSSCO/CISSSCO.github.io",
+        "url": "https://cisssco.github.io"
+    },
+    {
+        "id": "popularwebsitethemes",
+        "title": "PopularWebsiteThemes",
+        "excerpt": "Custom themes for popular websites like 10fastfingers",
+        "description": "This repo have some of my custom themes for popular websites.",
+        "stack": ["CSS", "HTML"],
+        "url": "https://userstyles.org/user-profile/1051695",
+        "repo": "https://github.com/CISSSCO/PopularWebsiteThemes"
     }
+
 ]

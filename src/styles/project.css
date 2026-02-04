@@ -91,111 +91,218 @@
 }
 
 
+/*PROJECT PAGE NAV*/
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 3rem;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    color: #9aa7ff;
+    text-decoration: none;
+
+    opacity: 0.85;
+    transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.back-btn:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
+
+/*PROJECT WEBSITE LINK*/
+
+.project-nav {
+    margin-bottom: 2.5rem;
+}
+.project-link {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 4rem;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    color: #fff;
+    text-decoration: none;
+
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+
+    background: linear-gradient(
+    135deg,
+    rgba(79, 107, 255, 0.4),
+    rgba(79, 107, 255, 0.18)
+    );
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+
+    transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.project-link:hover {
+    transform: translateY(-3px);
+    box-shadow:
+    0 16px 36px rgba(79, 107, 255, 0.4);
+}
+
+.project-back {
+    display: inline-block;
+    margin-bottom: 3rem;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    color: #9aa7ff;
+    text-decoration: none;
+
+    opacity: 0.9;
+    transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.project-back:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
+
+.project-back-btn {
+    display: inline-block;
+    margin-bottom: 3rem;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    color: #9aa7ff !important;
+    text-decoration: none !important;
+
+    opacity: 0.9;
+    transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.project-back-btn:hover {
+    opacity: 1;
+    transform: translateX(-6px);
+}
+
+
+/*markdown*/
+
+
+.markdown pre {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+
+  padding: 1.4rem 1.6rem;
+  margin: 1.8rem 0;
+
+  overflow-x: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* REMOVE per-line / per-token backgrounds */
+.markdown pre *,
+.markdown code {
+  background: transparent !important;
+}
+
+/* Inline code (non-block) */
+.markdown p code,
+.markdown li code {
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.9em;
+}
+
+/* Code blocks */
+.markdown pre {
+    background: rgba(20, 20, 20, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+
+    padding: 1.2rem 1.4rem;
+    margin: 2.2rem 0;
+
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Inline code */
+.markdown code {
+
+    padding: 0.25rem 0.45rem;
+    border-radius: 6px;
+
+    font-size: 1rem;
+}
+
+.markdown li code {
+
+    padding: 0.25rem 0.45rem;
+    border-radius: 6px;
+
+    font-size: 1rem;
+}
 /* =========================
-PROJECT PAGE NAV
+MARKDOWN LINKS
 ========================= */
 
-    .back-btn {
-        display: inline-block;
-        margin-bottom: 3rem;
+.markdown a {
+    display: inline-flex;
+    align-items: center;
 
-        font-size: 0.9rem;
-        font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    margin: 0 0.1rem;
 
-        color: #9aa7ff;
-        text-decoration: none;
+    border-radius: 999px;
 
-        opacity: 0.85;
-        transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-    }
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
 
-    .back-btn:hover {
-        opacity: 1;
-        transform: translateX(-4px);
-    }
+    background: rgba(79, 107, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
-    /* =========================
-    PROJECT WEBSITE LINK
-    ========================= */
+    border: 1px solid rgba(255, 255, 255, 0.12);
 
-    .project-nav {
-        margin-bottom: 2.5rem;
-    }
-    .project-link {
-        display: inline-flex;
-        align-items: center;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        opacity 0.25s ease;
+}
 
-        margin-bottom: 4rem;
+/* Hover effect (matches cards / buttons) */
+.markdown a:hover {
+    transform: translateY(-2px);
+    background: rgba(79, 107, 255, 0.28);
 
-        font-size: 0.95rem;
-        font-weight: 500;
+    box-shadow:
+        0 14px 36px rgba(79, 107, 255, 0.35);
+}
 
-        color: #fff;
-        text-decoration: none;
-
-        padding: 0.75rem 1.4rem;
-        border-radius: 999px;
-
-        background: linear-gradient(
-        135deg,
-        rgba(79, 107, 255, 0.4),
-        rgba(79, 107, 255, 0.18)
-        );
-
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(10px);
-
-        transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    }
-
-    .project-link:hover {
-        transform: translateY(-3px);
-        box-shadow:
-        0 16px 36px rgba(79, 107, 255, 0.4);
-    }
-
-    .project-back {
-        display: inline-block;
-        margin-bottom: 3rem;
-
-        font-size: 0.9rem;
-        font-weight: 500;
-
-        color: #9aa7ff;
-        text-decoration: none;
-
-        opacity: 0.9;
-        transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-    }
-
-    .project-back:hover {
-        opacity: 1;
-        transform: translateX(-4px);
-    }
-
-    .project-back-btn {
-        display: inline-block;
-        margin-bottom: 3rem;
-
-        font-size: 0.95rem;
-        font-weight: 500;
-
-        color: #9aa7ff !important;
-        text-decoration: none !important;
-
-        opacity: 0.9;
-        transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-    }
-
-    .project-back-btn:hover {
-        opacity: 1;
-        transform: translateX(-6px);
-    }
+/* Prevent huge blocks when link wraps */
+.markdown p a {
+    line-height: 1.4;
+}

@@ -1,0 +1,33 @@
+.markdown {
+  max-width: 720px;
+  line-height: 1.7;
+}
+
+.markdown h1 {
+  font-size: 2.2rem;
+  margin: 3rem 0 1.5rem;
+}
+
+.markdown h2 {
+  font-size: 1.6rem;
+  margin: 2.5rem 0 1rem;
+}
+
+.markdown p {
+  opacity: 0.9;
+  margin-bottom: 1.2rem;
+}
+
+.markdown code {
+  background: rgba(255,255,255,0.08);
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.markdown pre {
+  background: rgba(15,15,15,0.9);
+  padding: 1.2rem;
+  border-radius: 14px;
+  overflow-x: auto;
+}
