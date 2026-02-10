@@ -9,6 +9,7 @@ import ExperiencePage from '../pages/ExperiencePage'
 import AboutPage from '../pages/AboutPage'
 import SkillsPage from '../pages/SkillsPage'
 import ProjectDocsPage from '../pages/ProjectDocsPage'
+import GithubPage from '../pages/GitHub'
 
 function Background3D() {
     return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/skills" element={<SkillsPage />} />
         <Route path="/project/:id/docs" element={<ProjectDocsPage />} />
+        <Route path="/github" element={<GithubPage/>} />
         </Routes>
         </div>
         </>

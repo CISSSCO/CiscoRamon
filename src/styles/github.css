@@ -1,0 +1,78 @@
+
+
+/* =========================
+   IMAGES (FIXED & RESPONSIVE)
+========================= */
+
+.markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Activity graph */
+.markdown img[src*="activity-graph"] {
+  max-width: 900px;
+  width: 100%;
+  margin: 2.5rem auto;
+}
+
+/* Contribution heatmap */
+.markdown img[src*="ghchart"] {
+  max-width: 720px;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+/* =========================
+   MARKDOWN LINKS (GLASS)
+========================= */
+
+.markdown a {
+  color: #ffd2fe;
+  text-decoration: none;
+  font-weight: 500;
+
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+
+  background: rgba(199, 102, 241, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  backdrop-filter: blur(10px);
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.markdown a:hover {
+  background: rgba(99, 102, 241, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
+}
+
+/* =========================
+   MOBILE TUNING
+========================= */
+
+@media (max-width: 640px) {
+  .markdown {
+    padding: 0 1rem 3rem;
+  }
+
+  .markdown h1 {
+    font-size: 2rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.5rem;
+  }
+
+  .markdown p {
+    font-size: 0.95rem;
+  }
+
+  .markdown pre {
+    padding: 1rem;
+  }
+}
