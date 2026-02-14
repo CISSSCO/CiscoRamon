@@ -1,19 +1,19 @@
 [
     {
-        "id": "linux",
-        "name": "Linux",
-        "category": "Systems",
-        "level": 92,
-        "context": "Primary environment for HPC clusters, system administration, and development",
-        "featured": true
-    },
-    {
         "id": "c_cpp",
         "name": "C / C++",
         "category": "Programming",
         "level": 88,
         "context": "Performance-critical HPC and scientific applications",
         "featured": true
+    },
+    {
+        "id": "supercomputing",
+        "name": "Supercomputing",
+        "category": "HPC",
+        "level": 90,
+        "context": "Work experience on multiple PARAM Series of Supercomputers of INDIA",
+        "featured": true 
     },
     {
         "id": "mpi",
@@ -63,5 +63,61 @@
         "level": 82,
         "context": "Workflow automation and system setup",
         "featured": true
+    },
+    {
+        "id": "linux",
+        "name": "Linux",
+        "category": "Systems",
+        "level": 92,
+        "context": "Primary environment for HPC clusters, system administration, and development",
+        "featured": true
+    },
+    {
+        "id": "dsa",
+        "name": "Data Structure and Algorithms",
+        "category": "Programming",
+        "level": 70,
+        "context": "Understand the fundamentals of DSA and use it wherever possible in my work",
+        "featured": false
+    },
+    {
+        "id": "ai",
+        "name": "AI/ML",
+        "category": "AI",
+        "level": 70,
+        "context": "Have hands on experience in working with AI/ML environment and projects",
+        "featured": true
+    },
+    {
+        "id": "ai",
+        "name": "AI/ML",
+        "category": "AI",
+        "level": 70,
+        "context": "Have hands on experience in working with AI/ML environment and projects",
+        "featured": false
+    },
+    {
+        "id": "fortran",
+        "name": "Fortran",
+        "category": "Programming",
+        "level": 75,
+        "context": "Have experience with fortran while working on scientific/parallel programming codes",
+        "featured": false
+    },
+    {
+        "id": "openacc",
+        "name": "OpenACC",
+        "category": "GPU Computing",
+        "level": 65,
+        "context": "Experience with OpenACC for Pragma based GPU programming",
+        "featured": true 
+    },
+    {
+        "id": "sysadmin",
+        "name": "System Administration",
+        "category": "Systems",
+        "level": 85,
+        "context": "My daily work involves parts of system admin and monitoring for efficient cluster usage",
+        "featured": true 
     }
 ]
