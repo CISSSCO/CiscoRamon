@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import { Routes, Route } from 'react-router-dom'
 
-import Experience from './Experience'
+import ExperienceCube from './ExperienceCube'
 import Home from '../pages/Home'
 import ProjectPage from '../pages/ProjectPage'
 import ProjectsList from '../pages/ProjectsList'
@@ -17,7 +17,7 @@ function Background3D() {
         camera={{ position: [0, 0, 8], fov: 45 }}
         style={{ position: 'fixed', inset: 0, zIndex: 0 }}
     >
-        <Experience />
+        <ExperienceCube />
         </Canvas>
     )
 }

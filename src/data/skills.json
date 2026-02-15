@@ -95,15 +95,7 @@
         "context": "Have hands on experience in working with AI/ML environment and projects",
         "featured": true
     },
-    {
-        "id": "ai",
-        "name": "AI/ML",
-        "category": "AI",
-        "level": 70,
-        "context": "Have hands on experience in working with AI/ML environment and projects",
-        "featured": false
-    },
-    {
+        {
         "id": "fortran",
         "name": "Fortran",
         "category": "Programming",
