@@ -3,7 +3,7 @@
         "id": "c_cpp",
         "name": "C / C++",
         "category": "Programming",
-        "level": 88,
+        "level": 90,
         "context": "Performance-critical HPC and scientific applications",
         "featured": true
     },
@@ -43,11 +43,10 @@
         "id": "slurm",
         "name": "Slurm",
         "category": "HPC Tools",
-        "level": 78,
+        "level": 75,
         "context": "Job scheduling and workload management on clusters",
         "featured": true
     },
-
     {
         "id": "python",
         "name": "Python",
@@ -57,10 +56,18 @@
         "featured": false
     },
     {
+        "id": "java",
+        "name": "JAVA",
+        "category": "Programming",
+        "level": 60,
+        "context": "Intermediate Level Understanding of Java",
+        "featured": false
+    },
+    {
         "id": "shell",
         "name": "Shell Scripting",
         "category": "Systems",
-        "level": 82,
+        "level": 90,
         "context": "Workflow automation and system setup",
         "featured": true
     },
@@ -68,7 +75,7 @@
         "id": "linux",
         "name": "Linux",
         "category": "Systems",
-        "level": 92,
+        "level": 95,
         "context": "Primary environment for HPC clusters, system administration, and development",
         "featured": true
     },
@@ -118,6 +125,54 @@
         "category": "Systems",
         "level": 85,
         "context": "My daily work involves parts of system admin and monitoring for efficient cluster usage",
+        "featured": true 
+    },
+    {
+        "id": "html",
+        "name": "HTML",
+        "category": "Web Technology",
+        "level": 90,
+        "context": "I use HTML to write my documents and also to develop my Portfolios",
+        "featured": false
+    },
+    {
+        "id": "css",
+        "name": "CSS",
+        "category": "Web Technology",
+        "level": 80,
+        "context": "Style Webpages and my ORG Documents",
+        "featured": false
+    },
+    {
+        "id": "javascript",
+        "name": "JavaScript",
+        "category": "Web Technology",
+        "level": 65,
+        "context": "Used JavaScript in my Portfolios and my projects",
+        "featured": false
+    },
+    {
+        "id": "react",
+        "name": "ReactJS",
+        "category": "Web Technology",
+        "level": 50,
+        "context": "Used React to develop this Portfolio",
+        "featured": false
+    },
+    {
+        "id": "threejs",
+        "name": "ThreeJS",
+        "category": "Web Technology",
+        "level": 40,
+        "context": "Have Basic Understanding about Threejs fundamentals",
+        "featured": false
+    },
+    {
+        "id": "distributedcomputing",
+        "name": "Distributed Computing",
+        "category": "Parallel Computing",
+        "level": 70,
+        "context": "My daily work involve working on distributed computing environment like PARAM Series of Supercomputers",
         "featured": true 
     }
 ]
