@@ -6,8 +6,8 @@ type Props = {
   scrollT: React.MutableRefObject<number>
 }
 
-const CUBE_SIZE = 1
-const GAP = 0.08
+const CUBE_SIZE = .7
+const GAP = 0.01
 
 export default function HeroCube({ scrollT }: Props) {
   const group = useRef<THREE.Group>(null!)
