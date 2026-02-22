@@ -15,7 +15,8 @@ const {
   particlePalette,
   setParticlePalette,
   particleSettings,
-  setParticleSettings
+  setParticleSettings,
+  randomizeParticles
 } = useTheme()
 
   if (!open) return null
@@ -81,6 +82,55 @@ const {
         {/* Particle Controls*/}
         {model === 'particles' && (
           <>
+        <h4 style={{ marginTop: 20 }}>Motion Type</h4>
+
+        <select
+          value={particleSettings.motion}
+          onChange={e =>
+            setParticleSettings({
+              motion: e.target.value as any
+            })
+          }
+        >
+          <option value="bounce">Bounce</option>
+          <option value="float">Float</option>
+          <option value="gravity">Gravity (Accumulate)</option>
+          <option value="swirl">Swirl</option>
+          <option value="rain">Rain</option>
+          <option value="orbit">Orbit</option>
+          <option value="wave">Wave</option>
+          <option value="spiralRise">Spiral Rise</option>
+          <option value="noiseDrift">Noise Drift</option>
+        </select>
+
+        <h4>Parallax</h4>
+        <input
+          type="range"
+          min="0"
+          max="2"
+          step="0.1"
+          value={particleSettings.parallax}
+          onChange={e =>
+            setParticleSettings({
+              parallax: parseFloat(e.target.value)
+            })
+          }
+        />
+
+        <button
+          onClick={randomizeParticles}
+          style={{
+            marginTop: 16,
+            padding: '10px',
+            width: '100%',
+            borderRadius: 10,
+            background: 'rgba(255,255,255,0.08)',
+            color: 'white',
+            cursor: 'pointer'
+          }}
+        >
+          Randomize All
+        </button>
             <h4 style={{ marginTop: 20 }}>Particle Controls</h4>
 
             {[

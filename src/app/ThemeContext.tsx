@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
 export type SceneModel = 'orb' | 'cube' | 'particles'
+export type MotionType = 'bounce' | 'float' | 'gravity' | 'swirl'
 
 type ParticleSettings = {
   count: number
@@ -8,6 +9,8 @@ type ParticleSettings = {
   size: number
   softness: number
   bounds: number
+  motion: MotionType
+  parallax: number
 }
 
 type ThemeState = {
@@ -19,6 +22,8 @@ type ThemeState = {
 
   particleSettings: ParticleSettings
   setParticleSettings: (s: Partial<ParticleSettings>) => void
+
+  randomizeParticles: () => void
 }
 
 const ThemeContext = createContext<ThemeState | null>(null)
@@ -43,14 +48,27 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             size: 0.7,
             softness: 0.15,
             bounds: 14,
+            motion: 'bounce',
+            parallax: 0.4
           }
     })
 
   function setParticleSettings(update: Partial<ParticleSettings>) {
-    setParticleSettingsState(prev => ({
-      ...prev,
-      ...update,
-    }))
+    setParticleSettingsState(prev => ({ ...prev, ...update }))
+  }
+
+  function randomizeParticles() {
+    setParticleSettingsState({
+      count: Math.floor(30 + Math.random() * 80),
+      speed: 20 + Math.random() * 100,
+      size: 0.3 + Math.random() * 1.5,
+      softness: Math.random() * 0.6,
+      bounds: 8 + Math.random() * 20,
+      motion: ['bounce', 'float', 'gravity', 'swirl'][
+        Math.floor(Math.random() * 4)
+      ] as MotionType,
+      parallax: Math.random() * 1.2
+    })
   }
 
   useEffect(() => {
@@ -77,6 +95,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setParticlePalette,
         particleSettings,
         setParticleSettings,
+        randomizeParticles
       }}
     >
       {children}
