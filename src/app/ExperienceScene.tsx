@@ -4,10 +4,8 @@ import * as THREE from 'three'
 
 import Lights from '../canvas/Lights'
 import Environment from '../canvas/Environment'
-import HeroCube from '../sections/HeroCube'
-import HeroOrb from '../sections/HeroOrb'
-
 import { useTheme } from './ThemeContext'
+import { themeRegistry } from '../themes'
 
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3)
@@ -16,6 +14,8 @@ function easeOutCubic(t: number) {
 export default function ExperienceScene() {
   const scrollT = useRef(0)
   const { model } = useTheme()
+
+  const SceneComponent = themeRegistry[model]
 
   useFrame(() => {
     const maxScroll =
@@ -33,9 +33,7 @@ export default function ExperienceScene() {
     <>
       <Lights />
       <Environment />
-
-      {model === 'cube' && <HeroCube scrollT={scrollT} />}
-      {model === 'orb' && <HeroOrb scrollT={scrollT} />}
+      <SceneComponent scrollT={scrollT} />
     </>
   )
 }

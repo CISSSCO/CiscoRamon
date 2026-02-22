@@ -21,7 +21,7 @@ const defaultColors = {
 const ThemeContext = createContext<ThemeState | null>(null)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [model, setModel] = useState<SceneModel>('cube')
+  const [model, setModel] = useState<SceneModel>('orb')
   const [sectionColors, setSectionColors] =
     useState<Record<string, string>>(defaultColors)
 
