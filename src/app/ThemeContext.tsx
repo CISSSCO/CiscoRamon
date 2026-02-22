@@ -1,44 +1,82 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-export type SceneModel = 'orb' | 'cube'
+export type SceneModel = 'orb' | 'cube' | 'particles'
+
+type ParticleSettings = {
+  count: number
+  speed: number
+  size: number
+  softness: number
+  bounds: number
+}
 
 type ThemeState = {
   model: SceneModel
   setModel: (m: SceneModel) => void
 
-  sectionColors: Record<string, string>
-  setSectionColor: (section: string, color: string) => void
-}
+  particlePalette: string
+  setParticlePalette: (p: string) => void
 
-const defaultColors = {
-  home: '#ffffff',
-  projects: '#00bfff',
-  about: '#ff69b4',
-  skills: '#ffd700',
-  github: '#00ff7f',
+  particleSettings: ParticleSettings
+  setParticleSettings: (s: Partial<ParticleSettings>) => void
 }
 
 const ThemeContext = createContext<ThemeState | null>(null)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [model, setModel] = useState<SceneModel>('orb')
-  const [sectionColors, setSectionColors] =
-    useState<Record<string, string>>(defaultColors)
+  const [model, setModel] = useState<SceneModel>(
+    () => (localStorage.getItem('model') as SceneModel) || 'orb'
+  )
 
-  function setSectionColor(section: string, color: string) {
-    setSectionColors(prev => ({
+  const [particlePalette, setParticlePalette] = useState(
+    () => localStorage.getItem('particlePalette') || 'cyberpunk'
+  )
+
+  const [particleSettings, setParticleSettingsState] =
+    useState<ParticleSettings>(() => {
+      const saved = localStorage.getItem('particleSettings')
+      return saved
+        ? JSON.parse(saved)
+        : {
+            count: 50,
+            speed: 50,
+            size: 0.7,
+            softness: 0.15,
+            bounds: 14,
+          }
+    })
+
+  function setParticleSettings(update: Partial<ParticleSettings>) {
+    setParticleSettingsState(prev => ({
       ...prev,
-      [section]: color,
+      ...update,
     }))
   }
+
+  useEffect(() => {
+    localStorage.setItem('model', model)
+  }, [model])
+
+  useEffect(() => {
+    localStorage.setItem('particlePalette', particlePalette)
+  }, [particlePalette])
+
+  useEffect(() => {
+    localStorage.setItem(
+      'particleSettings',
+      JSON.stringify(particleSettings)
+    )
+  }, [particleSettings])
 
   return (
     <ThemeContext.Provider
       value={{
         model,
         setModel,
-        sectionColors,
-        setSectionColor,
+        particlePalette,
+        setParticlePalette,
+        particleSettings,
+        setParticleSettings,
       }}
     >
       {children}

@@ -33,7 +33,7 @@ export default function ExperienceScene() {
     <>
       <Lights />
       <Environment />
-      <SceneComponent scrollT={scrollT} />
+      {SceneComponent && <SceneComponent scrollT={scrollT} />}
     </>
   )
 }
