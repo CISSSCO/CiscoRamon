@@ -24,7 +24,10 @@ export default function ThemeDrawer({
     portalPalette,
     setPortalPalette,
     portalSettings,
-    setPortalSettings
+    setPortalSettings,
+     cubeSettings,
+      setCubeSettings,
+      randomizeCube
   } = useTheme()
 
   if (!open) return null
@@ -76,6 +79,57 @@ export default function ThemeDrawer({
           </div>
         ))}
 
+        {/* ================= cube ================= */}
+        {model === 'cube' && (
+          <>
+            <h4 style={{ marginTop: 24 }}>Cube Settings</h4>
+
+            {[
+              { label: 'Dimension', key: 'dimension', min: 2, max: 10, step: 1 },
+              { label: 'Cubie Size', key: 'cubieSize', min: 0.4, max: 1.5, step: 0.1 },
+              { label: 'Gap', key: 'gap', min: 0.01, max: 0.2, step: 0.01 },
+              { label: 'Smoothness', key: 'smoothness', min: 1, max: 10, step: 1 },
+            ].map(control => (
+              <div key={control.key} style={{ marginBottom: 12 }}>
+                <label style={{ fontSize: 12 }}>
+                  {control.label}: {cubeSettings[control.key]}
+                </label>
+
+                <input
+                  type="range"
+                  min={control.min}
+                  max={control.max}
+                  step={control.step}
+                  value={cubeSettings[control.key]}
+                  onChange={e =>
+                    setCubeSettings({
+                      [control.key]:
+                        control.step === 1
+                          ? parseInt(e.target.value)
+                          : parseFloat(e.target.value)
+                    })
+                  }
+                  style={{ width: '100%' }}
+                />
+              </div>
+            ))}
+
+            <button
+              onClick={randomizeCube}
+              style={{
+                marginTop: 12,
+                padding: '10px',
+                width: '100%',
+                borderRadius: 10,
+                background: 'rgba(255,255,255,0.08)',
+                color: 'white',
+                cursor: 'pointer'
+              }}
+            >
+              Randomize Cube
+            </button>
+          </>
+        )}
         {/* ================= PARTICLES ================= */}
         {model === 'particles' && (
           <>

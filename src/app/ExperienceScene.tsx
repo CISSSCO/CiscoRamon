@@ -13,7 +13,8 @@ function easeOutCubic(t: number) {
 
 export default function ExperienceScene() {
   const scrollT = useRef(0)
-  const { model } = useTheme()
+  //const { model } = useTheme()
+    const { model, cubeSettings } = useTheme()
 
   const SceneComponent = themeRegistry[model]
 
@@ -34,9 +35,13 @@ export default function ExperienceScene() {
       <Lights />
       <Environment />
 
-      {SceneComponent ? (
-        <SceneComponent scrollT={scrollT} />
-      ) : (
+        {SceneComponent ? (
+          model === 'cube' ? (
+            <SceneComponent scrollT={scrollT} {...cubeSettings} />
+          ) : (
+            <SceneComponent scrollT={scrollT} />
+          )
+        ) : (
         <mesh>
           <boxGeometry args={[2, 2, 2]} />
           <meshBasicMaterial color="red" />

@@ -29,6 +29,17 @@ type PortalSettings = {
   waveStrength: number
 }
 
+/* ===============================
+   ✅ NEW — CUBE SETTINGS
+================================ */
+
+type CubeSettings = {
+  dimension: number
+  cubieSize: number
+  gap: number
+  smoothness: number
+}
+
 type ThemeState = {
   model: SceneModel
   setModel: (m: SceneModel) => void
@@ -45,6 +56,11 @@ type ThemeState = {
   setPortalPalette: (p: string) => void
   portalSettings: PortalSettings
   setPortalSettings: (s: Partial<PortalSettings>) => void
+
+  /* ✅ Cube */
+  cubeSettings: CubeSettings
+  setCubeSettings: (s: Partial<CubeSettings>) => void
+  randomizeCube: () => void
 }
 
 const ThemeContext = createContext<ThemeState | null>(null)
@@ -129,6 +145,34 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setPortalSettingsState(prev => ({ ...prev, ...update }))
   }
 
+  /* ------------------ ✅ CUBE ------------------ */
+
+  const [cubeSettings, setCubeSettingsState] =
+    useState<CubeSettings>(() => {
+      const saved = localStorage.getItem('cubeSettings')
+      return saved
+        ? JSON.parse(saved)
+        : {
+            dimension: 3,
+            cubieSize: 0.9,
+            gap: 0.06,
+            smoothness: 3
+          }
+    })
+
+  function setCubeSettings(update: Partial<CubeSettings>) {
+    setCubeSettingsState(prev => ({ ...prev, ...update }))
+  }
+
+  function randomizeCube() {
+    setCubeSettingsState({
+      dimension: 3 + Math.floor(Math.random() * 6), // 3–8
+      cubieSize: 0.6 + Math.random() * 0.6,
+      gap: 0.03 + Math.random() * 0.1,
+      smoothness: 2 + Math.floor(Math.random() * 6)
+    })
+  }
+
   /* ------------------ PERSISTENCE ------------------ */
 
   useEffect(() => {
@@ -157,6 +201,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     )
   }, [portalSettings])
 
+  /* ✅ cube persistence */
+  useEffect(() => {
+    localStorage.setItem(
+      'cubeSettings',
+      JSON.stringify(cubeSettings)
+    )
+  }, [cubeSettings])
+
   return (
     <ThemeContext.Provider
       value={{
@@ -172,7 +224,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         portalPalette,
         setPortalPalette,
         portalSettings,
-        setPortalSettings
+        setPortalSettings,
+
+        cubeSettings,
+        setCubeSettings,
+        randomizeCube
       }}
     >
       {children}
