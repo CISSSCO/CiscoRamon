@@ -33,7 +33,15 @@ export default function ExperienceScene() {
     <>
       <Lights />
       <Environment />
-      {SceneComponent && <SceneComponent scrollT={scrollT} />}
+
+      {SceneComponent ? (
+        <SceneComponent scrollT={scrollT} />
+      ) : (
+        <mesh>
+          <boxGeometry args={[2, 2, 2]} />
+          <meshBasicMaterial color="red" />
+        </mesh>
+      )}
     </>
   )
 }
