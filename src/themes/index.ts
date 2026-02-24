@@ -7,7 +7,8 @@ export const themeRegistry = {
   orb: HeroOrb,
   cube: HeroCube,
   particles: ParticlesScene,
-  spiral: HeroSpiral
+  spiral: HeroSpiral,
+  none: () => null
 }
 
 export type ThemeKey = keyof typeof themeRegistry

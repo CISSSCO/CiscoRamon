@@ -66,7 +66,7 @@ useEffect(() => {
       </Link>
 
       {/* Visit GitHub */}
-      <div class="project-back-btn">
+      <div className="project-back-btn">
       <a
         href="https://github.com/CISSSCO"
         target="_blank"

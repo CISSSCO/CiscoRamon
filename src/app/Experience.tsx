@@ -4,7 +4,6 @@ import * as THREE from 'three'
 
 import Lights from '../canvas/Lights'
 import Environment from '../canvas/Environment'
-import HeroOrb from '../sections/HeroOrb'
 
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 
@@ -44,7 +43,6 @@ export default function Experience() {
         {/* 💡 KEEP LIGHTS SUBTLE */}
         <Lights />
         <Environment />
-        <HeroOrb scrollT={scrollT} />
 
         {/* ✨ CONTROLLED BLOOM */}
         <EffectComposer multisampling={0}>

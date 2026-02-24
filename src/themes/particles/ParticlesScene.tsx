@@ -16,6 +16,17 @@ type Ball = {
   phase: number
 }
 
+type MotionType =
+  | 'bounce'
+  | 'float'
+  | 'gravity'
+  | 'swirl'
+  | 'rain'
+  | 'orbit'
+  | 'wave'
+  | 'spiralRise'
+  | 'noiseDrift'
+
 export default function ParticlesScene({ scrollT }: Props) {
   const group = useRef<THREE.Group>(null!)
   const meshRefs = useRef<THREE.Mesh[]>([])
@@ -35,6 +46,8 @@ export default function ParticlesScene({ scrollT }: Props) {
     motion,
     parallax
   } = particleSettings
+
+    const currentMotion: MotionType = motion as MotionType
 
   const balls = useMemo(() => {
     const arr: Ball[] = []
@@ -75,7 +88,7 @@ export default function ParticlesScene({ scrollT }: Props) {
       // reset position
       mesh.position.copy(ball.basePosition)
 
-      switch (motion) {
+      switch (currentMotion) {
 
         case 'bounce':
           ball.basePosition.addScaledVector(ball.velocity, delta * speed)

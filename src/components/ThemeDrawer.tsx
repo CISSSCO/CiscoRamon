@@ -67,7 +67,9 @@ export default function ThemeDrawer({
         <h4 style={{ marginBottom: 18 }}>3D Scene</h4>
 
         {/* Existing scenes */}
-        {Object.keys(themeRegistry).map(key => (
+        {Object.keys(themeRegistry)
+          .filter(key => key !== 'none')
+          .map(key => (
           <div
             key={key}
             onClick={() => setModel(key as any)}
@@ -104,48 +106,59 @@ export default function ThemeDrawer({
         </div>
 
         {/* ================= CUBE ================= */}
-        {model === 'cube' && (
-          <>
-            <h4 style={{ marginTop: 24 }}>Cube Settings</h4>
+        {model === 'cube' && (() => {
 
-            {[
-              { label: 'Dimension', key: 'dimension', min: 2, max: 10, step: 1 },
-              { label: 'Cubie Size', key: 'cubieSize', min: 0.4, max: 1.5, step: 0.1 },
-              { label: 'Gap', key: 'gap', min: 0.01, max: 0.2, step: 0.01 },
-              { label: 'Smoothness', key: 'smoothness', min: 1, max: 10, step: 1 },
-            ].map(control => (
-              <div key={control.key} style={{ marginBottom: 12 }}>
-                <label style={{ fontSize: 12 }}>
-                  {control.label}: {cubeSettings[control.key]}
-                </label>
+          const cubeControls: {
+            label: string
+            key: keyof typeof cubeSettings
+            min: number
+            max: number
+            step: number
+          }[] = [
+            { label: 'Dimension', key: 'dimension', min: 2, max: 10, step: 1 },
+            { label: 'Cubie Size', key: 'cubieSize', min: 0.4, max: 1.5, step: 0.1 },
+            { label: 'Gap', key: 'gap', min: 0.01, max: 0.2, step: 0.01 },
+            { label: 'Smoothness', key: 'smoothness', min: 1, max: 10, step: 1 },
+          ]
 
-                <input
-                  type="range"
-                  min={control.min}
-                  max={control.max}
-                  step={control.step}
-                  value={cubeSettings[control.key]}
-                  onChange={e =>
-                    setCubeSettings({
-                      [control.key]:
-                        control.step === 1
-                          ? parseInt(e.target.value)
-                          : parseFloat(e.target.value)
-                    })
-                  }
-                  style={{ width: '100%' }}
-                />
-              </div>
-            ))}
+          return (
+            <>
+              <h4 style={{ marginTop: 24 }}>Cube Settings</h4>
 
-            <button
-              onClick={randomizeCube}
-              style={buttonStyle}
-            >
-              Randomize Cube
-            </button>
-          </>
-        )}
+              {cubeControls.map(control => (
+                <div key={control.key} style={{ marginBottom: 12 }}>
+                  <label style={{ fontSize: 12 }}>
+                    {control.label}: {cubeSettings[control.key]}
+                  </label>
+
+                  <input
+                    type="range"
+                    min={control.min}
+                    max={control.max}
+                    step={control.step}
+                    value={cubeSettings[control.key]}
+                    onChange={e =>
+                      setCubeSettings({
+                        [control.key]:
+                          control.step === 1
+                            ? parseInt(e.target.value)
+                            : parseFloat(e.target.value)
+                      })
+                    }
+                    style={{ width: '100%' }}
+                  />
+                </div>
+              ))}
+
+              <button
+                onClick={randomizeCube}
+                style={buttonStyle}
+              >
+                Randomize Cube
+              </button>
+            </>
+          )
+        })()}
 
         {/* ================= PARTICLES ================= */}
         {model === 'particles' && (
@@ -194,28 +207,38 @@ export default function ThemeDrawer({
 
             <h4 style={{ marginTop: 20 }}>Particle Controls</h4>
 
-            {[
-              { label: 'Count', key: 'count', min: 10, max: 150 },
-              { label: 'Speed', key: 'speed', min: 10, max: 150 },
-              { label: 'Size', key: 'size', min: 0.2, max: 2, step: 0.1 },
-              { label: 'Softness', key: 'softness', min: 0, max: 0.9, step: 0.05 },
-              { label: 'Bounds', key: 'bounds', min: 6, max: 25 }
-            ].map(control => (
-              <Slider
-                key={control.key}
-                label={control.label}
-                value={particleSettings[control.key]}
-                min={control.min}
-                max={control.max}
-                step={control.step || 1}
-                onChange={(v: number) =>
-                  setParticleSettings({
-                    [control.key]: v
-                  })
-                }
-              />
-            ))}
+        {(() => {
 
+          const particleControls: {
+            label: string
+            key: keyof typeof particleSettings
+            min: number
+            max: number
+            step?: number
+          }[] = [
+            { label: 'Count', key: 'count', min: 10, max: 150 },
+            { label: 'Speed', key: 'speed', min: 10, max: 150 },
+            { label: 'Size', key: 'size', min: 0.2, max: 2, step: 0.1 },
+            { label: 'Softness', key: 'softness', min: 0, max: 0.9, step: 0.05 },
+            { label: 'Bounds', key: 'bounds', min: 6, max: 25 }
+          ]
+
+          return particleControls.map(control => (
+            <Slider
+              key={control.key}
+              label={control.label}
+              value={particleSettings[control.key]}
+              min={control.min}
+              max={control.max}
+              step={control.step || 1}
+              onChange={(v: number) =>
+                setParticleSettings({
+                  [control.key]: v
+                })
+              }
+            />
+          ))
+        })()}
             {/* PARTICLE PALETTE */}
             <h4 style={{ marginTop: 24 }}>Particle Palette</h4>
 

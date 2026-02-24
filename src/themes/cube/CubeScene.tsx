@@ -30,7 +30,6 @@ export default function HeroCube({
   dimension = 3,
   cubieSize = 0.9,
   gap = 0.06,
-  roundness = 0.08,
   smoothness = 3
 }: Props) {
 

@@ -100,7 +100,8 @@ if (backgroundSettings.mode === 'image' && backgroundSettings.image) {
       />
 
       {/* 3D CANVAS */}
-      {model !== 'none' && <Background3D />}
+      /*{model !== 'none' && <Background3D />}*/
+        <Background3D />
 
       {/* UI Layer */}
       <div style={{ position: 'relative', zIndex: 2 }}>

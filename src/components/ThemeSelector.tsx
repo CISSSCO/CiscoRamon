@@ -1,7 +1,7 @@
 import { useTheme } from '../app/ThemeContext'
 
 export default function ThemeSelector() {
-  const { model, setModel } = useTheme()
+  const { setModel } = useTheme()
 
   return (
     <div style={{

@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 
 export type ParticlePalette = {
   name: string
