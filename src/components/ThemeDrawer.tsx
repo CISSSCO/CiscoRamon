@@ -25,9 +25,14 @@ export default function ThemeDrawer({
     setSpiralPalette,
     spiralSettings,
     setSpiralSettings,
-     cubeSettings,
-      setCubeSettings,
-      randomizeCube
+
+    cubeSettings,
+    setCubeSettings,
+    randomizeCube,
+
+    /* ✅ BACKGROUND */
+    backgroundSettings,
+    setBackgroundSettings
   } = useTheme()
 
   if (!open) return null
@@ -58,8 +63,10 @@ export default function ThemeDrawer({
         }}
       >
 
+        {/* ================= SCENE ================= */}
         <h4 style={{ marginBottom: 18 }}>3D Scene</h4>
 
+        {/* Existing scenes */}
         {Object.keys(themeRegistry).map(key => (
           <div
             key={key}
@@ -79,7 +86,24 @@ export default function ThemeDrawer({
           </div>
         ))}
 
-        {/* ================= cube ================= */}
+        {/* ✅ NONE SCENE */}
+        <div
+          onClick={() => setModel('none')}
+          style={{
+            padding: '10px 14px',
+            marginBottom: 8,
+            borderRadius: 12,
+            cursor: 'pointer',
+            background:
+              model === 'none'
+                ? 'rgba(255,255,255,0.08)'
+                : 'transparent',
+          }}
+        >
+          BACKGROUND
+        </div>
+
+        {/* ================= CUBE ================= */}
         {model === 'cube' && (
           <>
             <h4 style={{ marginTop: 24 }}>Cube Settings</h4>
@@ -116,20 +140,13 @@ export default function ThemeDrawer({
 
             <button
               onClick={randomizeCube}
-              style={{
-                marginTop: 12,
-                padding: '10px',
-                width: '100%',
-                borderRadius: 10,
-                background: 'rgba(255,255,255,0.08)',
-                color: 'white',
-                cursor: 'pointer'
-              }}
+              style={buttonStyle}
             >
               Randomize Cube
             </button>
           </>
         )}
+
         {/* ================= PARTICLES ================= */}
         {model === 'particles' && (
           <>
@@ -399,6 +416,118 @@ export default function ThemeDrawer({
             </button>
           </>
         )}
+
+
+        {/* ================= BACKGROUND ================= */}
+    <h4 style={{ marginTop: 28 }}>Background</h4>
+
+    <select
+      value={backgroundSettings.mode}
+      onChange={e =>
+        setBackgroundSettings({ mode: e.target.value as any })
+      }
+      style={{ width: '100%', marginBottom: 12 }}
+    >
+      <option value="solid">Solid</option>
+      <option value="gradient">Gradient</option>
+      <option value="image">Image</option>
+    </select>
+
+    {/* ================= SOLID ================= */}
+    {backgroundSettings.mode === 'solid' && (
+      <input
+        type="color"
+        value={backgroundSettings.solidColor}
+        onChange={e =>
+          setBackgroundSettings({ solidColor: e.target.value })
+        }
+        style={{ width: '100%' }}
+      />
+    )}
+
+    {/* ================= GRADIENT ================= */}
+    {backgroundSettings.mode === 'gradient' && (
+      <>
+        <select
+          value={backgroundSettings.gradientType}
+          onChange={e =>
+            setBackgroundSettings({
+              gradientType: e.target.value as any
+            })
+          }
+          style={{ width: '100%', marginBottom: 8 }}
+        >
+          <option value="linear">Linear</option>
+          <option value="radial">Radial</option>
+          <option value="mesh">Mesh</option>
+        </select>
+
+        <div style={{ display: 'flex', gap: 6 }}>
+          <input
+            type="color"
+            value={backgroundSettings.gradientFrom}
+            onChange={e =>
+              setBackgroundSettings({ gradientFrom: e.target.value })
+            }
+            style={{ width: '100%' }}
+          />
+
+          <input
+            type="color"
+            value={backgroundSettings.gradientTo}
+            onChange={e =>
+              setBackgroundSettings({ gradientTo: e.target.value })
+            }
+            style={{ width: '100%' }}
+          />
+        </div>
+      </>
+    )}
+
+    {/* ================= IMAGE ================= */}
+    {backgroundSettings.mode === 'image' && (
+      <>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={e => {
+            const file = e.target.files?.[0]
+            if (!file) return
+
+            const reader = new FileReader()
+            reader.onload = () =>
+              setBackgroundSettings({ image: reader.result as string })
+
+            reader.readAsDataURL(file)
+          }}
+          style={{ marginBottom: 8 }}
+        />
+
+        <select
+          value={backgroundSettings.imageFit}
+          onChange={e =>
+            setBackgroundSettings({ imageFit: e.target.value as any })
+          }
+          style={{ width: '100%', marginBottom: 8 }}
+        >
+          <option value="cover">Cover</option>
+          <option value="contain">Contain</option>
+          <option value="auto">Auto</option>
+        </select>
+
+        <Slider
+          label="Zoom"
+          value={backgroundSettings.imageZoom}
+          min={0.5}
+          max={3}
+          step={0.1}
+          onChange={(v: number) =>
+            setBackgroundSettings({ imageZoom: v })
+          }
+        />
+      </>
+    )}
+
 
       </div>
     </>

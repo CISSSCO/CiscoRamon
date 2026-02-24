@@ -32,20 +32,19 @@ export default function ExperienceScene() {
 
   return (
     <>
-      <Lights />
-      <Environment />
+      {model !== 'none' && (
+        <>
+          <Lights />
+          <Environment />
 
-        {SceneComponent ? (
-          model === 'cube' ? (
-            <SceneComponent scrollT={scrollT} {...cubeSettings} />
-          ) : (
-            <SceneComponent scrollT={scrollT} />
-          )
-        ) : (
-        <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshBasicMaterial color="red" />
-        </mesh>
+          {SceneComponent ? (
+            model === 'cube' ? (
+              <SceneComponent scrollT={scrollT} {...cubeSettings} />
+            ) : (
+              <SceneComponent scrollT={scrollT} />
+            )
+          ) : null}
+        </>
       )}
     </>
   )

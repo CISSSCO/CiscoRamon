@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
    TYPES
 ================================ */
 
-export type SceneModel = 'orb' | 'cube' | 'particles' | 'spiral'
+export type SceneModel = 'orb' | 'cube' | 'particles' | 'spiral' | 'none'
 export type MotionType = 'bounce' | 'float' | 'gravity' | 'swirl'
 
 type ParticleSettings = {
@@ -29,10 +29,6 @@ type SpiralSettings = {
   waveStrength: number
 }
 
-/* ===============================
-   ✅ NEW — CUBE SETTINGS
-================================ */
-
 type CubeSettings = {
   dimension: number
   cubieSize: number
@@ -40,44 +36,59 @@ type CubeSettings = {
   smoothness: number
 }
 
+/* ===============================
+   ✅ BACKGROUND
+================================ */
+
+
+type BackgroundMode = 'solid' | 'gradient' | 'image'
+type GradientType = 'linear' | 'radial' | 'mesh'
+type ImageFit = 'cover' | 'contain' | 'auto'
+
+type BackgroundSettings = {
+  mode: BackgroundMode
+  solidColor: string
+  gradientType: GradientType
+  gradientFrom: string
+  gradientTo: string
+  image: string | null
+  imageFit: ImageFit
+  imageZoom: number
+}
+
 type ThemeState = {
   model: SceneModel
   setModel: (m: SceneModel) => void
 
-  /* Particles */
   particlePalette: string
   setParticlePalette: (p: string) => void
   particleSettings: ParticleSettings
   setParticleSettings: (s: Partial<ParticleSettings>) => void
   randomizeParticles: () => void
 
-  /* Spiral */
   spiralPalette: string
   setSpiralPalette: (p: string) => void
   spiralSettings: SpiralSettings
   setSpiralSettings: (s: Partial<SpiralSettings>) => void
 
-  /* ✅ Cube */
   cubeSettings: CubeSettings
   setCubeSettings: (s: Partial<CubeSettings>) => void
   randomizeCube: () => void
+
+  /* ✅ background */
+  backgroundSettings: BackgroundSettings
+  setBackgroundSettings: (s: Partial<BackgroundSettings>) => void
 }
 
 const ThemeContext = createContext<ThemeState | null>(null)
 
-/* ===============================
-   PROVIDER
-================================ */
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-
-  /* ------------------ MODEL ------------------ */
 
   const [model, setModel] = useState<SceneModel>(
     () => (localStorage.getItem('model') as SceneModel) || 'orb'
   )
 
-  /* ------------------ PARTICLES ------------------ */
+  /* ================= PARTICLES ================= */
 
   const [particlePalette, setParticlePalette] = useState(
     () => localStorage.getItem('particlePalette') || 'cyberpunk'
@@ -117,7 +128,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     })
   }
 
-  /* ------------------ PORTAL ------------------ */
+  /* ================= SPIRAL ================= */
 
   const [spiralPalette, setSpiralPalette] = useState(
     () => localStorage.getItem('spiralPalette') || 'electricBlue'
@@ -145,7 +156,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setSpiralSettingsState(prev => ({ ...prev, ...update }))
   }
 
-  /* ------------------ ✅ CUBE ------------------ */
+  /* ================= CUBE ================= */
 
   const [cubeSettings, setCubeSettingsState] =
     useState<CubeSettings>(() => {
@@ -166,14 +177,37 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   function randomizeCube() {
     setCubeSettingsState({
-      dimension: 3 + Math.floor(Math.random() * 6), // 3–8
+      dimension: 3 + Math.floor(Math.random() * 6),
       cubieSize: 0.6 + Math.random() * 0.6,
       gap: 0.03 + Math.random() * 0.1,
       smoothness: 2 + Math.floor(Math.random() * 6)
     })
   }
 
-  /* ------------------ PERSISTENCE ------------------ */
+  /* ================= BACKGROUND ================= */
+
+    const [backgroundSettings, setBackgroundSettingsState] =
+      useState<BackgroundSettings>(() => {
+        const saved = localStorage.getItem('backgroundSettings')
+        return saved
+          ? JSON.parse(saved)
+          : {
+              mode: 'solid',
+              solidColor: '#000000',
+              gradientType: 'linear',
+              gradientFrom: '#000000',
+              gradientTo: '#111111',
+              image: null,
+              imageFit: 'cover',
+              imageZoom: 1
+            }
+      })
+
+  function setBackgroundSettings(update: Partial<BackgroundSettings>) {
+    setBackgroundSettingsState(prev => ({ ...prev, ...update }))
+  }
+
+  /* ================= PERSISTENCE ================= */
 
   useEffect(() => {
     localStorage.setItem('model', model)
@@ -184,10 +218,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [particlePalette])
 
   useEffect(() => {
-    localStorage.setItem(
-      'particleSettings',
-      JSON.stringify(particleSettings)
-    )
+    localStorage.setItem('particleSettings', JSON.stringify(particleSettings))
   }, [particleSettings])
 
   useEffect(() => {
@@ -195,19 +226,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [spiralPalette])
 
   useEffect(() => {
-    localStorage.setItem(
-      'spiralSettings',
-      JSON.stringify(spiralSettings)
-    )
+    localStorage.setItem('spiralSettings', JSON.stringify(spiralSettings))
   }, [spiralSettings])
 
-  /* ✅ cube persistence */
   useEffect(() => {
-    localStorage.setItem(
-      'cubeSettings',
-      JSON.stringify(cubeSettings)
-    )
+    localStorage.setItem('cubeSettings', JSON.stringify(cubeSettings))
   }, [cubeSettings])
+
+  useEffect(() => {
+    localStorage.setItem('backgroundSettings', JSON.stringify(backgroundSettings))
+  }, [backgroundSettings])
 
   return (
     <ThemeContext.Provider
@@ -228,7 +256,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
         cubeSettings,
         setCubeSettings,
-        randomizeCube
+        randomizeCube,
+
+        backgroundSettings,
+        setBackgroundSettings
       }}
     >
       {children}
