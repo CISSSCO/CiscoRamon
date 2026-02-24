@@ -1,17 +1,17 @@
 import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { vortexPalettes } from './portalPalettes'
+import { vortexPalettes } from './spiralPalettes'
 import { useTheme } from '../../app/ThemeContext'
 
 type Props = {
   scrollT: React.MutableRefObject<number>
 }
 
-export default function HeroPortal({ scrollT }: Props) {
+export default function HeroSpiral({ scrollT }: Props) {
   const points = useRef<THREE.Points>(null!)
 
-  const { portalPalette, portalSettings } = useTheme()
+  const { spiralPalette, spiralSettings } = useTheme()
 
   const {
     particleSize,
@@ -23,9 +23,9 @@ export default function HeroPortal({ scrollT }: Props) {
     zoomStrength,
     hollowSize,
     waveStrength
-  } = portalSettings
+  } = spiralSettings
 
-  const palette = vortexPalettes[portalPalette]
+  const palette = vortexPalettes[spiralPalette]
 
   const geometry = useMemo(() => {
     const positions: number[] = []
@@ -71,7 +71,7 @@ export default function HeroPortal({ scrollT }: Props) {
 
     return geo
   }, [
-    portalPalette,
+    spiralPalette,
     rings,
     pointsPerRing,
     depthStep,

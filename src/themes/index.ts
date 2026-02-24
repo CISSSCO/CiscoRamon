@@ -1,13 +1,13 @@
 import HeroOrb from './orb/OrbScene'
 import HeroCube from './cube/CubeScene'
 import ParticlesScene from './particles/ParticlesScene'
-import HeroPortal from './portal/HeroPortal'
+import HeroSpiral from './spiral/HeroSpiral'
 
 export const themeRegistry = {
   orb: HeroOrb,
   cube: HeroCube,
   particles: ParticlesScene,
-  portal: HeroPortal
+  spiral: HeroSpiral
 }
 
 export type ThemeKey = keyof typeof themeRegistry

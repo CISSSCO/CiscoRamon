@@ -1,7 +1,7 @@
 import { useTheme } from '../app/ThemeContext'
 import { themeRegistry } from '../themes'
 import { particlePalettes } from '../themes/particles/particlePalettes'
-import { vortexPalettes } from '../themes/portal/portalPalettes'
+import { vortexPalettes } from '../themes/spiral/spiralPalettes'
 
 export default function ThemeDrawer({
   open,
@@ -21,10 +21,10 @@ export default function ThemeDrawer({
     setParticleSettings,
     randomizeParticles,
 
-    portalPalette,
-    setPortalPalette,
-    portalSettings,
-    setPortalSettings,
+    spiralPalette,
+    setSpiralPalette,
+    spiralSettings,
+    setSpiralSettings,
      cubeSettings,
       setCubeSettings,
       randomizeCube
@@ -241,22 +241,22 @@ export default function ThemeDrawer({
         )}
 
         {/* ================= PORTAL ================= */}
-        {model === 'portal' && (
+        {model === 'spiral' && (
           <>
-            <h4 style={{ marginTop: 24 }}>Portal Palette</h4>
+            <h4 style={{ marginTop: 24 }}>Spiral Palette</h4>
 
             {Object.entries(vortexPalettes).map(
               ([key, palette]) => (
                 <div
                   key={key}
-                  onClick={() => setPortalPalette(key)}
+                  onClick={() => setSpiralPalette(key)}
                   style={{
                     padding: '8px 12px',
                     marginBottom: 6,
                     borderRadius: 10,
                     cursor: 'pointer',
                     background:
-                      portalPalette === key
+                      spiralPalette === key
                         ? 'rgba(255,255,255,0.08)'
                         : 'transparent',
                     display: 'flex',
@@ -272,108 +272,108 @@ export default function ThemeDrawer({
               )
             )}
 
-            <h4 style={{ marginTop: 20 }}>Portal Controls</h4>
+            <h4 style={{ marginTop: 20 }}>Spiral Controls</h4>
 
             <Slider
               label="Particle Size"
-              value={portalSettings.particleSize}
+              value={spiralSettings.particleSize}
               min={0.005}
               max={0.5}
               step={0.005}
               onChange={(v: number) =>
-                setPortalSettings({ particleSize: v })
+                setSpiralSettings({ particleSize: v })
               }
             />
 
             <Slider
               label="Spiral"
-              value={portalSettings.spiralTightness}
+              value={spiralSettings.spiralTightness}
               min={0.05}
               max={0.4}
               step={0.01}
               onChange={(v: number) =>
-                setPortalSettings({ spiralTightness: v })
+                setSpiralSettings({ spiralTightness: v })
               }
             />
 
             <Slider
               label="Zoom"
-              value={portalSettings.zoomStrength}
+              value={spiralSettings.zoomStrength}
               min={1}
               max={6}
               step={0.1}
               onChange={(v: number) =>
-                setPortalSettings({ zoomStrength: v })
+                setSpiralSettings({ zoomStrength: v })
               }
             />
             <Slider
               label="Rings"
-              value={portalSettings.rings}
+              value={spiralSettings.rings}
               min={20}
               max={200}
               step={10}
               onChange={(v: number) =>
-                setPortalSettings({ rings: v })
+                setSpiralSettings({ rings: v })
               }
             />
 
             <Slider
               label="Points Per Ring"
-              value={portalSettings.pointsPerRing}
+              value={spiralSettings.pointsPerRing}
               min={20}
               max={200}
               step={10}
               onChange={(v: number) =>
-                setPortalSettings({ pointsPerRing: v })
+                setSpiralSettings({ pointsPerRing: v })
               }
             />
 
             <Slider
               label="Depth Step"
-              value={portalSettings.depthStep}
+              value={spiralSettings.depthStep}
               min={0.1}
               max={1}
               step={0.05}
               onChange={(v: number) =>
-                setPortalSettings({ depthStep: v })
+                setSpiralSettings({ depthStep: v })
               }
             />
 
             <Slider
               label="Rotation Speed"
-              value={portalSettings.rotationSpeed}
+              value={spiralSettings.rotationSpeed}
               min={0}
               max={2}
               step={0.05}
               onChange={(v: number) =>
-                setPortalSettings({ rotationSpeed: v })
+                setSpiralSettings({ rotationSpeed: v })
               }
             />
 
             <Slider
               label="Hollow Size"
-              value={portalSettings.hollowSize}
+              value={spiralSettings.hollowSize}
               min={0.5}
               max={4}
               step={0.1}
               onChange={(v: number) =>
-                setPortalSettings({ hollowSize: v })
+                setSpiralSettings({ hollowSize: v })
               }
             />
 
             <Slider
               label="Wave Strength"
-              value={portalSettings.waveStrength}
+              value={spiralSettings.waveStrength}
               min={0}
               max={2}
               step={0.05}
               onChange={(v: number) =>
-                setPortalSettings({ waveStrength: v })
+                setSpiralSettings({ waveStrength: v })
               }
             />
             <button
               onClick={() =>
-                setPortalSettings({
+                setSpiralSettings({
                   particleSize: 0.005 + Math.random() * 0.095,
 
                   rings: 40 + Math.floor(Math.random() * 160),
@@ -395,7 +395,7 @@ export default function ThemeDrawer({
               }
               style={buttonStyle}
             >
-              Randomize Portal
+              Randomize Spiral
             </button>
           </>
         )}

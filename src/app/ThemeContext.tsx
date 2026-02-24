@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
    TYPES
 ================================ */
 
-export type SceneModel = 'orb' | 'cube' | 'particles' | 'portal'
+export type SceneModel = 'orb' | 'cube' | 'particles' | 'spiral'
 export type MotionType = 'bounce' | 'float' | 'gravity' | 'swirl'
 
 type ParticleSettings = {
@@ -17,7 +17,7 @@ type ParticleSettings = {
   parallax: number
 }
 
-type PortalSettings = {
+type SpiralSettings = {
   particleSize: number
   rings: number
   pointsPerRing: number
@@ -51,11 +51,11 @@ type ThemeState = {
   setParticleSettings: (s: Partial<ParticleSettings>) => void
   randomizeParticles: () => void
 
-  /* Portal */
-  portalPalette: string
-  setPortalPalette: (p: string) => void
-  portalSettings: PortalSettings
-  setPortalSettings: (s: Partial<PortalSettings>) => void
+  /* Spiral */
+  spiralPalette: string
+  setSpiralPalette: (p: string) => void
+  spiralSettings: SpiralSettings
+  setSpiralSettings: (s: Partial<SpiralSettings>) => void
 
   /* ✅ Cube */
   cubeSettings: CubeSettings
@@ -119,13 +119,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   /* ------------------ PORTAL ------------------ */
 
-  const [portalPalette, setPortalPalette] = useState(
-    () => localStorage.getItem('portalPalette') || 'electricBlue'
+  const [spiralPalette, setSpiralPalette] = useState(
+    () => localStorage.getItem('spiralPalette') || 'electricBlue'
   )
 
-  const [portalSettings, setPortalSettingsState] =
-    useState<PortalSettings>(() => {
-      const saved = localStorage.getItem('portalSettings')
+  const [spiralSettings, setSpiralSettingsState] =
+    useState<SpiralSettings>(() => {
+      const saved = localStorage.getItem('spiralSettings')
       return saved
         ? JSON.parse(saved)
         : {
@@ -141,8 +141,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           }
     })
 
-  function setPortalSettings(update: Partial<PortalSettings>) {
-    setPortalSettingsState(prev => ({ ...prev, ...update }))
+  function setSpiralSettings(update: Partial<SpiralSettings>) {
+    setSpiralSettingsState(prev => ({ ...prev, ...update }))
   }
 
   /* ------------------ ✅ CUBE ------------------ */
@@ -191,15 +191,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [particleSettings])
 
   useEffect(() => {
-    localStorage.setItem('portalPalette', portalPalette)
-  }, [portalPalette])
+    localStorage.setItem('spiralPalette', spiralPalette)
+  }, [spiralPalette])
 
   useEffect(() => {
     localStorage.setItem(
-      'portalSettings',
-      JSON.stringify(portalSettings)
+      'spiralSettings',
+      JSON.stringify(spiralSettings)
     )
-  }, [portalSettings])
+  }, [spiralSettings])
 
   /* ✅ cube persistence */
   useEffect(() => {
@@ -221,10 +221,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setParticleSettings,
         randomizeParticles,
 
-        portalPalette,
-        setPortalPalette,
-        portalSettings,
-        setPortalSettings,
+        spiralPalette,
+        setSpiralPalette,
+        spiralSettings,
+        setSpiralSettings,
 
         cubeSettings,
         setCubeSettings,
