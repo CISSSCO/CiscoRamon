@@ -1,19 +1,19 @@
 [
     {
-        "id": "linux",
-        "name": "Linux",
-        "category": "Systems",
-        "level": 92,
-        "context": "Primary environment for HPC clusters, system administration, and development",
-        "featured": true
-    },
-    {
         "id": "c_cpp",
         "name": "C / C++",
         "category": "Programming",
-        "level": 88,
+        "level": 90,
         "context": "Performance-critical HPC and scientific applications",
         "featured": true
+    },
+    {
+        "id": "supercomputing",
+        "name": "Supercomputing",
+        "category": "HPC",
+        "level": 90,
+        "context": "Work experience on multiple PARAM Series of Supercomputers of INDIA",
+        "featured": true 
     },
     {
         "id": "mpi",
@@ -43,11 +43,10 @@
         "id": "slurm",
         "name": "Slurm",
         "category": "HPC Tools",
-        "level": 78,
+        "level": 75,
         "context": "Job scheduling and workload management on clusters",
         "featured": true
     },
-
     {
         "id": "python",
         "name": "Python",
@@ -57,11 +56,115 @@
         "featured": false
     },
     {
+        "id": "java",
+        "name": "JAVA",
+        "category": "Programming",
+        "level": 60,
+        "context": "Intermediate Level Understanding of Java",
+        "featured": false
+    },
+    {
         "id": "shell",
         "name": "Shell Scripting",
         "category": "Systems",
-        "level": 82,
+        "level": 90,
         "context": "Workflow automation and system setup",
         "featured": true
+    },
+    {
+        "id": "linux",
+        "name": "Linux",
+        "category": "Systems",
+        "level": 95,
+        "context": "Primary environment for HPC clusters, system administration, and development",
+        "featured": true
+    },
+    {
+        "id": "dsa",
+        "name": "Data Structure and Algorithms",
+        "category": "Programming",
+        "level": 70,
+        "context": "Understand the fundamentals of DSA and use it wherever possible in my work",
+        "featured": false
+    },
+    {
+        "id": "ai",
+        "name": "AI/ML",
+        "category": "AI",
+        "level": 70,
+        "context": "Have hands on experience in working with AI/ML environment and projects",
+        "featured": true
+    },
+        {
+        "id": "fortran",
+        "name": "Fortran",
+        "category": "Programming",
+        "level": 75,
+        "context": "Have experience with fortran while working on scientific/parallel programming codes",
+        "featured": false
+    },
+    {
+        "id": "openacc",
+        "name": "OpenACC",
+        "category": "GPU Computing",
+        "level": 65,
+        "context": "Experience with OpenACC for Pragma based GPU programming",
+        "featured": true 
+    },
+    {
+        "id": "sysadmin",
+        "name": "System Administration",
+        "category": "Systems",
+        "level": 85,
+        "context": "My daily work involves parts of system admin and monitoring for efficient cluster usage",
+        "featured": true 
+    },
+    {
+        "id": "html",
+        "name": "HTML",
+        "category": "Web Technology",
+        "level": 90,
+        "context": "I use HTML to write my documents and also to develop my Portfolios",
+        "featured": false
+    },
+    {
+        "id": "css",
+        "name": "CSS",
+        "category": "Web Technology",
+        "level": 80,
+        "context": "Style Webpages and my ORG Documents",
+        "featured": false
+    },
+    {
+        "id": "javascript",
+        "name": "JavaScript",
+        "category": "Web Technology",
+        "level": 65,
+        "context": "Used JavaScript in my Portfolios and my projects",
+        "featured": false
+    },
+    {
+        "id": "react",
+        "name": "ReactJS",
+        "category": "Web Technology",
+        "level": 50,
+        "context": "Used React to develop this Portfolio",
+        "featured": false
+    },
+    {
+        "id": "threejs",
+        "name": "ThreeJS",
+        "category": "Web Technology",
+        "level": 40,
+        "context": "Have Basic Understanding about Threejs fundamentals",
+        "featured": false
+    },
+    {
+        "id": "distributedcomputing",
+        "name": "Distributed Computing",
+        "category": "Parallel Computing",
+        "level": 70,
+        "context": "My daily work involve working on distributed computing environment like PARAM Series of Supercomputers",
+        "featured": true 
     }
 ]

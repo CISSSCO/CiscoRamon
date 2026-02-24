@@ -116,15 +116,13 @@ export default function Home() {
         </p>
 
         <div className="hero-links">
-        <a
-        href="https://github.com/CISSSCO"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-    >
-        <GitHubIcon />
-        GitHub
-        </a>
+        <Link
+          to="/github"
+          className="hero-link"
+        >
+          <GitHubIcon />
+          GitHub
+        </Link>
 
         <a
         href="https://www.linkedin.com/in/abhi581b"

@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import { ProceduralMaterial } from './ProceduralMaterial'
-import { useOrbState } from '../app/OrbStateContext'
-import { useSectionIndex } from '../app/SectionIndexContext'
+import { ProceduralMaterial } from '../../sections/ProceduralMaterial'
+import { useOrbState } from '../../app/OrbStateContext'
+import { useSectionIndex } from '../../app/SectionIndexContext'
 
 type Props = {
     scrollT: React.MutableRefObject<number>
