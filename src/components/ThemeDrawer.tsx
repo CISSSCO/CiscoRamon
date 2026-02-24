@@ -418,113 +418,117 @@ export default function ThemeDrawer({
         )}
 
 
-        {/* ================= BACKGROUND ================= */}
-    <h4 style={{ marginTop: 28 }}>Background</h4>
-
-    <select
-      value={backgroundSettings.mode}
-      onChange={e =>
-        setBackgroundSettings({ mode: e.target.value as any })
-      }
-      style={{ width: '100%', marginBottom: 12 }}
-    >
-      <option value="solid">Solid</option>
-      <option value="gradient">Gradient</option>
-      <option value="image">Image</option>
-    </select>
-
-    {/* ================= SOLID ================= */}
-    {backgroundSettings.mode === 'solid' && (
-      <input
-        type="color"
-        value={backgroundSettings.solidColor}
-        onChange={e =>
-          setBackgroundSettings({ solidColor: e.target.value })
-        }
-        style={{ width: '100%' }}
-      />
-    )}
-
-    {/* ================= GRADIENT ================= */}
-    {backgroundSettings.mode === 'gradient' && (
+    {/* ================= BACKGROUND ================= */}
+    {model === 'none' && (
       <>
+        <h4 style={{ marginTop: 28 }}>Background</h4>
+
         <select
-          value={backgroundSettings.gradientType}
+          value={backgroundSettings.mode}
           onChange={e =>
-            setBackgroundSettings({
-              gradientType: e.target.value as any
-            })
+            setBackgroundSettings({ mode: e.target.value as any })
           }
-          style={{ width: '100%', marginBottom: 8 }}
+          style={{ width: '100%', marginBottom: 12 }}
         >
-          <option value="linear">Linear</option>
-          <option value="radial">Radial</option>
-          <option value="mesh">Mesh</option>
+          <option value="solid">Solid</option>
+          <option value="gradient">Gradient</option>
+          <option value="image">Image</option>
         </select>
 
-        <div style={{ display: 'flex', gap: 6 }}>
+        {/* ================= SOLID ================= */}
+        {backgroundSettings.mode === 'solid' && (
           <input
             type="color"
-            value={backgroundSettings.gradientFrom}
+            value={backgroundSettings.solidColor}
             onChange={e =>
-              setBackgroundSettings({ gradientFrom: e.target.value })
+              setBackgroundSettings({ solidColor: e.target.value })
             }
             style={{ width: '100%' }}
           />
+        )}
 
-          <input
-            type="color"
-            value={backgroundSettings.gradientTo}
-            onChange={e =>
-              setBackgroundSettings({ gradientTo: e.target.value })
-            }
-            style={{ width: '100%' }}
-          />
-        </div>
-      </>
-    )}
+        {/* ================= GRADIENT ================= */}
+        {backgroundSettings.mode === 'gradient' && (
+          <>
+            <select
+              value={backgroundSettings.gradientType}
+              onChange={e =>
+                setBackgroundSettings({
+                  gradientType: e.target.value as any
+                })
+              }
+              style={{ width: '100%', marginBottom: 8 }}
+            >
+              <option value="linear">Linear</option>
+              <option value="radial">Radial</option>
+              <option value="mesh">Mesh</option>
+            </select>
 
-    {/* ================= IMAGE ================= */}
-    {backgroundSettings.mode === 'image' && (
-      <>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={e => {
-            const file = e.target.files?.[0]
-            if (!file) return
+            <div style={{ display: 'flex', gap: 6 }}>
+              <input
+                type="color"
+                value={backgroundSettings.gradientFrom}
+                onChange={e =>
+                  setBackgroundSettings({ gradientFrom: e.target.value })
+                }
+                style={{ width: '100%' }}
+              />
 
-            const reader = new FileReader()
-            reader.onload = () =>
-              setBackgroundSettings({ image: reader.result as string })
+              <input
+                type="color"
+                value={backgroundSettings.gradientTo}
+                onChange={e =>
+                  setBackgroundSettings({ gradientTo: e.target.value })
+                }
+                style={{ width: '100%' }}
+              />
+            </div>
+          </>
+        )}
 
-            reader.readAsDataURL(file)
-          }}
-          style={{ marginBottom: 8 }}
-        />
+        {/* ================= IMAGE ================= */}
+        {backgroundSettings.mode === 'image' && (
+          <>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={e => {
+                const file = e.target.files?.[0]
+                if (!file) return
 
-        <select
-          value={backgroundSettings.imageFit}
-          onChange={e =>
-            setBackgroundSettings({ imageFit: e.target.value as any })
-          }
-          style={{ width: '100%', marginBottom: 8 }}
-        >
-          <option value="cover">Cover</option>
-          <option value="contain">Contain</option>
-          <option value="auto">Auto</option>
-        </select>
+                const reader = new FileReader()
+                reader.onload = () =>
+                  setBackgroundSettings({ image: reader.result as string })
 
-        <Slider
-          label="Zoom"
-          value={backgroundSettings.imageZoom}
-          min={0.5}
-          max={3}
-          step={0.1}
-          onChange={(v: number) =>
-            setBackgroundSettings({ imageZoom: v })
-          }
-        />
+                reader.readAsDataURL(file)
+              }}
+              style={{ marginBottom: 8 }}
+            />
+
+            <select
+              value={backgroundSettings.imageFit}
+              onChange={e =>
+                setBackgroundSettings({ imageFit: e.target.value as any })
+              }
+              style={{ width: '100%', marginBottom: 8 }}
+            >
+              <option value="cover">Cover</option>
+              <option value="contain">Contain</option>
+              <option value="auto">Auto</option>
+            </select>
+
+            <Slider
+              label="Zoom"
+              value={backgroundSettings.imageZoom}
+              min={0.5}
+              max={3}
+              step={0.1}
+              onChange={(v: number) =>
+                setBackgroundSettings({ imageZoom: v })
+              }
+            />
+          </>
+        )}
       </>
     )}
 
