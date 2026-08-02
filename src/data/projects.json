@@ -1,5 +1,46 @@
 [
     {
+        "id": "hpccfs",
+        "title": "HPCCFS",
+        "excerpt": "Build a production-like HPC cluster from scratch using open-source technologies",
+        "description": "Designed and documented a complete HPC cluster from the ground up, implementing centralized authentication, shared storage, workload scheduling, accounting, QoS, fairshare scheduling, software management with Environment Modules, and distributed MPI execution. The project serves as a comprehensive educational guide that closely follows real-world HPC center practices.",
+        "stack": [
+            "Rocky Linux",
+            "Slurm",
+            "OpenMPI",
+            "LDAP",
+            "NFS",
+            "Environment Modules",
+            "Spack",
+            "Munge",
+            "MariaDB",
+            "SlurmDBD",
+            "Bash",
+            "C",
+            "MPI"
+        ],
+        "featured": true,
+        "repo": "https://github.com/CISSSCO/HPCCFS",
+        "url": "https://cisssco.github.io/HPCCFS/"
+    },
+    {
+        "id": "playlisto",
+        "title": "Playlisto",
+        "excerpt": "Turn Google Drive into your personal music streaming server",
+        "description": "Developed a personal cloud music server that streams Google Drive media seamlessly across web browsers and Kodi",
+        "stack": [
+            "Python",
+            "FastAPI",
+            "React",
+            "TypeScript",
+            "Google Drive API",
+            "HTTP Streaming",
+            "Kodi Add-on"
+        ],
+        "featured": true,
+        "repo": "https://github.com/CISSSCO/Playlisto"
+    },
+    {
         "id": "cerrfix",
         "title": "CerrFix",
         "excerpt": "Rule-based error analysis and fix suggestion tool for Linux systems",
@@ -15,8 +56,7 @@
         "excerpt": "Minimal CLI helper to automate common git workflows",
         "description": "A simple tool for git to automate some of the commonly used tasks.",
         "stack": ["Bash Scripting"],
-        "repo": "https://github.com/CISSSCO/gitpush",
-        "featured": true
+        "repo": "https://github.com/CISSSCO/gitpush"
     },
     {
         "id": "dotfiles",
@@ -24,8 +64,7 @@
         "excerpt": "Reproducible Linux shell and development environment configuration",
         "description": "Personal configurations for Linux shell and development environment, managed with GNU Stow for easy reproducibility across different systems.",
         "stack": ["Bash Scripting", "Vimscript", "Python", "Lisp", "YAML"],
-        "repo": "https://github.com/CISSSCO/dotfiles",
-        "featured": true
+        "repo": "https://github.com/CISSSCO/dotfiles"
     },
     {
         "id": "myvimrc",

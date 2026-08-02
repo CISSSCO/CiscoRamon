@@ -4,6 +4,8 @@ import remarkGfm from 'remark-gfm'
 import '../styles/project.css'
 import { useEffect } from 'react'
 import cerrfixDoc from '../data/docs/cerrfix.md?raw'
+import hpccfsDoc from '../data/docs/hpccfs.md?raw'
+import playlistoDoc from '../data/docs/playlisto.md?raw'
 import gitpushDoc from '../data/docs/gitpush.md?raw'
 import dotfilesDoc from '../data/docs/dotfiles.md?raw'
 import myvimrcDoc from '../data/docs/myvimrc.md?raw'
@@ -16,6 +18,8 @@ import 'highlight.js/styles/github-dark.css'
 
 const docsMap: Record<string, string> = {
     cerrfix: cerrfixDoc,
+    hpccfs: hpccfsDoc,
+    playlisto: playlistoDoc,
     gitpush: gitpushDoc,
     dotfiles: dotfilesDoc,
     myvimrc: myvimrcDoc,

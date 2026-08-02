@@ -16,10 +16,21 @@
         "stack": [
             "C",
             "C++",
+            "Python",
+            "Bash",
             "MPI",
             "OpenMP",
+            "CUDA",
             "Linux",
-            "Slurm",
+            "SLURM",
+            "Spack",
+            "Conda",
+            "JupyterHub",
+            "Apptainer",
+            "Intel MPI",
+            "OpenMPI",
+            "Intel oneAPI",
+            "Scientific Computing",
             "HPC Systems"
         ]
     },
@@ -42,13 +53,27 @@
             "Linux",
             "C",
             "C++",
+            "Python",
+            "Bash",
             "MPI",
             "OpenMP",
             "Pthreads",
             "CUDA",
             "OpenACC",
-            "Python",
-            "HPC Toolchains"
+            "SLURM",
+            "Spack",
+            "Conda",
+            "Intel oneAPI",
+            "Intel MPI",
+            "OpenMPI",
+            "NVHPC",
+            "GCC",
+            "MKL",
+            "VTune",
+            "Git",
+            "Scientific Computing",
+            "HPC Toolchains",
+            "Supercomputing"
         ]
     }
 ]
