@@ -52,6 +52,59 @@ h2 a {
     line-height: 1.6;
 }
 
+.hero-writing-text {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.hero-writing-character {
+    display: inline-block;
+    opacity: 0;
+    color: #fff;
+    font-weight: 300;
+}
+
+.hero-name .hero-writing-character {
+    --final-weight: 700;
+}
+
+.hero-tagline .hero-writing-character {
+    --final-weight: 400;
+}
+
+.hero-intro-visible .hero-writing-character {
+    animation: hero-write 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes hero-write {
+    0% {
+        opacity: 0;
+        transform: translateX(-1rem) translateY(0.2rem);
+        filter: blur(6px);
+        color: #6b8bff;
+        font-weight: 300;
+        text-shadow: -0.8rem 0 1rem rgba(107, 139, 255, 0.7);
+    }
+
+    65% {
+        opacity: 1;
+        transform: translateX(0.08rem) translateY(-0.04rem);
+        filter: blur(0);
+        color: #8fa4ff;
+        font-weight: var(--final-weight);
+        text-shadow: -0.25rem 0 0.6rem rgba(107, 139, 255, 0.35);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+        filter: blur(0);
+        color: #fff;
+        font-weight: var(--final-weight);
+        text-shadow: none;
+    }
+}
+
 /* PROJECTS GRID */
 .projects-grid {
     display: grid;
@@ -530,7 +583,7 @@ HERO "ABOUT ME" CTA
 
 
 .hero-tagline {
-    margin-top: 0.8rem;
+    margin-top: 0.2rem;
     margin-bottom: 1.4rem;
 }
 

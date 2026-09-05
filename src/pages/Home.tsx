@@ -1,16 +1,31 @@
 import { Link, useLocation } from 'react-router-dom'
 import '../styles/home.css'
 import { useOrbState } from '../app/OrbStateContext'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { saveScroll, restoreScroll } from '../app/ScrollMemory'
 import projects from '../data/projects.json'
 import { useSectionIndex } from '../app/SectionIndexContext'
 import * as THREE from 'three'
-import { useState } from 'react'
 import experience from '../data/experience.json'
 import skills from '../data/skills.json'
 import resume from '../assets/AbhishekRaj.pdf'
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from '../ui/HeroIcons'
+
+function WritingText({ text, delay = 0 }: { text: string; delay?: number }) {
+    return (
+        <span className="hero-writing-text">
+        {[...text].map((character, index) => (
+            <span
+            key={`${character}-${index}`}
+            className="hero-writing-character"
+            style={{ animationDelay: `${delay + index * 45}ms` }}
+            >
+            {character === ' ' ? '\u00a0' : character}
+            </span>
+        ))}
+        </span>
+    )
+}
 
 export default function Home() {
     const { setMode, setColor } = useOrbState()
@@ -18,6 +33,12 @@ export default function Home() {
     const cardsRef = useRef<HTMLAnchorElement[]>([])
     const { setIndex } = useSectionIndex()
     const [sent, setSent] = useState(false)
+    const [introVisible, setIntroVisible] = useState(false)
+
+    useEffect(() => {
+        const timer = window.setTimeout(() => setIntroVisible(true), 80)
+        return () => window.clearTimeout(timer)
+    }, [])
 
     /* ===============================
      SECTION OBSERVER
@@ -92,11 +113,18 @@ export default function Home() {
         <>
         {/* HERO */}
         <section className="section hero" data-section="0">
-        <h1 className="hero-name">Hi,</h1>
+        <div className={introVisible ? 'hero-intro hero-intro-visible' : 'hero-intro'}>
         <h1 className="hero-name">
-        I’m{' '}
-        <span className="hero-name-first">Abhishek</span>{' '}
-        <span className="hero-name-last">Raj</span>.
+        <WritingText text="Hi," />
+        </h1>
+        <h1 className="hero-name">
+        <WritingText text="I’m " delay={180} />
+        <span className="hero-name-first">
+        <WritingText text="Abhishek" delay={360} />
+        </span>{' '}
+        <span className="hero-name-last">
+        <WritingText text="Raj." delay={720} />
+        </span>
         </h1>
 
         {/*
@@ -113,8 +141,11 @@ export default function Home() {
           */}
 
         <p className="hero-tagline">
-        Scientific Programmer · HPC Engineer · Creative Developer
+        <WritingText text="Scientific Programmer · " delay={1150} />
+        <WritingText text="HPC Engineer · " delay={2140} />
+        <WritingText text="Creative Developer" delay={2860} />
         </p>
+        </div>
 
         <div className="hero-links">
         <Link
