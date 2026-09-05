@@ -22,3 +22,17 @@ export function MailIcon() {
     )
 }
 
+export function DownloadIcon() {
+    return (
+        <svg
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        >
+        <path d="M12 3v11m-4-4 4 4 4-4M5 18v2h14v-2" />
+        </svg>
+    )
+}

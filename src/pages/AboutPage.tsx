@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { restoreScroll } from '../app/ScrollMemory'
+import resume from '../assets/AbhishekRaj.pdf'
 import '../styles/about.css'
 import '../styles/project.css' // for stack pills
 
@@ -11,15 +12,35 @@ export default function AboutPage() {
 
     return (
         <article className="about-page">
-        {/* BACK BUTTON */}
-        <Link
-        to="/"
-        state={{ from: 'about' }}
-        onClick={() => restoreScroll()}
-        className="about-back"
-    >
-        ← Back
-        </Link>
+        <div className="about-actions">
+            {/* BACK BUTTON */}
+            <Link
+            to="/"
+            state={{ from: 'about' }}
+            onClick={() => restoreScroll()}
+            className="about-back"
+        >
+            ← Back
+            </Link>
+
+            <a
+            href={resume}
+            download="AbhishekRaj.pdf"
+            className="about-resume"
+            >
+            <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+                <path d="M14 2v6h6M12 11v6m-3-3 3 3 3-3" />
+            </svg>
+            Download Resume
+            </a>
+        </div>
 
         {/* NAME */}
         <h1 className="about-title">Abhishek Raj</h1>

@@ -9,7 +9,8 @@ import * as THREE from 'three'
 import { useState } from 'react'
 import experience from '../data/experience.json'
 import skills from '../data/skills.json'
-import { GitHubIcon, LinkedInIcon, MailIcon } from '../ui/HeroIcons'
+import resume from '../assets/AbhishekRaj.pdf'
+import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from '../ui/HeroIcons'
 
 export default function Home() {
     const { setMode, setColor } = useOrbState()
@@ -112,7 +113,7 @@ export default function Home() {
           */}
 
         <p className="hero-tagline">
-        Scientific Programmer · Creative Developer · Linux Enthusiast
+        Scientific Programmer · HPC Engineer · Creative Developer
         </p>
 
         <div className="hero-links">
@@ -140,6 +141,15 @@ export default function Home() {
     >
         <MailIcon />
         Email
+        </a>
+
+        <a
+        href={resume}
+        download="AbhishekRaj.pdf"
+        aria-label="Download Resume"
+        >
+        <DownloadIcon />
+        Resume
         </a>
         </div>
         <p style={{ marginTop: '1.8rem' }}>
@@ -284,7 +294,7 @@ export default function Home() {
 
             try {
                 const res = await fetch(
-                    'https://formspree.io/f/xeegawka', // 👈 FIX THIS
+                    'https://formspree.io/f/xeegawka', //  FIX THIS
                     {
                         method: 'POST',
                         body: data,
