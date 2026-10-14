@@ -10,23 +10,7 @@ import '../styles/github.css'
 
 import githubReadme from '../data/docs/github.md?raw'
 
-import { useOrbState } from '../app/OrbStateContext'
-import * as THREE from 'three'
-
 export default function GitHubPage() {
-
-const { setMode, setColor } = useOrbState()
-
-useEffect(() => {
-  setMode('idle')
-  setColor(new THREE.Color('#0f0fdf'))
-
-  return () => {
-    // reset orb when leaving page
-    setColor(null)
-    setMode('idle')
-  }
-}, [setMode, setColor])
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
   }, [])
