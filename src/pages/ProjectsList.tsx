@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react'
 import projects from '../data/projects.json'
 import '../styles/home.css'
 import { SearchIcon, ChevronDownIcon, ExternalLinkIcon, TerminalIcon } from '../ui/HeroIcons'
+import { TechIcon } from '../ui/TechIcons'
 
 export default function ProjectsList() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -136,27 +137,27 @@ export default function ProjectsList() {
                                 onClick={(e) => toggleExpand(p.id, e)}
                             >
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem' }}>
-                                    <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+                                    <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                                         {p.title}
                                     </h3>
-                                    <div style={{ color: '#00f2fe', display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', fontFamily: 'var(--font-mono, monospace)' }}>
-                                        <span>{isExpanded ? 'COLLAPSE' : 'EXPAND'}</span>
+                                    <div style={{ color: 'var(--cyber-cyan)', display: 'flex', alignItems: 'center' }}>
                                         <ChevronDownIcon rotated={isExpanded} />
                                     </div>
                                 </div>
 
-                                <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.2rem' }}>
+                                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.2rem' }}>
                                     {p.excerpt}
                                 </p>
 
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '0.5rem' }}>
                                     {p.stack?.slice(0, 4).map((tech) => (
                                         <span key={tech} className="tech-badge-cyber">
-                                            {tech}
+                                            <TechIcon name={tech} size={14} />
+                                            <span>{tech}</span>
                                         </span>
                                     ))}
                                     {p.stack && p.stack.length > 4 && (
-                                        <span className="tech-badge-cyber" style={{ color: '#38bdf8' }}>
+                                        <span className="tech-badge-cyber" style={{ color: 'var(--cyber-blue)' }}>
                                             +{p.stack.length - 4} more
                                         </span>
                                     )}
@@ -166,22 +167,23 @@ export default function ProjectsList() {
                                 <div className={`card-expand-body ${isExpanded ? 'open' : ''}`}>
                                     <div className="expanded-horizontal-content">
                                         <div>
-                                            <div style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono, monospace)', color: '#00f2fe', marginBottom: '0.6rem' }}>
+                                            <div style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono, monospace)', color: 'var(--cyber-cyan)', marginBottom: '0.6rem' }}>
                                                 TECHNICAL SPECIFICATION &amp; ARCHITECTURE:
                                             </div>
-                                            <p style={{ color: '#e2e8f0', fontSize: '0.95rem', lineHeight: 1.7, margin: 0 }}>
+                                            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.7, margin: 0 }}>
                                                 {p.description || p.excerpt}
                                             </p>
                                         </div>
 
                                         <div>
-                                            <div style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono, monospace)', color: '#00f2fe', marginBottom: '0.6rem' }}>
+                                            <div style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono, monospace)', color: 'var(--cyber-cyan)', marginBottom: '0.6rem' }}>
                                                 FULL TECHNOLOGY STACK:
                                             </div>
                                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '1.4rem' }}>
                                                 {p.stack?.map((tech) => (
                                                     <span key={tech} className="tech-badge-cyber">
-                                                        {tech}
+                                                        <TechIcon name={tech} size={14} />
+                                                        <span>{tech}</span>
                                                     </span>
                                                 ))}
                                             </div>

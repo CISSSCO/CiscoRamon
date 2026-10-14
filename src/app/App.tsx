@@ -12,15 +12,17 @@ import GithubPage from '../pages/GitHub'
 import ModernBackground from '../components/ModernBackground'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { ThemeProvider } from './ThemeContext'
 
 export default function App() {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      {/* High-Performance Ambient Background */}
-      <ModernBackground />
+    <ThemeProvider>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        {/* High-Performance Ambient Background */}
+        <ModernBackground />
 
-      {/* Global Navigation Bar */}
-      <Navbar />
+        {/* Global Navigation Bar */}
+        <Navbar />
 
       {/* Content Layer */}
       <main style={{ flex: 1, position: 'relative', zIndex: 1, paddingTop: '70px' }}>
@@ -39,5 +41,6 @@ export default function App() {
       {/* Global Footer */}
       <Footer />
     </div>
+    </ThemeProvider>
   )
 }

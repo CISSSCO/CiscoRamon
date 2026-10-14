@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import resume from '../assets/AbhishekRaj.pdf'
-import { ARLogo, GitHubIcon, DownloadIcon } from '../ui/HeroIcons'
+import { ARLogo, GitHubIcon, DownloadIcon, SunIcon, MoonIcon } from '../ui/HeroIcons'
+import { useTheme } from '../app/ThemeContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,11 +42,11 @@ export default function Navbar() {
         right: 0,
         zIndex: 100,
         transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-        background: scrolled ? 'rgba(7, 10, 18, 0.9)' : 'rgba(7, 10, 18, 0.45)',
+        background: 'var(--bg-nav)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(0, 242, 254, 0.15)',
-        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.7)' : 'none',
+        borderBottom: '1px solid var(--border-cyber)',
+        boxShadow: scrolled ? 'var(--card-shadow)' : 'none',
       }}
     >
       <div
@@ -65,18 +67,18 @@ export default function Navbar() {
             alignItems: 'center',
             gap: '0.9rem',
             textDecoration: 'none',
-            color: '#fff',
+            color: 'var(--text-main)',
           }}
         >
           <ARLogo size={36} />
           <div>
-            <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: '#fff' }}>
+            <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
               Abhishek Raj
             </div>
             <div
               style={{
                 fontSize: '0.74rem',
-                color: '#94a3b8',
+                color: 'var(--text-muted)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.4rem',
@@ -145,6 +147,17 @@ export default function Navbar() {
             gap: '0.9rem',
           }}
         >
+          {/* Cyberpunk Theme Mode Switcher */}
+          <button
+            onClick={toggleTheme}
+            className="cyber-theme-toggle-btn"
+            aria-label={`Toggle theme (currently ${theme})`}
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Cyber Dark'} Mode`}
+          >
+            {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
+            <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+          </button>
+
           <a
             href="https://github.com/CISSSCO"
             target="_blank"
@@ -208,15 +221,24 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div
           style={{
-            background: 'rgba(7, 10, 18, 0.98)',
+            background: 'var(--bg-nav)',
             backdropFilter: 'blur(24px)',
-            borderBottom: '1px solid rgba(0, 242, 254, 0.2)',
+            borderBottom: '1px solid var(--border-cyber)',
             padding: '1.5rem',
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
           }}
         >
+          <button
+            onClick={toggleTheme}
+            className="cyber-theme-toggle-btn"
+            style={{ width: '100%', justifyContent: 'center', marginBottom: '0.5rem' }}
+          >
+            {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
+            <span>SWITCH TO {theme === 'dark' ? 'LIGHT' : 'CYBER DARK'} MODE</span>
+          </button>
+
           <Link
             to="/#projects"
             onClick={() => scrollToSection('projects')}

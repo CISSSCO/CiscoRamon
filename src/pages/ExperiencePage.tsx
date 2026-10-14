@@ -4,6 +4,7 @@ import experiences from '../data/experience.json'
 import '../styles/home.css'
 import { restoreScroll } from '../app/ScrollMemory'
 import { TerminalIcon } from '../ui/HeroIcons'
+import { TechIcon } from '../ui/TechIcons'
 
 function PlayingCard({
     point,
@@ -80,13 +81,13 @@ function PlayingCard({
             </div>
 
             {/* Main Content Body */}
-            <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: '#f1f5f9', margin: '1rem 0' }}>
+            <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: 'var(--text-main)', margin: '1rem 0' }}>
                 {point}
             </p>
 
             {/* Bottom Inverted Rank & Suit */}
             <div className="card-suit-bottom">
-                <span style={{ fontSize: '0.85rem', color: '#818cf8', letterSpacing: '0.1em' }}>
+                <span style={{ fontSize: '0.85rem', color: 'var(--cyber-purple)', letterSpacing: '0.1em' }}>
                     {currentSuit.sym} #{indexStr} // SYS.LOG
                 </span>
             </div>
@@ -105,7 +106,7 @@ export default function ExperiencePage() {
     if (!experience) {
         return (
             <div className="section" style={{ textAlign: 'center', padding: '15vh 1rem' }}>
-                <h2 style={{ fontSize: '2rem', color: '#fff' }}>Experience Record Not Found</h2>
+                <h2 style={{ fontSize: '2rem', color: 'var(--text-main)' }}>Experience Record Not Found</h2>
                 <Link to="/" className="cyber-action-btn secondary" style={{ marginTop: '1.5rem', display: 'inline-block' }}>
                     ← BACK TO HOME
                 </Link>
@@ -133,15 +134,15 @@ export default function ExperiencePage() {
                     <span>CAREER TELEMETRY // {experience.id.toUpperCase()}</span>
                 </div>
 
-                <h1 style={{ fontSize: '3.4rem', fontWeight: 800, letterSpacing: '-0.03em', margin: '0 0 0.8rem', color: '#fff' }}>
+                <h1 style={{ fontSize: '3.4rem', fontWeight: 800, letterSpacing: '-0.03em', margin: '0 0 0.8rem', color: 'var(--text-main)' }}>
                     {experience.role}
                 </h1>
 
-                <div style={{ fontSize: '1.35rem', color: '#00f2fe', fontWeight: 600, marginBottom: '0.6rem' }}>
+                <div style={{ fontSize: '1.35rem', color: 'var(--cyber-cyan)', fontWeight: 600, marginBottom: '0.6rem' }}>
                     {experience.org}
                 </div>
 
-                <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.92rem', color: '#94a3b8' }}>
+                <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.92rem', color: 'var(--text-muted)' }}>
                     {experience.period} · ({experience.duration})
                 </div>
             </div>
@@ -151,14 +152,14 @@ export default function ExperiencePage() {
                     style={{
                         padding: '1.8rem 2rem',
                         borderRadius: '16px',
-                        background: 'rgba(14, 22, 38, 0.65)',
-                        border: '1px solid rgba(0, 242, 254, 0.2)',
+                        background: 'var(--bg-card)',
+                        border: '1px solid var(--border-cyber)',
                         backdropFilter: 'blur(16px)',
                         fontSize: '1.08rem',
                         lineHeight: 1.75,
-                        color: '#e2e8f0',
+                        color: 'var(--text-main)',
                         marginBottom: '3.5rem',
-                        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                        boxShadow: 'var(--card-shadow)',
                     }}
                 >
                     {experience.summary}
@@ -169,7 +170,7 @@ export default function ExperiencePage() {
             <div style={{ marginBottom: '4rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.8rem' }}>
                     <TerminalIcon />
-                    <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+                    <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                         Key Responsibilities &amp; Operations
                     </h2>
                 </div>
@@ -192,18 +193,20 @@ export default function ExperiencePage() {
                     style={{
                         padding: '2rem',
                         borderRadius: '16px',
-                        background: 'rgba(13, 18, 30, 0.6)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        background: 'var(--bg-card)',
+                        border: '1px solid var(--border-cyber)',
                         backdropFilter: 'blur(14px)',
+                        boxShadow: 'var(--card-shadow)',
                     }}
                 >
-                    <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.85rem', color: '#00f2fe', marginBottom: '1rem', fontWeight: 700 }}>
+                    <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.85rem', color: 'var(--cyber-cyan)', marginBottom: '1rem', fontWeight: 700 }}>
                         COMPUTE TOOLCHAINS &amp; SYSTEMS:
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem' }}>
                         {experience.stack.map((tech: string) => (
                             <span key={tech} className="tech-badge-cyber" style={{ fontSize: '0.82rem', padding: '0.35rem 0.8rem' }}>
-                                {tech}
+                                <TechIcon name={tech} size={15} />
+                                <span>{tech}</span>
                             </span>
                         ))}
                     </div>

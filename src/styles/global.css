@@ -4,14 +4,64 @@
     --font-mono: 'JetBrains Mono', monospace, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --font-display: 'Space Grotesk', var(--font-sans);
-    
-    --hpc-cyan: #00f2fe;
-    --hpc-blue: #38bdf8;
-    --hpc-violet: #818cf8;
-    --hpc-emerald: #10b981;
-    --hpc-card-bg: rgba(13, 18, 30, 0.75);
-    --hpc-border: rgba(0, 242, 254, 0.18);
-    --hpc-border-hover: rgba(0, 242, 254, 0.5);
+
+    /* Cyberpunk Night Palette (Default Dark Mode) */
+    --bg-base: #06080f;
+    --bg-surface: rgba(12, 17, 30, 0.85);
+    --bg-card: rgba(13, 19, 34, 0.82);
+    --bg-card-hover: rgba(20, 28, 50, 0.95);
+    --bg-hud: rgba(12, 18, 32, 0.85);
+    --bg-nav: rgba(7, 10, 18, 0.88);
+
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+
+    --cyber-cyan: #00f2fe;
+    --cyber-yellow: #fcee0a;
+    --cyber-pink: #ff0055;
+    --cyber-blue: #38bdf8;
+    --cyber-purple: #818cf8;
+    --cyber-emerald: #10b981;
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-cyber: rgba(0, 242, 254, 0.25);
+    --border-cyber-hover: #00f2fe;
+
+    --glow-cyan: 0 0 16px rgba(0, 242, 254, 0.4);
+    --glow-yellow: 0 0 16px rgba(252, 238, 10, 0.4);
+
+    --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] {
+    /* Cyberpunk High-Tech Daylight Palette (Clean Light Mode) */
+    --bg-base: #edf2f7;
+    --bg-surface: rgba(255, 255, 255, 0.9);
+    --bg-card: rgba(255, 255, 255, 0.94);
+    --bg-card-hover: #ffffff;
+    --bg-hud: rgba(255, 255, 255, 0.96);
+    --bg-nav: rgba(237, 242, 247, 0.92);
+
+    --text-main: #0a0f1d;
+    --text-muted: #475569;
+    --text-dim: #64748b;
+
+    --cyber-cyan: #0284c7;
+    --cyber-yellow: #d97706;
+    --cyber-pink: #e11d48;
+    --cyber-blue: #0369a1;
+    --cyber-purple: #6366f1;
+    --cyber-emerald: #059669;
+
+    --border-subtle: rgba(0, 0, 0, 0.1);
+    --border-cyber: rgba(2, 132, 199, 0.35);
+    --border-cyber-hover: #0284c7;
+
+    --glow-cyan: 0 0 14px rgba(2, 132, 199, 0.22);
+    --glow-yellow: 0 0 14px rgba(217, 119, 6, 0.22);
+
+    --card-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
 html {
@@ -21,11 +71,12 @@ html {
 html, body {
     margin: 0;
     padding: 0;
-    background: #07080d;
-    color: #fff;
+    background-color: var(--bg-base);
+    color: var(--text-main);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 /* Custom futuristic scrollbar */
@@ -34,19 +85,19 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #070910;
+    background: var(--bg-base);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 242, 254, 0.25);
+    background: var(--border-cyber);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 242, 254, 0.5);
+    background: var(--cyber-cyan);
 }
 
 ::selection {
-    background: rgba(0, 242, 254, 0.3);
-    color: #00f2fe;
+    background: rgba(0, 242, 254, 0.35);
+    color: var(--text-main);
 }

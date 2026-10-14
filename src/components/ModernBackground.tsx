@@ -29,7 +29,8 @@ export default function ModernBackground() {
         zIndex: 0,
         overflow: 'hidden',
         pointerEvents: 'none',
-        backgroundColor: '#07080d',
+        backgroundColor: 'var(--bg-base)',
+        transition: 'background-color 0.35s ease',
       }}
     >
       {/* Subtle grid pattern with radial fade */}
@@ -38,8 +39,8 @@ export default function ModernBackground() {
           position: 'absolute',
           inset: 0,
           backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px)
+            linear-gradient(var(--border-subtle) 1px, transparent 1px),
+            linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px)
           `,
           backgroundSize: '64px 64px',
           maskImage: 'radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 80%)',

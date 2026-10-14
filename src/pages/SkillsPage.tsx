@@ -106,47 +106,46 @@ export default function SkillsPage() {
                     </button>
                 </div>
             ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                <div className="skills-card-grid">
                     {filteredSkills.map((skill) => (
                         <div
                             key={skill.id}
-                            className="cyber-card"
-                            style={{ cursor: 'default', padding: '1.6rem' }}
+                            className="skill-playing-card"
+                            style={{ cursor: 'default' }}
                         >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                                    <div className="skill-glyph-wrapper" style={{ width: '38px', height: '38px' }}>
+                            <div>
+                                <div className="skill-card-top">
+                                    <div className="skill-glyph-wrapper">
                                         <SkillGlyph id={skill.id} />
                                     </div>
-                                    <div>
-                                        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
-                                            {skill.name}
-                                        </h3>
-                                        <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono, monospace)', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '0.15rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(56, 189, 248, 0.25)', display: 'inline-block', marginTop: '0.3rem' }}>
-                                            {skill.category}
-                                        </span>
-                                    </div>
+                                    <span style={{ color: 'var(--cyber-cyan)', fontFamily: 'var(--font-mono, monospace)', fontWeight: 800, fontSize: '1.2rem' }}>
+                                        {skill.level}%
+                                    </span>
                                 </div>
-                                <span style={{ color: '#00f2fe', fontFamily: 'var(--font-mono, monospace)', fontWeight: 800, fontSize: '1.2rem' }}>
-                                    {skill.level}%
-                                </span>
-                            </div>
 
-                            <div style={{ height: '7px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '999px', overflow: 'hidden', margin: '1rem 0' }}>
-                                <div
-                                    style={{
-                                        height: '100%',
-                                        width: `${skill.level}%`,
-                                        background: 'linear-gradient(90deg, #00f2fe, #818cf8)',
-                                        borderRadius: '999px',
-                                        boxShadow: '0 0 10px rgba(0, 242, 254, 0.4)',
-                                    }}
-                                />
-                            </div>
+                                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 0.35rem' }}>
+                                    {skill.name}
+                                </h3>
+                                <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono, monospace)', color: 'var(--cyber-blue)', marginBottom: '0.8rem' }}>
+                                    [{skill.category.toUpperCase()}]
+                                </div>
 
-                            <p style={{ fontSize: '0.88rem', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
-                                {skill.context}
-                            </p>
+                                <div style={{ height: '6px', background: 'var(--border-subtle)', borderRadius: '999px', overflow: 'hidden', margin: '0.9rem 0' }}>
+                                    <div
+                                        style={{
+                                            height: '100%',
+                                            width: `${skill.level}%`,
+                                            background: 'linear-gradient(90deg, var(--cyber-cyan), var(--cyber-purple))',
+                                            borderRadius: '999px',
+                                            boxShadow: '0 0 10px rgba(0, 242, 254, 0.4)',
+                                        }}
+                                    />
+                                </div>
+
+                                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+                                    {skill.context}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>

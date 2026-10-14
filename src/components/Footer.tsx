@@ -5,12 +5,13 @@ export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: '1px solid rgba(0, 242, 254, 0.12)',
-        background: 'rgba(5, 7, 13, 0.9)',
+        borderTop: '1px solid var(--border-cyber)',
+        background: 'var(--bg-nav)',
         padding: '2rem 1.5rem',
         marginTop: '5rem',
         position: 'relative',
         zIndex: 10,
+        transition: 'background-color 0.35s ease, border-color 0.35s ease',
       }}
     >
       <div
@@ -27,8 +28,8 @@ export default function Footer() {
         {/* Left: AR Logo + Copyright */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
           <ARLogo size={28} />
-          <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-            &copy; {new Date().getFullYear()} <strong style={{ color: '#fff' }}>Abhishek Raj</strong>. All rights reserved.
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            &copy; {new Date().getFullYear()} <strong style={{ color: 'var(--text-main)' }}>Abhishek Raj</strong>. All rights reserved.
           </div>
         </div>
 
@@ -71,7 +72,7 @@ export default function Footer() {
             <LinkedInIcon />
           </a>
           <a
-            href="mailto:abhi581b@gmail.com"
+            href="mailto:cisco581b@gmail.com"
             aria-label="Email"
             className="cyber-icon-btn"
             style={{ width: '34px', height: '34px', padding: 0, justifyContent: 'center' }}
