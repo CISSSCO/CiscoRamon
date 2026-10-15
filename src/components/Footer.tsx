@@ -1,4 +1,13 @@
-import { ARLogo, GitHubIcon, LinkedInIcon, MailIcon } from '../ui/HeroIcons'
+import { Link } from 'react-router-dom'
+import {
+  ARLogo,
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+  SkillGraphIcon,
+  ProjectGraphIcon,
+  GitPullRequestIcon,
+} from '../ui/HeroIcons'
 
 export default function Footer() {
   return (
@@ -12,8 +21,41 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Right: Social & Contact Cyber Buttons */}
+        {/* Right: Only Icons - Graphs, Contributions, Social */}
         <div className="site-footer-socials">
+          {/* Skill Graph Icon */}
+          <Link
+            to="/skills/visualize"
+            aria-label="Skill Graph"
+            className="site-footer-icon-btn"
+            title="Skill Graph"
+          >
+            <SkillGraphIcon size={17} />
+          </Link>
+
+          {/* Project Graphs Icon */}
+          <Link
+            to="/projects/visualize"
+            aria-label="Project Graphs"
+            className="site-footer-icon-btn"
+            title="Project Graphs"
+          >
+            <ProjectGraphIcon size={17} />
+          </Link>
+
+          {/* Open Source Contributions Icon */}
+          <Link
+            to="/projects#contributions"
+            aria-label="Open Source Contributions"
+            className="site-footer-icon-btn"
+            title="Open Source Contributions"
+          >
+            <GitPullRequestIcon size={17} />
+          </Link>
+
+          <span className="site-footer-divider" />
+
+          {/* GitHub Profile */}
           <a
             href="https://github.com/CISSSCO"
             target="_blank"
@@ -24,6 +66,8 @@ export default function Footer() {
           >
             <GitHubIcon />
           </a>
+
+          {/* LinkedIn Profile */}
           <a
             href="https://www.linkedin.com/in/abhi581b"
             target="_blank"
@@ -34,6 +78,8 @@ export default function Footer() {
           >
             <LinkedInIcon />
           </a>
+
+          {/* Email */}
           <a
             href="mailto:cisco581b@gmail.com"
             aria-label="Email Abhishek"

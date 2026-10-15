@@ -4,6 +4,7 @@ import projects from '../data/projects.json'
 import '../styles/home.css'
 import { SearchIcon, ChevronDownIcon, ExternalLinkIcon, TerminalIcon } from '../ui/HeroIcons'
 import { TechIcon } from '../ui/TechIcons'
+import OpenSourceContributions from '../components/OpenSourceContributions'
 
 export default function ProjectsList() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -13,13 +14,22 @@ export default function ProjectsList() {
     const location = useLocation()
 
     useEffect(() => {
+        if (location.hash === '#contributions') {
+            const timer = setTimeout(() => {
+                const el = document.getElementById('contributions')
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' })
+                }
+            }, 120)
+            return () => clearTimeout(timer)
+        }
         window.scrollTo({ top: 0, behavior: 'auto' })
         const state = location.state as { filterTech?: string } | null
         if (state?.filterTech) {
             setSearchQuery(state.filterTech)
             setSelectedTopic('All')
         }
-    }, [location.state])
+    }, [location.state, location.hash])
 
     const topics = ['All', 'HPC / Cluster', 'Linux & Shell', 'Vim / Configs', 'Web / Python']
 
@@ -292,6 +302,9 @@ export default function ProjectsList() {
                     })}
                 </div>
             )}
+
+            {/* UPSTREAM OPEN SOURCE CONTRIBUTIONS SECTION */}
+            <OpenSourceContributions />
         </section>
     )
 }

@@ -941,6 +941,86 @@
     }
 }
 
+/* ========================================================
+   FLEX-FILL RESPONSIVE GRID FOR OPEN SOURCE CONTRIBUTIONS
+   (Fills space identically to project cards on all devices)
+   ======================================================== */
+.contributions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contribution-card {
+    flex: 1 1 calc(33.333% - 1.25rem);
+    min-width: 280px;
+    max-width: 100%;
+    min-height: 270px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-cyber);
+    border-radius: 14px;
+    padding: 1.6rem;
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s ease,
+                box-shadow 0.35s ease,
+                background-color 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.contribution-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyber-cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.contribution-card:hover {
+    border-color: var(--cyber-cyan);
+    box-shadow: 0 12px 30px rgba(0, 242, 254, 0.2);
+    transform: translateY(-4px);
+}
+
+.contribution-card:hover::before {
+    opacity: 1;
+}
+
+@media (max-width: 1120px) and (min-width: 681px) {
+    .contribution-card {
+        flex: 1 1 calc(50% - 1rem);
+        min-width: 260px;
+    }
+}
+
+@media (max-width: 680px) {
+    .contributions-grid {
+        gap: 1rem;
+    }
+    .contribution-card {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 1.25rem 1rem;
+    }
+}
+
 .cyber-card::before {
     content: '';
     position: absolute;
@@ -1323,30 +1403,175 @@
     max-width: 100%;
 }
 
+/* ========================================================
+   CYBERPUNK CONTACT FORM & TELEMETRY INPUTS
+   ======================================================== */
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 1.3rem;
+    gap: 1.35rem;
+    position: relative;
+}
+
+.cyber-form-telemetry-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--cyber-cyan);
+    background: rgba(0, 242, 254, 0.06);
+    border: 1px solid rgba(0, 242, 254, 0.22);
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    width: fit-content;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+}
+
+.cyber-form-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyber-cyan);
+    box-shadow: 0 0 8px var(--cyber-cyan);
+    animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.5rem;
+    position: relative;
 }
 
-.form-label {
+.cyber-form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
     font-family: var(--font-mono, monospace);
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 
+.cyber-form-label-prefix {
+    color: var(--cyber-cyan);
+    font-weight: 800;
+}
+
+.cyber-form-req {
+    color: var(--cyber-yellow);
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+
+.cyber-input-shell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(10, 15, 26, 0.75);
+    border: 1px solid rgba(0, 242, 254, 0.25);
+    border-radius: 10px;
+    backdrop-filter: blur(14px);
+    transition: all 0.25s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.cyber-input-shell:hover {
+    border-color: rgba(0, 242, 254, 0.45);
+    background: rgba(13, 20, 36, 0.85);
+}
+
+.cyber-input-shell:focus-within {
+    border-color: var(--cyber-cyan);
+    background: rgba(14, 22, 40, 0.95);
+    box-shadow: 0 0 22px rgba(0, 242, 254, 0.3), inset 0 0 10px rgba(0, 242, 254, 0.08);
+}
+
+.cyber-input-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.85rem 0 1.1rem;
+    font-size: 0.95rem;
+    color: var(--cyber-cyan);
+    opacity: 0.75;
+    flex-shrink: 0;
+    user-select: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.cyber-input-shell:focus-within .cyber-input-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.cyber-form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0.85rem 1.1rem 0.85rem 0;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.cyber-form-input::placeholder {
+    color: rgba(148, 163, 184, 0.5);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.84rem;
+}
+
+.cyber-input-corner-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid var(--cyber-cyan);
+    border-right: 2px solid var(--cyber-cyan);
+    opacity: 0.4;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.cyber-input-shell:focus-within .cyber-input-corner-accent {
+    opacity: 1;
+    border-color: var(--cyber-yellow);
+}
+
+.cyber-input-shell.textarea-shell {
+    align-items: flex-start;
+}
+
+.cyber-input-shell.textarea-shell .textarea-icon {
+    padding-top: 0.95rem;
+}
+
+.cyber-form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+/* Fallback legacy compatibility */
 .form-input, .form-textarea {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
+    background: rgba(10, 15, 26, 0.75);
+    border: 1px solid rgba(0, 242, 254, 0.25);
+    border-radius: 10px;
     padding: 0.85rem 1.1rem;
     color: var(--text-main);
     font-size: 0.95rem;
@@ -1357,7 +1582,8 @@
 
 .form-input:focus, .form-textarea:focus {
     border-color: var(--cyber-cyan);
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+    background: rgba(14, 22, 40, 0.95);
 }
 
 .footer-link {

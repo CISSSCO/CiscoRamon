@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useEffect } from 'react'
@@ -14,11 +14,23 @@ import githubReadme from '../data/docs/github.md?raw'
 import projects from '../data/projects.json'
 import { ARLogo, GitHubIcon, LinkedInIcon, ExternalLinkIcon } from '../ui/HeroIcons'
 import { TechIcon } from '../ui/TechIcons'
+import OpenSourceContributions from '../components/OpenSourceContributions'
 
 export default function GitHubPage() {
+  const location = useLocation()
+
   useEffect(() => {
+    if (location.hash === '#contributions') {
+      const timer = setTimeout(() => {
+        const el = document.getElementById('contributions')
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 120)
+      return () => clearTimeout(timer)
+    }
     window.scrollTo({ top: 0, behavior: 'auto' })
-  }, [])
+  }, [location.hash])
 
   return (
     <article className="social-page">
@@ -195,6 +207,9 @@ export default function GitHubPage() {
           ))}
         </div>
       </section>
+
+      {/* Upstream Open Source Contributions */}
+      <OpenSourceContributions />
 
       {/* GitHub Profile README & Activity */}
       <section className="social-section-card">

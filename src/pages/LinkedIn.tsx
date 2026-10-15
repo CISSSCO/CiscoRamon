@@ -134,8 +134,8 @@ export default function LinkedInPage() {
               <div className="social-stat-title">HPC Platform Engineering</div>
             </div>
             <div className="social-stat-item">
-              <div className="social-stat-number">9+ Projects</div>
-              <div className="social-stat-title">Open Source Systems &amp; Tools</div>
+              <div className="social-stat-number">9+ Repos · 7+ PRs</div>
+              <div className="social-stat-title">Open Source Repos &amp; Upstream</div>
             </div>
             <div className="social-stat-item">
               <div className="social-stat-number">800+</div>
