@@ -1,5 +1,5 @@
 import skills from '../data/skills.json'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState, useMemo, useEffect } from 'react'
 import { restoreScroll } from '../app/ScrollMemory'
 import '../styles/home.css'
@@ -8,10 +8,16 @@ import { SearchIcon, SkillGlyph } from '../ui/HeroIcons'
 export default function SkillsPage() {
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('All')
+    const location = useLocation()
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'auto' })
-    }, [])
+        const state = location.state as { filterCategory?: string } | null
+        if (state?.filterCategory) {
+            setSelectedCategory(state.filterCategory)
+            setSearchQuery('')
+        }
+    }, [location.state])
 
     const categories = useMemo(() => {
         return ['All', ...Array.from(new Set(skills.map((s) => s.category)))]
@@ -32,7 +38,7 @@ export default function SkillsPage() {
 
     return (
         <section className="section" style={{ maxWidth: '1240px', margin: '0 auto', padding: '10vh 1.5rem 15vh' }}>
-            <div style={{ marginBottom: '2.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <Link
                     to="/"
                     state={{ from: 'skills' }}
@@ -42,9 +48,17 @@ export default function SkillsPage() {
                 >
                     ← BACK TO HOME
                 </Link>
+
+                <Link
+                    to="/skills/visualize"
+                    className="cyber-action-btn primary"
+                    style={{ textDecoration: 'none', display: 'inline-flex', padding: '0.5rem 1.2rem', fontSize: '0.8rem' }}
+                >
+                    <span>📊 VISUALIZE EXPERTISE &amp; 3D GRAPHS →</span>
+                </Link>
             </div>
 
-            <div style={{ marginBottom: '3rem' }}>
+            <div style={{ marginBottom: '2.5rem' }}>
                 <div className="section-tag-hpc">
                     <span className="section-tag-dot" />
                     <span>TECHNICAL COMPETENCIES</span>
@@ -57,8 +71,44 @@ export default function SkillsPage() {
                 </p>
             </div>
 
+            {/* DEDICATED VISUALIZER CALLOUT BANNER */}
+            <div style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-cyber)',
+                borderRadius: '14px',
+                padding: '1.4rem 1.8rem',
+                marginBottom: '2.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1.2rem',
+                boxShadow: 'var(--card-shadow)',
+                position: 'relative',
+                overflow: 'hidden'
+            }}>
+                <div style={{ maxWidth: '680px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
+                        <span style={{ fontSize: '1.2rem' }}>🎮</span>
+                        <strong style={{ fontSize: '1.1rem', color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
+                            Interactive 3D &amp; Multi-Plot Competency Visualizer
+                        </strong>
+                    </div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.55, margin: 0 }}>
+                        Switch to dedicated visualization engine featuring 3D competency terrain pillars, 14-domain spider radar matrices, matplotlib stem &amp; whisker plots, and frequency histograms.
+                    </p>
+                </div>
+                <Link
+                    to="/skills/visualize"
+                    className="cyber-action-btn primary"
+                    style={{ textDecoration: 'none', display: 'inline-flex', padding: '0.6rem 1.3rem', fontSize: '0.85rem' }}
+                >
+                    <span>OPEN VISUALIZER PAGE ↗</span>
+                </Link>
+            </div>
+
             {/* Interactive Search and Category Filters */}
-            <div className="cyber-filter-bar">
+            <div id="skills-matrix" className="cyber-filter-bar">
                 <div className="cyber-search-wrapper">
                     <span className="cyber-search-icon">
                         <SearchIcon />

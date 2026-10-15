@@ -120,12 +120,12 @@ body {
 }
 
 /* ========================================================
-   COMPACT SLEEK CYBER FOOTER
+   COMPACT SLEEK CYBER FOOTER (ICON-ONLY NAVIGATION)
    ======================================================== */
 .site-footer {
     border-top: 1px solid var(--border-cyber);
     background: var(--bg-nav);
-    padding: 0.9rem 1.6rem;
+    padding: 0.85rem 1.6rem;
     margin-top: 2.2rem;
     position: relative;
     z-index: 10;
@@ -163,7 +163,16 @@ body {
 .site-footer-socials {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+.site-footer-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--border-cyber);
+    margin: 0 0.3rem;
+    opacity: 0.6;
 }
 
 .site-footer-icon-btn {
@@ -179,6 +188,8 @@ body {
     border: 1px solid var(--border-cyber);
     color: var(--cyber-cyan);
     transition: all 0.25s ease;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .site-footer-icon-btn:hover {
@@ -207,7 +218,7 @@ body {
         align-items: center;
         justify-content: center;
         text-align: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
     }
     .site-footer-brand {
         flex-direction: row;
@@ -217,6 +228,10 @@ body {
     }
     .site-footer-copy {
         font-size: 0.74rem;
+    }
+    .site-footer-socials {
+        justify-content: center;
+        gap: 0.45rem;
     }
     .site-footer-icon-btn {
         width: 30px;

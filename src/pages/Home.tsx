@@ -57,7 +57,7 @@ export default function Home() {
     const [selectedSkillCategory, setSelectedSkillCategory] = useState<string>('All')
 
     const featuredProjects = useMemo(
-        () => projects.filter((p) => p.featured || ['hpccfs', 'cerrfix', 'dotfiles', 'playlisto'].includes(p.id)),
+        () => projects.filter((p) => Boolean(p.featured)),
         []
     )
 
@@ -183,27 +183,23 @@ export default function Home() {
                     </a>
 
                     <div className="hero-social-icons">
-                        <a
-                            href="https://github.com/CISSSCO"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link
+                            to="/github"
                             className="cyber-icon-btn hero-social-btn"
-                            aria-label="GitHub Profile"
-                            title="GitHub Profile"
+                            aria-label="GitHub Profile & Repositories"
+                            title="View GitHub Profile & Details"
                         >
                             <GitHubIcon />
-                        </a>
+                        </Link>
 
-                        <a
-                            href="https://www.linkedin.com/in/abhi581b"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link
+                            to="/linkedin"
                             className="cyber-icon-btn hero-social-btn"
-                            aria-label="LinkedIn Profile"
-                            title="LinkedIn Profile"
+                            aria-label="LinkedIn Profile & Experience"
+                            title="View LinkedIn Profile & Details"
                         >
                             <LinkedInIcon />
-                        </a>
+                        </Link>
 
                         <a
                             href="mailto:cisco581b@gmail.com"
@@ -230,10 +226,10 @@ export default function Home() {
                     <div className="hero-stat-card drop-anim-2">
                         <div className="stat-card-badge">
                             <span className="stat-card-dot" />
-                            <span>02 // REPOSITORIES</span>
+                            <span>02 // REPOSITORIES &amp; UPSTREAM</span>
                         </div>
-                        <div className="stat-card-value">8+ Projects</div>
-                        <div className="stat-card-label">Open Source Infrastructure, Slurm &amp; C Utilities</div>
+                        <div className="stat-card-value">9+ Projects · 7+ PRs</div>
+                        <div className="stat-card-label">9+ Standalone Systems &amp; 7+ Merged Upstream Contributions (Spack, C-DAC)</div>
                     </div>
 
                     <div className="hero-stat-card drop-anim-3">
@@ -601,37 +597,72 @@ export default function Home() {
                     <form className="contact-form" onSubmit={handleFormSubmit}>
                         <input type="hidden" name="_subject" value="New message from portfolio" />
 
-                        <div className="form-group">
-                            <label className="form-label">YOUR NAME</label>
-                            <input
-                                type="text"
-                                name="name"
-                                className="form-input"
-                                placeholder="e.g. Alex Mercer"
-                                required
-                            />
+                        {/* Top Protocol Status Bar */}
+                        <div className="cyber-form-telemetry-bar">
+                            <span className="cyber-form-status-dot" />
+                            <span>SECURE TRANSMISSION PROTOCOL · TLS ENCRYPTION READY</span>
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label">EMAIL ADDRESS</label>
-                            <input
-                                type="email"
-                                name="email"
-                                className="form-input"
-                                placeholder="name@domain.com"
-                                required
-                            />
+                            <label className="cyber-form-label" htmlFor="contact-name">
+                                <span className="cyber-form-label-prefix">// 01</span>
+                                <span>OPERATOR NAME</span>
+                                <span className="cyber-form-req">*</span>
+                            </label>
+                            <div className="cyber-input-shell">
+                                <span className="cyber-input-icon">👤</span>
+                                <input
+                                    id="contact-name"
+                                    type="text"
+                                    name="name"
+                                    className="cyber-form-input"
+                                    placeholder="e.g. Alex Mercer"
+                                    required
+                                    autoComplete="name"
+                                />
+                                <div className="cyber-input-corner-accent" />
+                            </div>
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label">MESSAGE</label>
-                            <textarea
-                                name="message"
-                                rows={5}
-                                className="form-textarea"
-                                placeholder="Write your message here..."
-                                required
-                            />
+                            <label className="cyber-form-label" htmlFor="contact-email">
+                                <span className="cyber-form-label-prefix">// 02</span>
+                                <span>COMM CHANNEL / EMAIL</span>
+                                <span className="cyber-form-req">*</span>
+                            </label>
+                            <div className="cyber-input-shell">
+                                <span className="cyber-input-icon">✉️</span>
+                                <input
+                                    id="contact-email"
+                                    type="email"
+                                    name="email"
+                                    className="cyber-form-input"
+                                    placeholder="name@domain.com"
+                                    required
+                                    autoComplete="email"
+                                />
+                                <div className="cyber-input-corner-accent" />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="cyber-form-label" htmlFor="contact-message">
+                                <span className="cyber-form-label-prefix">// 03</span>
+                                <span>TELEMETRY PAYLOAD / MESSAGE</span>
+                                <span className="cyber-form-req">*</span>
+                            </label>
+                            <div className="cyber-input-shell textarea-shell">
+                                <span className="cyber-input-icon textarea-icon">⚡</span>
+                                <textarea
+                                    id="contact-message"
+                                    name="message"
+                                    rows={5}
+                                    className="cyber-form-input cyber-form-textarea"
+                                    placeholder="State your objective, technical inquiry, or HPC collaboration..."
+                                    required
+                                />
+                                <div className="cyber-input-corner-accent" />
+                            </div>
                         </div>
 
                         <button type="submit" className="cyber-action-btn primary" disabled={sending} style={{ alignSelf: 'flex-start' }}>
@@ -639,7 +670,8 @@ export default function Home() {
                         </button>
 
                         {sent && (
-                            <p style={{ color: '#34d399', fontSize: '0.95rem', marginTop: '0.5rem', fontFamily: 'var(--font-mono, monospace)' }}>
+                            <p style={{ color: '#10b981', fontSize: '0.92rem', marginTop: '0.5rem', fontFamily: 'var(--font-mono, monospace)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
                                 ✓ Transmission successful. Telemetry received!
                             </p>
                         )}
