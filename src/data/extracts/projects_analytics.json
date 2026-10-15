@@ -637,6 +637,1461 @@
       ]
     ]
   },
+  "project_quadrants": [
+    {
+      "id": "orgslide",
+      "title": "OrgSlide",
+      "excerpt": "Transform Emacs Org-mode and Markdown files into beautiful, interactive web presentations",
+      "stack_breadth": 6,
+      "architectural_depth": 3,
+      "depth_label": "Web Presentation Engine",
+      "proficiency_index": 85,
+      "stack": [
+        "Org-mode",
+        "Markdown",
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "HTML5 FileReader API"
+      ],
+      "featured": true,
+      "has_live_url": true,
+      "repo": "https://github.com/CISSSCO/OrgSlide"
+    },
+    {
+      "id": "hpccfs",
+      "title": "HPCCFS",
+      "excerpt": "Build a production-like HPC cluster from scratch using open-source technologies",
+      "stack_breadth": 13,
+      "architectural_depth": 5,
+      "depth_label": "HPC & Infrastructure",
+      "proficiency_index": 95,
+      "stack": [
+        "Rocky Linux",
+        "Slurm",
+        "OpenMPI",
+        "LDAP",
+        "NFS",
+        "Environment Modules",
+        "Spack",
+        "Munge",
+        "MariaDB",
+        "SlurmDBD",
+        "Bash",
+        "C",
+        "MPI"
+      ],
+      "featured": true,
+      "has_live_url": true,
+      "repo": "https://github.com/CISSSCO/HPCCFS"
+    },
+    {
+      "id": "playlisto",
+      "title": "Playlisto",
+      "excerpt": "Turn Google Drive into your personal music streaming server",
+      "stack_breadth": 7,
+      "architectural_depth": 4,
+      "depth_label": "Full-Stack & Cloud Streaming",
+      "proficiency_index": 88,
+      "stack": [
+        "Python",
+        "FastAPI",
+        "React",
+        "TypeScript",
+        "Google Drive API",
+        "HTTP Streaming",
+        "Kodi Add-on"
+      ],
+      "featured": true,
+      "has_live_url": false,
+      "repo": "https://github.com/CISSSCO/Playlisto"
+    },
+    {
+      "id": "cerrfix",
+      "title": "CerrFix",
+      "excerpt": "Rule-based error analysis and fix suggestion tool for Linux systems",
+      "stack_breadth": 3,
+      "architectural_depth": 4,
+      "depth_label": "CLI & System Automation",
+      "proficiency_index": 90,
+      "stack": [
+        "Python",
+        "Bash Scripting",
+        "YAML"
+      ],
+      "featured": true,
+      "has_live_url": true,
+      "repo": "https://github.com/CISSSCO/cerrfix"
+    },
+    {
+      "id": "gitpush",
+      "title": "GitPush",
+      "excerpt": "Minimal CLI helper to automate common git workflows",
+      "stack_breadth": 1,
+      "architectural_depth": 4,
+      "depth_label": "CLI & System Automation",
+      "proficiency_index": 90,
+      "stack": [
+        "Bash Scripting"
+      ],
+      "featured": false,
+      "has_live_url": false,
+      "repo": "https://github.com/CISSSCO/gitpush"
+    },
+    {
+      "id": "dotfiles",
+      "title": "Dotfiles",
+      "excerpt": "Reproducible Linux shell and development environment configuration",
+      "stack_breadth": 5,
+      "architectural_depth": 4,
+      "depth_label": "CLI & System Automation",
+      "proficiency_index": 90,
+      "stack": [
+        "Bash Scripting",
+        "Vimscript",
+        "Python",
+        "Lisp",
+        "YAML"
+      ],
+      "featured": false,
+      "has_live_url": false,
+      "repo": "https://github.com/CISSSCO/dotfiles"
+    },
+    {
+      "id": "myvimrc",
+      "title": "My VimRC",
+      "excerpt": "Customized Vim configuration for personal use and efficient editing",
+      "stack_breadth": 2,
+      "architectural_depth": 4,
+      "depth_label": "CLI & System Automation",
+      "proficiency_index": 90,
+      "stack": [
+        "Vimscript",
+        "Bash Scripting"
+      ],
+      "featured": false,
+      "has_live_url": false,
+      "repo": "https://github.com/CISSSCO/myvimrc_config"
+    },
+    {
+      "id": "cisssco",
+      "title": "CISSSCO.github.io",
+      "excerpt": "Terminal style Personal portfolio",
+      "stack_breadth": 3,
+      "architectural_depth": 2,
+      "depth_label": "Front-End & Theming",
+      "proficiency_index": 75,
+      "stack": [
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "featured": false,
+      "has_live_url": true,
+      "repo": "https://github.com/CISSSCO/CISSSCO.github.io"
+    },
+    {
+      "id": "popularwebsitethemes",
+      "title": "PopularWebsiteThemes",
+      "excerpt": "Custom themes for popular websites like 10fastfingers",
+      "stack_breadth": 2,
+      "architectural_depth": 2,
+      "depth_label": "Front-End & Theming",
+      "proficiency_index": 75,
+      "stack": [
+        "CSS",
+        "HTML"
+      ],
+      "featured": false,
+      "has_live_url": true,
+      "repo": "https://github.com/CISSSCO/PopularWebsiteThemes"
+    }
+  ],
+  "project_similarity": [
+    {
+      "source_id": "orgslide",
+      "source_title": "OrgSlide",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 1.0,
+          "shared_count": 6,
+          "shared_tech": [
+            "Org-mode",
+            "Markdown",
+            "HTML5",
+            "CSS3",
+            "JavaScript",
+            "HTML5 FileReader API"
+          ]
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.125,
+          "shared_count": 1,
+          "shared_tech": [
+            "JavaScript"
+          ]
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "hpccfs",
+      "source_title": "HPCCFS",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 1.0,
+          "shared_count": 13,
+          "shared_tech": [
+            "Rocky Linux",
+            "Slurm",
+            "OpenMPI",
+            "LDAP",
+            "NFS",
+            "Environment Modules",
+            "Spack",
+            "Munge",
+            "MariaDB",
+            "SlurmDBD",
+            "Bash",
+            "C",
+            "MPI"
+          ]
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "playlisto",
+      "source_title": "Playlisto",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 1.0,
+          "shared_count": 7,
+          "shared_tech": [
+            "Python",
+            "FastAPI",
+            "React",
+            "TypeScript",
+            "Google Drive API",
+            "HTTP Streaming",
+            "Kodi Add-on"
+          ]
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.111,
+          "shared_count": 1,
+          "shared_tech": [
+            "Python"
+          ]
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.091,
+          "shared_count": 1,
+          "shared_tech": [
+            "Python"
+          ]
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "cerrfix",
+      "source_title": "CerrFix",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.111,
+          "shared_count": 1,
+          "shared_tech": [
+            "Python"
+          ]
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 1.0,
+          "shared_count": 3,
+          "shared_tech": [
+            "Python",
+            "Bash Scripting",
+            "YAML"
+          ]
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.333,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.6,
+          "shared_count": 3,
+          "shared_tech": [
+            "Python",
+            "Bash Scripting",
+            "YAML"
+          ]
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.25,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "gitpush",
+      "source_title": "GitPush",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.333,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 1.0,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.2,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.5,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "dotfiles",
+      "source_title": "Dotfiles",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.091,
+          "shared_count": 1,
+          "shared_tech": [
+            "Python"
+          ]
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.6,
+          "shared_count": 3,
+          "shared_tech": [
+            "Bash Scripting",
+            "Python",
+            "YAML"
+          ]
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.2,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 1.0,
+          "shared_count": 5,
+          "shared_tech": [
+            "Bash Scripting",
+            "Vimscript",
+            "Python",
+            "Lisp",
+            "YAML"
+          ]
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.4,
+          "shared_count": 2,
+          "shared_tech": [
+            "Bash Scripting",
+            "Vimscript"
+          ]
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "myvimrc",
+      "source_title": "My VimRC",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.25,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.5,
+          "shared_count": 1,
+          "shared_tech": [
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.4,
+          "shared_count": 2,
+          "shared_tech": [
+            "Vimscript",
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 1.0,
+          "shared_count": 2,
+          "shared_tech": [
+            "Vimscript",
+            "Bash Scripting"
+          ]
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        }
+      ]
+    },
+    {
+      "source_id": "cisssco",
+      "source_title": "CISSSCO.github.io",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.125,
+          "shared_count": 1,
+          "shared_tech": [
+            "JavaScript"
+          ]
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 1.0,
+          "shared_count": 3,
+          "shared_tech": [
+            "JavaScript",
+            "HTML",
+            "CSS"
+          ]
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 0.667,
+          "shared_count": 2,
+          "shared_tech": [
+            "HTML",
+            "CSS"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "popularwebsitethemes",
+      "source_title": "PopularWebsiteThemes",
+      "comparisons": [
+        {
+          "target_id": "orgslide",
+          "target_title": "OrgSlide",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "hpccfs",
+          "target_title": "HPCCFS",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "playlisto",
+          "target_title": "Playlisto",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cerrfix",
+          "target_title": "CerrFix",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "gitpush",
+          "target_title": "GitPush",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "dotfiles",
+          "target_title": "Dotfiles",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "myvimrc",
+          "target_title": "My VimRC",
+          "similarity": 0.0,
+          "shared_count": 0,
+          "shared_tech": []
+        },
+        {
+          "target_id": "cisssco",
+          "target_title": "CISSSCO.github.io",
+          "similarity": 0.667,
+          "shared_count": 2,
+          "shared_tech": [
+            "CSS",
+            "HTML"
+          ]
+        },
+        {
+          "target_id": "popularwebsitethemes",
+          "target_title": "PopularWebsiteThemes",
+          "similarity": 1.0,
+          "shared_count": 2,
+          "shared_tech": [
+            "CSS",
+            "HTML"
+          ]
+        }
+      ]
+    }
+  ],
+  "layer_breakdown": [
+    {
+      "layer": "HPC, Kernels & Schedulers",
+      "total_technologies": 11,
+      "total_deployments": 11,
+      "technologies": [
+        {
+          "name": "Environment Modules",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "LDAP",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "MPI",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "MariaDB",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Munge",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "NFS",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "OpenMPI",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Rocky Linux",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Slurm",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "SlurmDBD",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Spack",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer": "Languages & Shell Core",
+      "total_technologies": 8,
+      "total_deployments": 15,
+      "technologies": [
+        {
+          "name": "Bash Scripting",
+          "count": 4,
+          "percentage": 44.4,
+          "projects": [
+            "CerrFix",
+            "GitPush",
+            "Dotfiles",
+            "My VimRC"
+          ],
+          "project_details": [
+            {
+              "id": "cerrfix",
+              "title": "CerrFix",
+              "featured": true
+            },
+            {
+              "id": "gitpush",
+              "title": "GitPush",
+              "featured": false
+            },
+            {
+              "id": "dotfiles",
+              "title": "Dotfiles",
+              "featured": false
+            },
+            {
+              "id": "myvimrc",
+              "title": "My VimRC",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "Python",
+          "count": 3,
+          "percentage": 33.3,
+          "projects": [
+            "Playlisto",
+            "CerrFix",
+            "Dotfiles"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            },
+            {
+              "id": "cerrfix",
+              "title": "CerrFix",
+              "featured": true
+            },
+            {
+              "id": "dotfiles",
+              "title": "Dotfiles",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "JavaScript",
+          "count": 2,
+          "percentage": 22.2,
+          "projects": [
+            "OrgSlide",
+            "CISSSCO.github.io"
+          ],
+          "project_details": [
+            {
+              "id": "orgslide",
+              "title": "OrgSlide",
+              "featured": true
+            },
+            {
+              "id": "cisssco",
+              "title": "CISSSCO.github.io",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "Vimscript",
+          "count": 2,
+          "percentage": 22.2,
+          "projects": [
+            "Dotfiles",
+            "My VimRC"
+          ],
+          "project_details": [
+            {
+              "id": "dotfiles",
+              "title": "Dotfiles",
+              "featured": false
+            },
+            {
+              "id": "myvimrc",
+              "title": "My VimRC",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "Bash",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "C",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "HPCCFS"
+          ],
+          "project_details": [
+            {
+              "id": "hpccfs",
+              "title": "HPCCFS",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Lisp",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Dotfiles"
+          ],
+          "project_details": [
+            {
+              "id": "dotfiles",
+              "title": "Dotfiles",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "TypeScript",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Playlisto"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer": "Web, APIs & Formats",
+      "total_technologies": 13,
+      "total_deployments": 16,
+      "technologies": [
+        {
+          "name": "CSS",
+          "count": 2,
+          "percentage": 22.2,
+          "projects": [
+            "CISSSCO.github.io",
+            "PopularWebsiteThemes"
+          ],
+          "project_details": [
+            {
+              "id": "cisssco",
+              "title": "CISSSCO.github.io",
+              "featured": false
+            },
+            {
+              "id": "popularwebsitethemes",
+              "title": "PopularWebsiteThemes",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "HTML",
+          "count": 2,
+          "percentage": 22.2,
+          "projects": [
+            "CISSSCO.github.io",
+            "PopularWebsiteThemes"
+          ],
+          "project_details": [
+            {
+              "id": "cisssco",
+              "title": "CISSSCO.github.io",
+              "featured": false
+            },
+            {
+              "id": "popularwebsitethemes",
+              "title": "PopularWebsiteThemes",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "YAML",
+          "count": 2,
+          "percentage": 22.2,
+          "projects": [
+            "CerrFix",
+            "Dotfiles"
+          ],
+          "project_details": [
+            {
+              "id": "cerrfix",
+              "title": "CerrFix",
+              "featured": true
+            },
+            {
+              "id": "dotfiles",
+              "title": "Dotfiles",
+              "featured": false
+            }
+          ]
+        },
+        {
+          "name": "CSS3",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "OrgSlide"
+          ],
+          "project_details": [
+            {
+              "id": "orgslide",
+              "title": "OrgSlide",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "FastAPI",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Playlisto"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Google Drive API",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Playlisto"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "HTML5",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "OrgSlide"
+          ],
+          "project_details": [
+            {
+              "id": "orgslide",
+              "title": "OrgSlide",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "HTML5 FileReader API",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "OrgSlide"
+          ],
+          "project_details": [
+            {
+              "id": "orgslide",
+              "title": "OrgSlide",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "HTTP Streaming",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Playlisto"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Kodi Add-on",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Playlisto"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Markdown",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "OrgSlide"
+          ],
+          "project_details": [
+            {
+              "id": "orgslide",
+              "title": "OrgSlide",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "Org-mode",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "OrgSlide"
+          ],
+          "project_details": [
+            {
+              "id": "orgslide",
+              "title": "OrgSlide",
+              "featured": true
+            }
+          ]
+        },
+        {
+          "name": "React",
+          "count": 1,
+          "percentage": 11.1,
+          "projects": [
+            "Playlisto"
+          ],
+          "project_details": [
+            {
+              "id": "playlisto",
+              "title": "Playlisto",
+              "featured": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "projects_list": [
     {
       "id": "orgslide",

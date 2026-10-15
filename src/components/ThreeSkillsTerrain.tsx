@@ -70,32 +70,44 @@ export default function ThreeSkillsTerrain({
     gridHelper.position.y = -0.5
     scene.add(gridHelper)
 
-    // Helper: Text sprite
+    // Helper: Text sprite (Dynamically measured, zero text cutting)
     const createTextSprite = (text: string, level: number) => {
+      const fullLabel = `${text} (${level}%)`
       const canvas = document.createElement('canvas')
-      canvas.width = 256
-      canvas.height = 70
       const ctx = canvas.getContext('2d')
-      if (ctx) {
-        ctx.fillStyle = 'rgba(12, 18, 32, 0.88)'
-        ctx.strokeStyle = '#00f2fe'
-        ctx.lineWidth = 2
-        ctx.beginPath()
-        ctx.roundRect(8, 8, 240, 54, 8)
-        ctx.fill()
-        ctx.stroke()
+      if (!ctx) return new THREE.Sprite()
 
-        ctx.font = 'bold 22px monospace'
-        ctx.fillStyle = '#f8fafc'
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        const label = text.length > 13 ? text.slice(0, 11) + '..' : text
-        ctx.fillText(`${label} (${level}%)`, 128, 35)
-      }
+      ctx.font = 'bold 22px monospace'
+      const metrics = ctx.measureText(fullLabel)
+      const paddingX = 24
+      const canvasWidth = Math.max(160, Math.ceil(metrics.width) + paddingX * 2)
+      const canvasHeight = 60
+
+      canvas.width = canvasWidth
+      canvas.height = canvasHeight
+
+      // Context state resets on dimension change
+      ctx.font = 'bold 22px monospace'
+      ctx.fillStyle = 'rgba(10, 15, 28, 0.92)'
+      ctx.strokeStyle = '#00f2fe'
+      ctx.lineWidth = 2.5
+      ctx.beginPath()
+      ctx.roundRect(4, 4, canvasWidth - 8, canvasHeight - 8, 10)
+      ctx.fill()
+      ctx.stroke()
+
+      ctx.fillStyle = '#ffffff'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(fullLabel, canvasWidth / 2, canvasHeight / 2)
+
       const texture = new THREE.CanvasTexture(canvas)
-      const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.9 })
+      texture.minFilter = THREE.LinearFilter
+      const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.95 })
       const sprite = new THREE.Sprite(spriteMaterial)
-      sprite.scale.set(20, 6, 1)
+      const baseHeight = 5.2
+      const aspect = canvasWidth / canvasHeight
+      sprite.scale.set(baseHeight * aspect, baseHeight, 1)
       return sprite
     }
 

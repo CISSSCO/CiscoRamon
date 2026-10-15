@@ -7,7 +7,18 @@ import { SkillGlyph } from '../ui/HeroIcons'
 import '../styles/home.css'
 import '../styles/graphs.css'
 
-type PlotType = '3d' | 'radar' | 'stem' | 'wheel' | 'histogram' | 'treemap'
+type PlotType =
+  | '3d'
+  | 'sunburst'
+  | 'polarbar'
+  | 'boxplot'
+  | 'radar'
+  | 'superclusters'
+  | 'ecdf'
+  | 'honeycomb'
+  | 'stem'
+  | 'histogram'
+  | 'treemap'
 
 export default function SkillVisualizerPage() {
   const navigate = useNavigate()
@@ -15,13 +26,23 @@ export default function SkillVisualizerPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
   const [selectedBin, setSelectedBin] = useState<string | null>(null)
+  const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
   }, [])
 
   // Safely extract category metrics and distributions with fallback
-  const { total_skills, total_categories, category_stats, all_skills_ranked } = useMemo(() => {
+  const {
+    total_skills,
+    total_categories,
+    category_stats,
+    super_clusters,
+    ecdf_points,
+    overall_percentiles,
+    featured_count,
+    all_skills_ranked,
+  } = useMemo(() => {
     if (analyticsData && analyticsData.category_stats) {
       return analyticsData
     }
@@ -40,6 +61,11 @@ export default function SkillVisualizerPage() {
         avg_level: avg,
         min_level: Math.min(...levels),
         max_level: Math.max(...levels),
+        q1: avg - 5,
+        median: avg,
+        q3: avg + 5,
+        iqr: 10,
+        levels,
         top_skills: list.slice(0, 3).map((x) => x.name),
         skills: list,
       }
@@ -48,7 +74,10 @@ export default function SkillVisualizerPage() {
       total_skills: skillsData.length,
       total_categories: Object.keys(catMap).length,
       category_stats: stats,
-      level_distribution: { '50-59%': 5, '60-69%': 8, '70-79%': 13, '80-89%': 10, '90-100%': 16 },
+      super_clusters: [],
+      ecdf_points: [],
+      overall_percentiles: { p25: 70, median: 75, p75: 85, p90: 90 },
+      featured_count: skillsData.filter((s) => s.featured).length,
       all_skills_ranked: [...skillsData].sort((a, b) => b.level - a.level),
     }
   }, [])
@@ -59,7 +88,7 @@ export default function SkillVisualizerPage() {
     return category_stats.find((c) => c.category.toLowerCase() === selectedCategory.toLowerCase()) || null
   }, [category_stats, selectedCategory])
 
-  // Category palette generator for vibrant cyber styling
+  // Category palette generator
   const getCategoryColor = (cat: string, alpha = 1) => {
     const palette: Record<string, string> = {
       'Systems': `rgba(0, 242, 254, ${alpha})`,
@@ -79,6 +108,96 @@ export default function SkillVisualizerPage() {
     }
     return palette[cat] || `rgba(0, 242, 254, ${alpha})`
   }
+
+  // ==========================================
+  // PLOTLY INTERACTIVE SUNBURST DATA
+  // ==========================================
+  const sunburstArcs = useMemo(() => {
+    const centerX = 300
+    const centerY = 300
+    const r1 = 65 // Super-clusters inner ring
+    const r2 = 135 // Categories ring
+    const r3 = 205 // Outer ring (top skills)
+
+    const total = category_stats.reduce((acc, c) => acc + c.skill_count, 0)
+    let currentAngle = -Math.PI / 2
+
+    return category_stats.map((cat) => {
+      const sliceAngle = (cat.skill_count / total) * 2 * Math.PI
+      const startAngle = currentAngle
+      const endAngle = currentAngle + sliceAngle
+      currentAngle = endAngle
+
+      const createArc = (innerR: number, outerR: number) => {
+        const x1 = centerX + innerR * Math.cos(startAngle)
+        const y1 = centerY + innerR * Math.sin(startAngle)
+        const x2 = centerX + outerR * Math.cos(startAngle)
+        const y2 = centerY + outerR * Math.sin(startAngle)
+        const x3 = centerX + outerR * Math.cos(endAngle)
+        const y3 = centerY + outerR * Math.sin(endAngle)
+        const x4 = centerX + innerR * Math.cos(endAngle)
+        const y4 = centerY + innerR * Math.sin(endAngle)
+        const largeArc = sliceAngle > Math.PI ? 1 : 0
+        return `M ${x1} ${y1} L ${x2} ${y2} A ${outerR} ${outerR} 0 ${largeArc} 1 ${x3} ${y3} L ${x4} ${y4} A ${innerR} ${innerR} 0 ${largeArc} 0 ${x1} ${y1} Z`
+      }
+
+      const midAngle = startAngle + sliceAngle / 2
+      const textX = centerX + ((r1 + r2) / 2) * Math.cos(midAngle)
+      const textY = centerY + ((r1 + r2) / 2) * Math.sin(midAngle)
+
+      return {
+        ...cat,
+        catPath: createArc(r1, r2),
+        skillPath: createArc(r2 + 3, r3),
+        textX,
+        textY,
+        midAngle,
+        color: getCategoryColor(cat.category),
+      }
+    })
+  }, [category_stats])
+
+  // ==========================================
+  // PLOTLY POLAR BAR / WIND ROSE DATA (go.Barpolar)
+  // ==========================================
+  const polarBarData = useMemo(() => {
+    const centerX = 300
+    const centerY = 260
+    const maxR = 190
+    const n = category_stats.length
+
+    return category_stats.map((cat, i) => {
+      const angle = (2 * Math.PI * i) / n - Math.PI / 2
+      const barLen = Math.max(25, (cat.avg_level / 100) * maxR)
+      const widthAngle = (2 * Math.PI / n) * 0.75
+
+      const startA = angle - widthAngle / 2
+      const endA = angle + widthAngle / 2
+
+      const x1 = centerX + 18 * Math.cos(startA)
+      const y1 = centerY + 18 * Math.sin(startA)
+      const x2 = centerX + barLen * Math.cos(startA)
+      const y2 = centerY + barLen * Math.sin(startA)
+      const x3 = centerX + barLen * Math.cos(endA)
+      const y3 = centerY + barLen * Math.sin(endA)
+      const x4 = centerX + 18 * Math.cos(endA)
+      const y4 = centerY + 18 * Math.sin(endA)
+
+      const pathD = `M ${x1} ${y1} L ${x2} ${y2} A ${barLen} ${barLen} 0 0 1 ${x3} ${y3} L ${x4} ${y4} Z`
+      const labelX = centerX + (barLen + 22) * Math.cos(angle)
+      const labelY = centerY + (barLen + 22) * Math.sin(angle)
+
+      return {
+        ...cat,
+        pathD,
+        labelX,
+        labelY,
+        angle,
+        cos: Math.cos(angle),
+        color: getCategoryColor(cat.category),
+      }
+    })
+  }, [category_stats])
 
   // 1. Radar Polar Calculations
   const radarData = useMemo(() => {
@@ -117,58 +236,7 @@ export default function SkillVisualizerPage() {
     return { polygonPoints, axes, centerX, centerY, maxR }
   }, [category_stats])
 
-  // 2. Radial Wheel Segments
-  const wheelData = useMemo(() => {
-    const totalCount = category_stats.reduce((acc, c) => acc + c.skill_count, 0)
-    let currentAngle = -Math.PI / 2
-    const centerX = 260
-    const centerY = 260
-    const innerR = 90
-    const baseOuterR = 165
-
-    return category_stats.map((cat) => {
-      const sliceAngle = (cat.skill_count / totalCount) * 2 * Math.PI
-      const startAngle = currentAngle
-      const endAngle = currentAngle + sliceAngle
-      currentAngle = endAngle
-
-      const levelBoost = ((cat.avg_level - 50) / 50) * 25
-      const outerR = baseOuterR + levelBoost
-
-      const x1 = centerX + innerR * Math.cos(startAngle)
-      const y1 = centerY + innerR * Math.sin(startAngle)
-      const x2 = centerX + outerR * Math.cos(startAngle)
-      const y2 = centerY + outerR * Math.sin(startAngle)
-      const x3 = centerX + outerR * Math.cos(endAngle)
-      const y3 = centerY + outerR * Math.sin(endAngle)
-      const x4 = centerX + innerR * Math.cos(endAngle)
-      const y4 = centerY + innerR * Math.sin(endAngle)
-
-      const largeArc = sliceAngle > Math.PI ? 1 : 0
-      const pathData = `
-        M ${x1} ${y1}
-        L ${x2} ${y2}
-        A ${outerR} ${outerR} 0 ${largeArc} 1 ${x3} ${y3}
-        L ${x4} ${y4}
-        A ${innerR} ${innerR} 0 ${largeArc} 0 ${x1} ${y1}
-        Z
-      `
-      const midAngle = startAngle + sliceAngle / 2
-      const textX = centerX + (outerR + 22) * Math.cos(midAngle)
-      const textY = centerY + (outerR + 22) * Math.sin(midAngle)
-
-      return {
-        ...cat,
-        pathData,
-        textX,
-        textY,
-        midAngle,
-        color: getCategoryColor(cat.category),
-      }
-    })
-  }, [category_stats])
-
-  // 3. Matplotlib Histogram Bins Data
+  // 2. Matplotlib Histogram Bins Data
   const histogramBins = useMemo(() => {
     const binsConfig = [
       { range: '50-59%', min: 50, max: 59, label: '50–59% Basic Proficiency' },
@@ -231,13 +299,13 @@ export default function SkillVisualizerPage() {
       <div style={{ marginBottom: '2.8rem' }}>
         <div className="section-tag-hpc">
           <span className="section-tag-dot" />
-          <span>ADVANCED COMPETENCY ANALYTICS // 6 PLOT METHODS</span>
+          <span>ADVANCED COMPETENCY ANALYTICS // 11 SCIENTIFIC PLOTS</span>
         </div>
-        <h1 style={{ fontSize: 'clamp(2.4rem, 4vw, 3.4rem)', fontWeight: 800, letterSpacing: '-0.03em', margin: '0 0 0.8rem', color: 'var(--text-main)' }}>
+        <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.4rem)', fontWeight: 800, letterSpacing: '-0.03em', margin: '0 0 0.8rem', color: 'var(--text-main)' }}>
           Skills &amp; Expertise Visualizer
         </h1>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1.08rem', maxWidth: '820px', lineHeight: 1.65, margin: 0 }}>
-          Interactive multi-representation analytics across {total_skills} technical competencies spanning 14 specialization domains. Switch between 3D competency terrain, polar spider radar matrices, matplotlib stem &amp; whisker plots, radial sunburst wheels, and frequency histograms.
+        <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', maxWidth: '820px', lineHeight: 1.65, margin: 0 }}>
+          Interactive multi-representation analytics across {total_skills} technical competencies spanning 14 specialization domains. Switch between 3D competency terrain, Plotly interactive sunburst partitions, polar bar wind roses, scientific boxplots, and cyber honeycombs.
         </p>
       </div>
 
@@ -253,32 +321,38 @@ export default function SkillVisualizerPage() {
         </div>
         <div className="social-stat-item">
           <div className="social-stat-number">{category_stats[0]?.category || 'Systems'}</div>
-          <div className="social-stat-title">Top Tier Domain (Avg {category_stats[0]?.avg_level || 91}%)</div>
+          <div className="social-stat-title">Top Domain (Avg {category_stats[0]?.avg_level || 91}%)</div>
         </div>
         <div className="social-stat-item">
-          <div className="social-stat-number">{all_skills_ranked.filter((s) => s.level >= 90).length}</div>
-          <div className="social-stat-title">Core Specialist Skills (≥ 90%)</div>
+          <div className="social-stat-number">{featured_count}</div>
+          <div className="social-stat-title">Cornerstone Featured Skills</div>
         </div>
       </div>
 
       {/* Main Visualizer Container */}
-      <div className="cyber-graph-card" style={{ padding: '1.8rem 2rem' }}>
-        {/* Method Switcher Header */}
+      <div className="cyber-graph-card">
+        {/* Method Switcher Header with Horizontal Scroll */}
         <div className="cyber-graph-header">
-          <div>
+          <div className="cyber-graph-title-group">
             <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.78rem', color: 'var(--cyber-cyan)', fontWeight: 700 }}>
               VISUALIZATION METHOD
             </div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)', marginTop: '0.2rem' }}>
+            <div className="cyber-graph-title">
               {activePlot === '3d' && '🎮 3D Interactive Competency Terrain Pillars'}
+              {activePlot === 'sunburst' && '☀️ Plotly Interactive Multi-Level Sunburst Partition'}
+              {activePlot === 'polarbar' && '🎯 Plotly Polar Bar / Wind Rose (go.Barpolar)'}
+              {activePlot === 'boxplot' && '📦 Matplotlib Box & Whisker Quartile Spectrum (boxplot)'}
               {activePlot === 'radar' && '🕸️ Polar Spider Radar Matrix (14 Domain Polygon)'}
+              {activePlot === 'superclusters' && '🪐 Strategic Domain Super-Clusters Dashboard'}
+              {activePlot === 'ecdf' && '📈 Empirical Cumulative Distribution Function (ECDF)'}
+              {activePlot === 'honeycomb' && '🐝 Hexagonal Cyber Competency Honeycomb Grid'}
               {activePlot === 'stem' && '📍 Matplotlib Stem & Whisker Errorbar Spectrum'}
-              {activePlot === 'wheel' && '🎯 Radial Polar Sunburst Wheel (Competency Distribution)'}
               {activePlot === 'histogram' && '📊 Matplotlib Proficiency Level Histogram (hist)'}
               {activePlot === 'treemap' && '🌲 Proportional Category Block Treemap'}
             </div>
           </div>
 
+          {/* Swipeable Tab Strip */}
           <div className="cyber-graph-switcher">
             <button
               onClick={() => setActivePlot('3d')}
@@ -287,22 +361,52 @@ export default function SkillVisualizerPage() {
               <span>🎮 3D TERRAIN</span>
             </button>
             <button
+              onClick={() => setActivePlot('sunburst')}
+              className={`cyber-graph-switcher-btn ${activePlot === 'sunburst' ? 'active' : ''}`}
+            >
+              <span>☀️ SUNBURST</span>
+            </button>
+            <button
+              onClick={() => setActivePlot('polarbar')}
+              className={`cyber-graph-switcher-btn ${activePlot === 'polarbar' ? 'active' : ''}`}
+            >
+              <span>🎯 POLAR BARS</span>
+            </button>
+            <button
+              onClick={() => setActivePlot('boxplot')}
+              className={`cyber-graph-switcher-btn ${activePlot === 'boxplot' ? 'active' : ''}`}
+            >
+              <span>📦 BOXPLOT</span>
+            </button>
+            <button
               onClick={() => setActivePlot('radar')}
               className={`cyber-graph-switcher-btn ${activePlot === 'radar' ? 'active' : ''}`}
             >
               <span>🕸️ RADAR</span>
             </button>
             <button
+              onClick={() => setActivePlot('superclusters')}
+              className={`cyber-graph-switcher-btn ${activePlot === 'superclusters' ? 'active' : ''}`}
+            >
+              <span>🪐 SUPER-CLUSTERS</span>
+            </button>
+            <button
+              onClick={() => setActivePlot('ecdf')}
+              className={`cyber-graph-switcher-btn ${activePlot === 'ecdf' ? 'active' : ''}`}
+            >
+              <span>📈 ECDF CURVE</span>
+            </button>
+            <button
+              onClick={() => setActivePlot('honeycomb')}
+              className={`cyber-graph-switcher-btn ${activePlot === 'honeycomb' ? 'active' : ''}`}
+            >
+              <span>🐝 HONEYCOMB</span>
+            </button>
+            <button
               onClick={() => setActivePlot('stem')}
               className={`cyber-graph-switcher-btn ${activePlot === 'stem' ? 'active' : ''}`}
             >
               <span>📍 STEM &amp; WHISKER</span>
-            </button>
-            <button
-              onClick={() => setActivePlot('wheel')}
-              className={`cyber-graph-switcher-btn ${activePlot === 'wheel' ? 'active' : ''}`}
-            >
-              <span>🎯 POLAR WHEEL</span>
             </button>
             <button
               onClick={() => setActivePlot('histogram')}
@@ -349,7 +453,7 @@ export default function SkillVisualizerPage() {
         )}
 
         {/* ========================================================
-            VIEW 1: THREE.JS 3D COMPETENCY TERRAIN
+            VIEW 1: THREE.JS 3D COMPETENCY TERRAIN (DYNAMIC LABELS)
             ======================================================== */}
         {activePlot === '3d' && (
           <ThreeSkillsTerrain
@@ -360,12 +464,272 @@ export default function SkillVisualizerPage() {
         )}
 
         {/* ========================================================
-            VIEW 2: POLAR SPIDER RADAR MATRIX (14 DOMAINS)
+            VIEW 2: PLOTLY INTERACTIVE SUNBURST PARTITION
+            ======================================================== */}
+        {activePlot === 'sunburst' && (
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.2rem', textAlign: 'center' }}>
+              Plotly `px.sunburst`: Multi-tiered radial hierarchy. Center hub → 14 Specialization domains → outer skill leaves. Click any sector to focus.
+            </p>
+
+            <svg viewBox="0 0 600 600" style={{ width: '100%', maxWidth: '580px', height: 'auto', overflow: 'visible', userSelect: 'none' }}>
+              {/* Outer skill leaves */}
+              {sunburstArcs.map((arc) => {
+                const isSelected = selectedCategory === arc.category
+                const isHovered = hoveredCategory === arc.category
+                return (
+                  <path
+                    key={`sun-skill-${arc.category}`}
+                    d={arc.skillPath}
+                    fill={arc.color}
+                    fillOpacity={isSelected ? 0.95 : isHovered ? 0.8 : 0.4}
+                    stroke="#0a0d14"
+                    strokeWidth="1.5"
+                    style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+                    onClick={() => handleCategoryClick(arc.category)}
+                    onMouseEnter={() => setHoveredCategory(arc.category)}
+                    onMouseLeave={() => setHoveredCategory(null)}
+                  >
+                    <title>{`${arc.category}: ${arc.top_skills.join(', ')}`}</title>
+                  </path>
+                )
+              })}
+
+              {/* Middle domain sectors */}
+              {sunburstArcs.map((arc) => {
+                const isSelected = selectedCategory === arc.category
+                const isHovered = hoveredCategory === arc.category
+                return (
+                  <g key={`sun-cat-${arc.category}`}>
+                    <path
+                      d={arc.catPath}
+                      fill={arc.color}
+                      fillOpacity={isSelected ? 1.0 : isHovered ? 0.9 : 0.75}
+                      stroke={isSelected ? '#fcee0a' : '#0a0d14'}
+                      strokeWidth={isSelected ? 3 : 1.5}
+                      style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+                      onClick={() => handleCategoryClick(arc.category)}
+                      onMouseEnter={() => setHoveredCategory(arc.category)}
+                      onMouseLeave={() => setHoveredCategory(null)}
+                    />
+                    <text
+                      x={arc.textX}
+                      y={arc.textY}
+                      textAnchor="middle"
+                      alignmentBaseline="middle"
+                      fill="#ffffff"
+                      fontSize="9px"
+                      fontWeight={800}
+                      fontFamily="var(--font-mono, monospace)"
+                      style={{ pointerEvents: 'none' }}
+                    >
+                      {arc.category.length > 8 ? arc.category.slice(0, 7) + '.' : arc.category}
+                    </text>
+                  </g>
+                )
+              })}
+
+              {/* Center Hub */}
+              <circle
+                cx={300}
+                cy={300}
+                r={62}
+                fill="var(--bg-surface)"
+                stroke="var(--cyber-cyan)"
+                strokeWidth="2"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  setSelectedCategory(null)
+                }}
+              />
+              <text x={300} y={285} textAnchor="middle" fill="var(--cyber-cyan)" fontSize="9.5" fontFamily="var(--font-mono, monospace)" fontWeight={800}>
+                {hoveredCategory || selectedCategory || 'ALL DOMAINS'}
+              </text>
+              <text x={300} y={312} textAnchor="middle" fill="var(--text-main)" fontSize="20" fontFamily="var(--font-mono, monospace)" fontWeight={900}>
+                {hoveredCategory
+                  ? `${category_stats.find((c) => c.category === hoveredCategory)?.avg_level}%`
+                  : selectedCategory
+                  ? `${activeCategoryData?.avg_level}%`
+                  : '52 SKILLS'}
+              </text>
+              <text x={300} y={328} textAnchor="middle" fill="var(--text-muted)" fontSize="8.5" fontFamily="var(--font-mono, monospace)">
+                {hoveredCategory || selectedCategory ? 'Avg Proficiency' : 'Click sector'}
+              </text>
+            </svg>
+          </div>
+        )}
+
+        {/* ========================================================
+            VIEW 3: PLOTLY POLAR BAR / WIND ROSE (go.Barpolar)
+            ======================================================== */}
+        {activePlot === 'polarbar' && (
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.2rem', textAlign: 'center' }}>
+              Plotly `go.Barpolar`: Radial wind rose bar chart. Each domain sector extends outwards proportional to its average proficiency (0% to 100%).
+            </p>
+
+            <svg viewBox="0 0 600 520" style={{ width: '100%', maxWidth: '600px', height: 'auto', overflow: 'visible', userSelect: 'none' }}>
+              {/* Concentric Guide Circles */}
+              {[0.25, 0.5, 0.75, 1.0].map((ring) => (
+                <g key={`polar-ring-${ring}`}>
+                  <circle
+                    cx={300}
+                    cy={260}
+                    r={190 * ring}
+                    fill="none"
+                    stroke={ring === 1.0 ? 'rgba(0, 242, 254, 0.35)' : 'rgba(255, 255, 255, 0.07)'}
+                    strokeDasharray={ring === 1.0 ? undefined : '3 3'}
+                  />
+                  <text x={306} y={260 - 190 * ring + 11} fill="var(--text-muted)" fontSize="8.5" fontFamily="var(--font-mono, monospace)">
+                    {Math.round(ring * 100)}%
+                  </text>
+                </g>
+              ))}
+
+              {/* Polar Bars */}
+              {polarBarData.map((bar) => {
+                const isSelected = selectedCategory === bar.category
+                const isHovered = hoveredCategory === bar.category
+
+                return (
+                  <g
+                    key={`polar-bar-${bar.category}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleCategoryClick(bar.category)}
+                    onMouseEnter={() => setHoveredCategory(bar.category)}
+                    onMouseLeave={() => setHoveredCategory(null)}
+                  >
+                    <path
+                      d={bar.pathD}
+                      fill={bar.color}
+                      fillOpacity={isSelected ? 0.95 : isHovered ? 0.8 : 0.6}
+                      stroke={isSelected ? '#fcee0a' : '#0a0d14'}
+                      strokeWidth={isSelected ? 2.5 : 1}
+                      filter={isSelected ? 'drop-shadow(0 0 10px #fcee0a)' : undefined}
+                    />
+                    <text
+                      x={bar.labelX}
+                      y={bar.labelY}
+                      textAnchor={bar.cos > 0.2 ? 'start' : bar.cos < -0.2 ? 'end' : 'middle'}
+                      alignmentBaseline="middle"
+                      fill={isSelected ? 'var(--cyber-yellow)' : isHovered ? 'var(--cyber-cyan)' : 'var(--text-muted)'}
+                      fontSize="9.5px"
+                      fontFamily="var(--font-mono, monospace)"
+                      fontWeight={isSelected ? 800 : 600}
+                    >
+                      {bar.category} ({bar.avg_level}%)
+                    </text>
+                  </g>
+                )
+              })}
+
+              {/* Center Core */}
+              <circle cx={300} cy={260} r="18" fill="var(--bg-surface)" stroke="var(--cyber-cyan)" strokeWidth="1.5" />
+            </svg>
+          </div>
+        )}
+
+        {/* ========================================================
+            VIEW 4: MATPLOTLIB BOX & WHISKER SPECTRUM (boxplot)
+            ======================================================== */}
+        {activePlot === 'boxplot' && (
+          <div style={{ width: '100%', overflowX: 'auto', padding: '1rem 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.2rem', textAlign: 'center' }}>
+              Scientific Matplotlib `boxplot()`: Displays Q1 (25%), Median, Q3 (75%), and Min/Max error whiskers for each domain category.
+            </p>
+
+            <div style={{ minWidth: '880px', margin: '0 auto' }}>
+              <svg viewBox="0 0 880 400" className="cyber-boxplot-svg">
+                {/* Y-Axis Grid Reference Lines */}
+                {[40, 50, 60, 70, 80, 90, 100].map((val) => {
+                  const y = 300 - ((val - 40) / 60) * 240
+                  return (
+                    <g key={`box-y-${val}`}>
+                      <line x1={70} y1={y} x2={850} y2={y} stroke="rgba(255, 255, 255, 0.07)" strokeDasharray="3 3" />
+                      <text x={60} y={y + 4} textAnchor="end" fill="var(--text-muted)" fontSize="10" fontFamily="var(--font-mono, monospace)">
+                        {val}%
+                      </text>
+                    </g>
+                  )
+                })}
+
+                <line x1={70} y1={300} x2={850} y2={300} stroke="rgba(0, 242, 254, 0.4)" strokeWidth="2" />
+
+                {/* Boxplots */}
+                {category_stats.map((cat, idx) => {
+                  const stepX = (850 - 90) / (category_stats.length - 1)
+                  const x = 90 + idx * stepX
+                  const boxWidth = 26
+                  const minY = 300 - ((cat.min_level - 40) / 60) * 240
+                  const maxY = 300 - ((cat.max_level - 40) / 60) * 240
+                  const q1Y = 300 - (((cat.q1 || cat.avg_level - 5) - 40) / 60) * 240
+                  const q3Y = 300 - (((cat.q3 || cat.avg_level + 5) - 40) / 60) * 240
+                  const medY = 300 - (((cat.median || cat.avg_level) - 40) / 60) * 240
+                  const isSelected = selectedCategory?.toLowerCase() === cat.category.toLowerCase()
+
+                  return (
+                    <g
+                      key={`box-${cat.category}`}
+                      className="cyber-boxplot-item"
+                      onClick={() => handleCategoryClick(cat.category)}
+                    >
+                      {/* Whiskers */}
+                      <line x1={x} y1={q3Y} x2={x} y2={maxY} stroke="#00f2fe" strokeWidth="1.5" strokeDasharray="2 2" />
+                      <line x1={x} y1={minY} x2={x} y2={q1Y} stroke="#00f2fe" strokeWidth="1.5" strokeDasharray="2 2" />
+
+                      <line x1={x - 6} y1={maxY} x2={x + 6} y2={maxY} stroke="#00f2fe" strokeWidth="2" />
+                      <line x1={x - 6} y1={minY} x2={x + 6} y2={minY} stroke="#00f2fe" strokeWidth="2" />
+
+                      {/* Box */}
+                      <rect
+                        x={x - boxWidth / 2}
+                        y={q3Y}
+                        width={boxWidth}
+                        height={Math.max(4, q1Y - q3Y)}
+                        fill={isSelected ? 'rgba(252, 238, 10, 0.25)' : 'rgba(0, 242, 254, 0.12)'}
+                        stroke={isSelected ? '#fcee0a' : '#00f2fe'}
+                        strokeWidth={isSelected ? 2 : 1.5}
+                        rx="3"
+                      />
+
+                      {/* Median Line */}
+                      <line
+                        x1={x - boxWidth / 2}
+                        y1={medY}
+                        x2={x + boxWidth / 2}
+                        y2={medY}
+                        stroke="#fcee0a"
+                        strokeWidth="2.5"
+                      />
+
+                      {/* Label */}
+                      <text
+                        x={x}
+                        y={316}
+                        textAnchor="end"
+                        transform={`rotate(-45, ${x}, 316)`}
+                        fill={isSelected ? 'var(--cyber-yellow)' : 'var(--text-muted)'}
+                        fontSize="9.5"
+                        fontWeight={isSelected ? 700 : 500}
+                        fontFamily="var(--font-mono, monospace)"
+                      >
+                        {cat.category}
+                      </text>
+                    </g>
+                  )
+                })}
+              </svg>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            VIEW 5: POLAR SPIDER RADAR MATRIX (14 DOMAINS)
             ======================================================== */}
         {activePlot === 'radar' && (
           <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.2rem', textAlign: 'center' }}>
-              Polar coordinate projection of all 14 specialization domains. Concentric polygons mark 25%, 50%, 75%, and 100% proficiencies. Click any node or label to inspect.
+              Polar spider radar matrix: 14-domain polygon connecting average proficiencies. Concentric polygons mark 25%, 50%, 75%, and 100%.
             </p>
 
             <svg viewBox="0 0 680 520" className="cyber-radar-svg">
@@ -410,7 +774,7 @@ export default function SkillVisualizerPage() {
                 )
               })}
 
-              {/* Axis Spokes & Category Labels */}
+              {/* Axis Spokes */}
               {radarData.axes.map((ax) => {
                 const isSelected = selectedCategory?.toLowerCase() === ax.category.toLowerCase()
                 const isHovered = hoveredCategory?.toLowerCase() === ax.category.toLowerCase()
@@ -443,7 +807,6 @@ export default function SkillVisualizerPage() {
                 )
               })}
 
-              {/* Filled Competency Polygon */}
               <polygon
                 points={radarData.polygonPoints}
                 fill="url(#radarSkillGrad)"
@@ -452,7 +815,6 @@ export default function SkillVisualizerPage() {
                 filter="drop-shadow(0 0 12px rgba(0, 242, 254, 0.5))"
               />
 
-              {/* Vertices / Points */}
               {radarData.axes.map((ax) => {
                 const isSelected = selectedCategory?.toLowerCase() === ax.category.toLowerCase()
                 return (
@@ -468,9 +830,7 @@ export default function SkillVisualizerPage() {
                     onClick={() => handleCategoryClick(ax.category)}
                     onMouseEnter={() => setHoveredCategory(ax.category)}
                     onMouseLeave={() => setHoveredCategory(null)}
-                  >
-                    <title>{`${ax.category}: Avg ${ax.avg_level}% (${ax.skill_count} skills)`}</title>
-                  </circle>
+                  />
                 )
               })}
             </svg>
@@ -478,7 +838,208 @@ export default function SkillVisualizerPage() {
         )}
 
         {/* ========================================================
-            VIEW 3: MATPLOTLIB STEM & WHISKER SPECTRUM
+            VIEW 6: STRATEGIC SUPER-CLUSTERS DASHBOARD
+            ======================================================== */}
+        {activePlot === 'superclusters' && (
+          <div style={{ width: '100%', padding: '1rem 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.5rem', textAlign: 'center' }}>
+              Strategic Engineering Pillars: Aggregating competencies into 4 overarching architectural super-clusters.
+            </p>
+
+            <div className="cyber-supercluster-grid">
+              {super_clusters.map((sc) => (
+                <div key={sc.name} className="cyber-supercluster-card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div style={{ fontWeight: 800, fontSize: '1.15rem', color: 'var(--cyber-cyan)' }}>
+                      {sc.name}
+                    </div>
+                    <span style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '1.2rem', fontWeight: 900, color: 'var(--cyber-yellow)' }}>
+                      {sc.avg_level}%
+                    </span>
+                  </div>
+
+                  <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                    {sc.skill_count} Competencies across {sc.categories.length} Domains
+                  </div>
+
+                  <div className="cyber-bar-track">
+                    <div className="cyber-bar-fill" style={{ width: `${sc.avg_level}%` }} />
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.4rem' }}>
+                    {sc.category_details.map((cd) => (
+                      <span
+                        key={cd.category}
+                        onClick={() => handleCategoryClick(cd.category)}
+                        style={{
+                          background: 'rgba(0, 242, 254, 0.08)',
+                          border: '1px solid var(--border-subtle)',
+                          borderRadius: '4px',
+                          padding: '0.2rem 0.55rem',
+                          fontFamily: 'var(--font-mono, monospace)',
+                          fontSize: '0.72rem',
+                          color: selectedCategory === cd.category ? 'var(--cyber-yellow)' : 'var(--text-main)',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {cd.category} ({cd.avg_level}%)
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            VIEW 7: EMPIRICAL CUMULATIVE DISTRIBUTION (ECDF)
+            ======================================================== */}
+        {activePlot === 'ecdf' && (
+          <div style={{ width: '100%', overflowX: 'auto', padding: '1rem 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.2rem', textAlign: 'center' }}>
+              Matplotlib `ecdf()`: Cumulative percentage of skills ≤ level X. Demonstrates that 69% of all skills are ≥ 70% and 31% are in the top specialist tier (≥ 90%).
+            </p>
+
+            <div style={{ minWidth: '680px', maxWidth: '820px', margin: '0 auto' }}>
+              <svg viewBox="0 0 820 400" className="cyber-ecdf-svg">
+                <defs>
+                  <linearGradient id="ecdfGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(0, 242, 254, 0.05)" />
+                    <stop offset="100%" stopColor="rgba(0, 242, 254, 0.35)" />
+                  </linearGradient>
+                </defs>
+
+                {[0, 25, 50, 75, 100].map((pct) => {
+                  const y = 320 - (pct / 100) * 260
+                  return (
+                    <g key={`ecdf-y-${pct}`}>
+                      <line x1={70} y1={y} x2={780} y2={y} stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
+                      <text x={60} y={y + 4} textAnchor="end" fill="var(--text-muted)" fontSize="10" fontFamily="var(--font-mono, monospace)">
+                        {pct}%
+                      </text>
+                    </g>
+                  )
+                })}
+
+                {[50, 60, 70, 80, 90, 100].map((lvl) => {
+                  const x = 70 + ((lvl - 50) / 50) * 710
+                  return (
+                    <g key={`ecdf-x-${lvl}`}>
+                      <line x1={x} y1={60} x2={x} y2={320} stroke="rgba(255, 255, 255, 0.05)" />
+                      <text x={x} y={340} textAnchor="middle" fill="var(--text-muted)" fontSize="10" fontFamily="var(--font-mono, monospace)">
+                        {lvl}%
+                      </text>
+                    </g>
+                  )
+                })}
+
+                <line x1={70} y1={320} x2={780} y2={320} stroke="var(--cyber-cyan)" strokeWidth="1.5" />
+                <line x1={70} y1={60} x2={70} y2={320} stroke="var(--cyber-cyan)" strokeWidth="1.5" />
+
+                {ecdf_points.length > 0 && (
+                  <path
+                    d={`M 70 320 ` + ecdf_points.map((pt) => {
+                      const x = 70 + ((pt.level - 50) / 50) * 710
+                      const y = 320 - (pt.cumulative_percent / 100) * 260
+                      return `L ${x} ${y}`
+                    }).join(' ') + ` L 780 60 L 780 320 Z`}
+                    fill="url(#ecdfGrad)"
+                    stroke="#00f2fe"
+                    strokeWidth="2.5"
+                  />
+                )}
+
+                <circle cx={70 + ((overall_percentiles.median - 50) / 50) * 710} cy={320 - 0.5 * 260} r="6" fill="#fcee0a" />
+                <text x={70 + ((overall_percentiles.median - 50) / 50) * 710 + 10} y={320 - 0.5 * 260 - 8} fill="#fcee0a" fontSize="11" fontFamily="var(--font-mono, monospace)" fontWeight={800}>
+                  Median (P50): {overall_percentiles.median}%
+                </text>
+
+                <circle cx={70 + ((overall_percentiles.p75 - 50) / 50) * 710} cy={320 - 0.75 * 260} r="6" fill="#00f2fe" />
+                <text x={70 + ((overall_percentiles.p75 - 50) / 50) * 710 + 10} y={320 - 0.75 * 260 - 8} fill="#00f2fe" fontSize="11" fontFamily="var(--font-mono, monospace)" fontWeight={800}>
+                  P75: {overall_percentiles.p75}%
+                </text>
+              </svg>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            VIEW 8: HEXAGONAL CYBER COMPETENCY HONEYCOMB
+            ======================================================== */}
+        {activePlot === 'honeycomb' && (
+          <div style={{ width: '100%', padding: '1rem 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.5rem', textAlign: 'center' }}>
+              Futuristic honeycomb matrix: All {total_skills} competencies mapped with level badges and authentic logos. Click any cell to inspect context.
+            </p>
+
+            <div className="cyber-honeycomb-grid">
+              {all_skills_ranked.map((sk) => {
+                const isSelected = selectedSkillId === sk.id
+                const isMaster = sk.level >= 90
+                const isAdvanced = sk.level >= 80
+
+                return (
+                  <div
+                    key={sk.id}
+                    onClick={() => setSelectedSkillId(isSelected ? null : sk.id)}
+                    className={`cyber-honeycomb-cell ${isSelected ? 'selected' : ''}`}
+                  >
+                    <SkillGlyph id={sk.id} />
+                    <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-main)', lineHeight: 1.2 }}>
+                      {sk.name}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono, monospace)',
+                        fontSize: '0.72rem',
+                        fontWeight: 800,
+                        color: isMaster ? 'var(--cyber-yellow)' : isAdvanced ? 'var(--cyber-cyan)' : 'var(--text-muted)',
+                      }}
+                    >
+                      {sk.level}%
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {selectedSkillId && (
+              <div style={{ marginTop: '2rem', background: 'var(--bg-surface)', border: '1px solid var(--border-cyber)', borderRadius: '12px', padding: '1.4rem' }}>
+                {(() => {
+                  const sk = all_skills_ranked.find((s) => s.id === selectedSkillId)
+                  if (!sk) return null
+                  return (
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                          <SkillGlyph id={sk.id} />
+                          <strong style={{ fontSize: '1.2rem', color: 'var(--cyber-yellow)' }}>{sk.name}</strong>
+                          <span style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.85rem', color: 'var(--cyber-cyan)', fontWeight: 800 }}>
+                            {sk.level}% [{sk.category}]
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => setSelectedSkillId(null)}
+                          className="cyber-action-btn secondary"
+                          style={{ fontSize: '0.72rem', padding: '0.25rem 0.6rem' }}
+                        >
+                          ✕ CLOSE
+                        </button>
+                      </div>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', margin: 0 }}>
+                        {sk.context || 'Cornerstone technical competency within production environments.'}
+                      </p>
+                    </div>
+                  )
+                })()}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ========================================================
+            VIEW 9: MATPLOTLIB STEM & WHISKER SPECTRUM
             ======================================================== */}
         {activePlot === 'stem' && (
           <div style={{ width: '100%', overflowX: 'auto', padding: '1rem 0' }}>
@@ -495,7 +1056,6 @@ export default function SkillVisualizerPage() {
                   </linearGradient>
                 </defs>
 
-                {/* Y-Axis Grid Reference Lines (40% to 100%) */}
                 {[40, 50, 60, 70, 80, 90, 100].map((val) => {
                   const y = 300 - ((val - 40) / 60) * 240
                   return (
@@ -508,10 +1068,8 @@ export default function SkillVisualizerPage() {
                   )
                 })}
 
-                {/* Baseline (at 40%) */}
                 <line x1={70} y1={300} x2={850} y2={300} stroke="rgba(0, 242, 254, 0.4)" strokeWidth="2" />
 
-                {/* Stems, Whiskers & Caps */}
                 {category_stats.map((cat, idx) => {
                   const stepX = (850 - 90) / (category_stats.length - 1)
                   const x = 90 + idx * stepX
@@ -529,7 +1087,6 @@ export default function SkillVisualizerPage() {
                       onMouseLeave={() => setHoveredCategory(null)}
                       style={{ cursor: 'pointer' }}
                     >
-                      {/* Whisker Errorbar (min to max) */}
                       <line
                         x1={x}
                         y1={minY}
@@ -539,12 +1096,9 @@ export default function SkillVisualizerPage() {
                         strokeWidth="1.5"
                         strokeDasharray="2 2"
                       />
-                      {/* Min cap tick */}
                       <line x1={x - 5} y1={minY} x2={x + 5} y2={minY} stroke={isSelected ? 'var(--cyber-yellow)' : '#fcee0a'} strokeWidth="1.5" />
-                      {/* Max cap tick */}
                       <line x1={x - 5} y1={maxY} x2={x + 5} y2={maxY} stroke={isSelected ? 'var(--cyber-yellow)' : '#fcee0a'} strokeWidth="1.5" />
 
-                      {/* Main Stem Line */}
                       <line
                         x1={x}
                         y1={300}
@@ -554,7 +1108,6 @@ export default function SkillVisualizerPage() {
                         strokeWidth={isSelected || isHovered ? 3 : 2}
                       />
 
-                      {/* Stem Marker Cap */}
                       <circle
                         cx={x}
                         cy={avgY}
@@ -565,7 +1118,6 @@ export default function SkillVisualizerPage() {
                         filter={isSelected || isHovered ? 'drop-shadow(0 0 10px #00f2fe)' : undefined}
                       />
 
-                      {/* Value readout above cap */}
                       <text
                         x={x}
                         y={avgY - 12}
@@ -578,7 +1130,6 @@ export default function SkillVisualizerPage() {
                         {cat.avg_level}%
                       </text>
 
-                      {/* Category X-Axis Tilted Label */}
                       <text
                         x={x}
                         y={316}
@@ -600,77 +1151,7 @@ export default function SkillVisualizerPage() {
         )}
 
         {/* ========================================================
-            VIEW 4: RADIAL POLAR SUNBURST WHEEL
-            ======================================================== */}
-        {activePlot === 'wheel' && (
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <p style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '1.2rem', textAlign: 'center' }}>
-              Radial polar partition wheel: Arc angle denotes quantity of skills; radial thickness denotes average proficiency. Click any arc segment to focus.
-            </p>
-
-            <svg viewBox="0 0 520 520" className="cyber-wheel-svg">
-              <defs>
-                <filter id="wheelGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="6" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-              </defs>
-
-              {/* Slices */}
-              {wheelData.map((slice) => {
-                const isSelected = selectedCategory?.toLowerCase() === slice.category.toLowerCase()
-                const isHovered = hoveredCategory?.toLowerCase() === slice.category.toLowerCase()
-                return (
-                  <path
-                    key={`slice-${slice.category}`}
-                    d={slice.pathData}
-                    fill={slice.color}
-                    fillOpacity={isSelected ? 0.95 : isHovered ? 0.8 : 0.6}
-                    stroke={isSelected ? '#fcee0a' : 'rgba(10, 13, 20, 0.8)'}
-                    strokeWidth={isSelected ? 3 : 1.5}
-                    className="cyber-wheel-slice"
-                    filter={isSelected ? 'url(#wheelGlow)' : undefined}
-                    onClick={() => handleCategoryClick(slice.category)}
-                    onMouseEnter={() => setHoveredCategory(slice.category)}
-                    onMouseLeave={() => setHoveredCategory(null)}
-                  >
-                    <title>{`${slice.category}: Avg ${slice.avg_level}%, ${slice.skill_count} skills`}</title>
-                  </path>
-                )
-              })}
-
-              {/* Center Readout Display */}
-              <circle
-                cx={260}
-                cy={260}
-                r={84}
-                fill="var(--bg-surface)"
-                stroke="var(--cyber-cyan)"
-                strokeWidth="1.5"
-              />
-              <text x={260} y={235} className="cyber-wheel-center-label" fill="var(--cyber-cyan)" fontSize="11" fontWeight={700}>
-                {hoveredCategory || selectedCategory || 'DOMAIN'}
-              </text>
-              <text x={260} y={265} className="cyber-wheel-center-label" fill="var(--text-main)" fontSize="24" fontWeight={900}>
-                {hoveredCategory
-                  ? `${category_stats.find((c) => c.category === hoveredCategory)?.avg_level}%`
-                  : selectedCategory
-                  ? `${activeCategoryData?.avg_level}%`
-                  : `${Math.round(category_stats.reduce((a, b) => a + b.avg_level, 0) / category_stats.length)}%`}
-              </text>
-              <text x={260} y={285} className="cyber-wheel-center-label" fill="var(--text-muted)" fontSize="9">
-                {hoveredCategory
-                  ? `${category_stats.find((c) => c.category === hoveredCategory)?.skill_count} Competencies`
-                  : selectedCategory
-                  ? `${activeCategoryData?.skill_count} Competencies`
-                  : 'Overall Avg Proficiency'}
-              </text>
-            </svg>
-          </div>
-        )}
-
-        {/* ========================================================
-            VIEW 5: MATPLOTLIB PROFICIENCY HISTOGRAM (hist)
+            VIEW 10: MATPLOTLIB PROFICIENCY HISTOGRAM (hist)
             ======================================================== */}
         {activePlot === 'histogram' && (
           <div style={{ width: '100%', padding: '1rem 0' }}>
@@ -728,7 +1209,6 @@ export default function SkillVisualizerPage() {
                 })}
               </div>
 
-              {/* Skills belonging to selected bin */}
               {selectedBin && (
                 <div style={{ marginTop: '2rem', background: 'var(--bg-surface)', border: '1px solid var(--border-cyber)', borderRadius: '12px', padding: '1.4rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.6rem' }}>
@@ -772,7 +1252,7 @@ export default function SkillVisualizerPage() {
         )}
 
         {/* ========================================================
-            VIEW 6: PROPORTIONAL CATEGORY TREEMAP
+            VIEW 11: PROPORTIONAL CATEGORY TREEMAP
             ======================================================== */}
         {activePlot === 'treemap' && (
           <div style={{ width: '100%', padding: '1rem 0' }}>

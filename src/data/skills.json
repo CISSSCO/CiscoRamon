@@ -173,7 +173,7 @@
         "category": "Parallel Computing",
         "level": 75,
         "context": "My daily work involve working on distributed computing environment like PARAM Series of Supercomputers",
-        "featured": true 
+        "featured": false
     },
     {
         "id": "spack",
@@ -221,7 +221,7 @@
         "category": "HPC",
         "level": 85,
         "context": "My daily work involves administering and maintaining Linux based HPC clusters",
-        "featured": true
+        "featured": false
     },
     {
         "id": "scientificcomputing",
@@ -237,7 +237,7 @@
         "category": "HPC",
         "level": 90,
         "context": "I develop and support computing environments for multidisciplinary research workloads",
-        "featured": true
+        "featured": false
     },
     {
         "id": "softwaredeployment",
@@ -253,7 +253,7 @@
         "category": "Systems",
         "level": 90,
         "context": "I have experience porting scientific applications across Linux and HPC platforms",
-        "featured": true
+        "featured": false
     },
     {
         "id": "performanceanalysis",
