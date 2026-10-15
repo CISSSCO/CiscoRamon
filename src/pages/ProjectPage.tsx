@@ -1,113 +1,111 @@
 import { useParams, Link, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import projects from '../data/projects.json'
-import '../styles/project.css'
+import '../styles/home.css'
+import { restoreScroll } from '../app/ScrollMemory'
+import { ExternalLinkIcon, TerminalIcon } from '../ui/HeroIcons'
+import { TechIcon } from '../ui/TechIcons'
 
 export default function ProjectPage() {
     const { id } = useParams()
     const location = useLocation()
     const project = projects.find((p) => p.id === id)
 
-    // ✅ Always start project page at top
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'auto' })
     }, [])
 
-    if (!project) return <p>Project not found</p>
+    if (!project) {
+        return (
+            <div className="section" style={{ textAlign: 'center', padding: '15vh 1rem' }}>
+                <h2 style={{ fontSize: '2rem', color: 'var(--text-main)' }}>Project Not Found</h2>
+                <Link to="/projects" className="cyber-action-btn secondary" style={{ marginTop: '1.5rem', display: 'inline-block' }}>
+                    ← BACK TO PROJECTS
+                </Link>
+            </div>
+        )
+    }
 
-        const backTarget =
-        location.state?.from === 'projects' ? '/projects' : '/'
-
-    const backState =
-        location.state?.from === 'projects'
-        ? { from: 'project' }
-        : { from: 'project' }
+    const backTarget = location.state?.from === 'projects' ? '/projects' : '/'
 
     return (
-        <article className="project-page">
-        <div style={{ marginBottom: '4rem' }}>
-        <Link
-        to={backTarget}
-        state={backState}
-        style={{
-            display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.6rem 1.2rem',
-                borderRadius: '999px',
-                background: 'rgba(79,107,255,0.15)',
-                color: '#fff',
-                fontSize: '0.95rem',
-                fontWeight: 500,
-                textDecoration: 'none',
-                border: '1px solid rgba(255,255,255,0.12)',
-                backdropFilter: 'blur(10px)',
-                transition: 'transform 0.25s ease, box-shadow 0.25s ease'
-        }}
-        onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateX(-4px)'
-            e.currentTarget.style.boxShadow =
-                '0 12px 30px rgba(79,107,255,0.35)'
-        }}
-        onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateX(0)'
-            e.currentTarget.style.boxShadow = 'none'
-        }}
-      >
-    ← Back
-    </Link>
-    </div>
+        <article className="section" style={{ maxWidth: '1000px', margin: '0 auto', padding: '10vh 1.5rem 15vh' }}>
+            <div style={{ marginBottom: '2.5rem' }}>
+                <Link
+                    to={backTarget}
+                    className="cyber-action-btn secondary"
+                    onClick={() => restoreScroll()}
+                    style={{ textDecoration: 'none', display: 'inline-flex', padding: '0.5rem 1.2rem', fontSize: '0.8rem' }}
+                >
+                    ← {location.state?.from === 'projects' ? 'BACK TO PROJECTS' : 'BACK TO HOME'}
+                </Link>
+            </div>
 
-    <h1>{project.title}</h1>
+            <div style={{ marginBottom: '2.5rem' }}>
+                <div className="section-tag-hpc">
+                    <span className="section-tag-dot" />
+                    <span>PROJECT REPOSITORY // {project.id.toUpperCase()}</span>
+                </div>
 
-    <p className="project-description">
-    {project.description}
-    </p>
+                <h1 style={{ fontSize: '3.4rem', fontWeight: 800, letterSpacing: '-0.03em', margin: '0 0 1rem', color: 'var(--text-main)' }}>
+                    {project.title}
+                </h1>
 
-    <ul className="stack">
-    {project.stack.map((tech) => (
-        <li key={tech}>{tech}</li>
-    ))}
-        </ul>
+                <p style={{ fontSize: '1.18rem', lineHeight: 1.75, color: 'var(--text-muted)', maxWidth: '750px', margin: 0 }}>
+                    {project.description || project.excerpt}
+                </p>
+            </div>
 
-        {project.repo && (
-            <a
-            href={project.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-link"
-        >
-            Visit GitHub Repo →
-            </a>
-        )}
-        <br/>
+            {/* Stack Section */}
+            <div style={{ marginBottom: '3rem', padding: '1.8rem', borderRadius: '16px', background: 'var(--bg-card)', border: '1px solid var(--border-cyber)', boxShadow: 'var(--card-shadow)' }}>
+                <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.82rem', color: 'var(--cyber-cyan)', marginBottom: '1rem', fontWeight: 700 }}>
+                    SYSTEMS &amp; TECHNOLOGIES:
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem' }}>
+                    {project.stack.map((tech) => (
+                        <span key={tech} className="tech-badge-cyber" style={{ fontSize: '0.82rem', padding: '0.35rem 0.8rem' }}>
+                            <TechIcon name={tech} size={15} />
+                            <span>{tech}</span>
+                        </span>
+                    ))}
+                </div>
+            </div>
 
-        {project.url && (
-            <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-link"
-        >
-            Visit Project Website →
-            </a>
-        )}
-        <br/>
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '4rem' }}>
+                {project.repo && (
+                    <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cyber-action-btn primary"
+                    >
+                        <span>VISIT GITHUB REPOSITORY</span>
+                        <ExternalLinkIcon />
+                    </a>
+                )}
 
-        <Link
-          to={`/project/${project.id}/docs`}
-          state={{ from: 'project' }}
-          className="project-link"
-        >
-          View Documentation →
-        </Link>
+                {project.url && (
+                    <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cyber-action-btn secondary"
+                    >
+                        <span>VISIT PROJECT WEBSITE</span>
+                        <ExternalLinkIcon />
+                    </a>
+                )}
 
-        <div className="project-content">
-        <p>
-        </p>
-
-        <p style={{ height: '120vh' }} />
-        </div>
+                <Link
+                    to={`/project/${project.id}/docs`}
+                    state={{ from: 'project' }}
+                    className="cyber-action-btn secondary"
+                >
+                    <TerminalIcon />
+                    <span>READ DOCUMENTATION</span>
+                </Link>
+            </div>
         </article>
     )
 }

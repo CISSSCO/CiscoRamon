@@ -81,7 +81,7 @@ repository](https://github.com/junegunn/vim-plug)
 Now we are ready to install plugins. First import all the plugins in our
 vimrc files
 
-``` vimscript
+``` vim
 "After importing the plugins
 "We need to save and source the file
 :source %   "This will compile the file
