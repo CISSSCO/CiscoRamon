@@ -24,31 +24,59 @@
 }
 
 /* =========================
-   MARKDOWN LINKS (GLASS)
+   MARKDOWN LINKS (HIGH CONTRAST & THEMED)
 ========================= */
 
-.markdown a {
-  color: #ffd2fe;
+.markdown a,
+.markdown-link {
+  color: var(--cyber-cyan);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
 
-  background: rgba(199, 102, 241, 0.18);
-  border: 1px solid rgba(99, 102, 241, 0.35);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid var(--border-cyber);
+  backdrop-filter: blur(8px);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 
   transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.markdown a:hover {
-  background: rgba(99, 102, 241, 0.3);
+.markdown a:hover,
+.markdown-link:hover {
+  background: rgba(0, 242, 254, 0.18);
+  color: var(--cyber-yellow);
+  border-color: var(--cyber-yellow);
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 242, 254, 0.25);
+}
+
+/* HIGH-VISIBILITY LIGHT MODE STYLING */
+[data-theme="light"] .markdown a,
+[data-theme="light"] .markdown-link {
+  color: #0369a1 !important;
+  background: rgba(2, 132, 199, 0.1) !important;
+  border: 1px solid rgba(2, 132, 199, 0.4) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.08) !important;
+}
+
+[data-theme="light"] .markdown a:hover,
+[data-theme="light"] .markdown-link:hover {
+  color: #0c4a6e !important;
+  background: rgba(2, 132, 199, 0.2) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25) !important;
 }
 
 /* =========================

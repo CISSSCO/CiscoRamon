@@ -45,7 +45,7 @@ export default function AboutPage() {
                 </h1>
 
                 <p style={{ fontSize: '1.2rem', color: 'var(--cyber-cyan)', fontWeight: 600, margin: '0 0 1.5rem' }}>
-                    Project Engineer @ C-DAC (R&amp;D) · HPC Application Engineer @ IIT (BHU), Varanasi
+                    Project Engineer @ C-DAC (R&amp;D) and ex-(HPC Application Engineer @ IIT (BHU))
                 </p>
 
                 <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>

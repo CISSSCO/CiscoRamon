@@ -47,7 +47,7 @@ export default function ProjectsList() {
     }, [searchQuery, selectedTopic])
 
     const toggleExpand = (id: string, e: React.MouseEvent) => {
-        if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') {
+        if ((e.target as HTMLElement).closest('a, button')) {
             return
         }
         setExpandedId((prev) => (prev === id ? null : id))
@@ -136,11 +136,11 @@ export default function ProjectsList() {
                                 className={`cyber-card ${isExpanded ? 'expanded' : ''}`}
                                 onClick={(e) => toggleExpand(p.id, e)}
                             >
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem' }}>
-                                    <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem', gap: '0.6rem' }}>
+                                    <h3 style={{ fontSize: 'clamp(1.15rem, 3.2vw, 1.4rem)', fontWeight: 700, color: 'var(--text-main)', margin: 0, wordBreak: 'break-word', overflowWrap: 'break-word', minWidth: 0, lineHeight: 1.28 }}>
                                         {p.title}
                                     </h3>
-                                    <div style={{ color: 'var(--cyber-cyan)', display: 'flex', alignItems: 'center' }}>
+                                    <div style={{ color: 'var(--cyber-cyan)', display: 'flex', alignItems: 'center', flexShrink: 0, marginTop: '3px' }}>
                                         <ChevronDownIcon rotated={isExpanded} />
                                     </div>
                                 </div>

@@ -77,15 +77,16 @@ export default function Home() {
     }, [featuredSkills, selectedSkillCategory])
 
     const toggleProjectExpand = (id: string, e: React.MouseEvent) => {
-        // Prevent expanding if clicking an explicit anchor tag
-        if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') {
+        // Prevent expanding/collapsing if clicking any link or button inside the card
+        if ((e.target as HTMLElement).closest('a, button')) {
             return
         }
         setExpandedProjectId((prev) => (prev === id ? null : id))
     }
 
     const toggleExpExpand = (id: string, e: React.MouseEvent) => {
-        if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') {
+        // Prevent expanding/collapsing if clicking any link or button inside the card
+        if ((e.target as HTMLElement).closest('a, button')) {
             return
         }
         setExpandedExpId((prev) => (prev === id ? null : id))
@@ -129,42 +130,45 @@ export default function Home() {
             <section className="section hero">
                 <div className="hero-callsign">
                     <span>[ SYS.INIT ]</span>
-                    <span>::</span>
-                    <span>CALLSIGN: CISCO_RAMON</span>
-                    <span>::</span>
-                    <span>READY</span>
+                    <span className="callsign-sep">::</span>
+                    <span>CISCO_RAMON</span>
+                    <span className="callsign-sep">::</span>
+                    <span className="callsign-ready">ONLINE</span>
                 </div>
 
                 <div className="hero-salutation">
                     <span style={{ color: '#00f2fe' }}>&gt;</span>
-                    <WritingText text="Hi, I'm" startDelay={0.1} />
+                    <WritingText text="Hi, I'm" startDelay={0.05} charDelay={0.03} />
                     <span className="cyber-cursor" />
                 </div>
 
                 <h1 className="hero-name-futuristic">
-                    <WritingText text="Abhishek Raj" startDelay={0.4} charDelay={0.045} />
+                    <WritingText text="Abhishek" startDelay={0.12} charDelay={0.03} />{' '}
+                    <span className="hero-name-accent">
+                        <WritingText text="Raj" startDelay={0.38} charDelay={0.03} />
+                    </span>
                 </h1>
 
                 <div className="hero-tagline-futuristic">
                     <span>
-                        <WritingText text="Scientific Programmer" startDelay={1.0} charDelay={0.03} />
+                        <WritingText text="Scientific Programmer" startDelay={0.55} charDelay={0.02} />
                     </span>
                     <span style={{ color: '#00f2fe' }}>·</span>
                     <span className="hero-tagline-accent">
-                        <WritingText text="HPC Engineer" startDelay={1.65} charDelay={0.03} />
+                        <WritingText text="HPC Engineer" startDelay={0.78} charDelay={0.02} />
                     </span>
                     <span style={{ color: '#00f2fe' }}>·</span>
                     <span>
-                        <WritingText text="Systems Developer" startDelay={2.1} charDelay={0.03} />
+                        <WritingText text="Linux Developer" startDelay={0.98} charDelay={0.02} />
                     </span>
                 </div>
 
                 <p className="hero-bio-futuristic">
-                    HPC Application Engineer @ IIT (BHU), Varanasi &amp; Project Engineer @ C-DAC (R&amp;D). Designing and maintaining high-performance parallel computing environments, Linux systems architectures, and open-source tooling.
+                    Project Engineer @ C-DAC (R&amp;D) and ex-(HPC Application Engineer @ IIT (BHU)). Designing and maintaining high-performance parallel computing environments, Linux systems architectures, and open-source tooling.
                 </p>
 
                 <div className="hero-actions-futuristic">
-                    <a href="#projects" className="cyber-action-btn primary">
+                    <a href="#projects" className="cyber-action-btn primary hero-action-btn">
                         <TerminalIcon />
                         <span>EXPLORE PROJECTS</span>
                     </a>
@@ -172,39 +176,44 @@ export default function Home() {
                     <a
                         href={resume}
                         download="AbhishekRaj.pdf"
-                        className="cyber-action-btn secondary"
+                        className="cyber-action-btn secondary hero-action-btn"
                     >
                         <DownloadIcon />
                         <span>DOWNLOAD RESUME</span>
                     </a>
 
-                    <a
-                        href="https://github.com/CISSSCO"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="cyber-icon-btn"
-                        aria-label="GitHub Profile"
-                    >
-                        <GitHubIcon />
-                    </a>
+                    <div className="hero-social-icons">
+                        <a
+                            href="https://github.com/CISSSCO"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cyber-icon-btn hero-social-btn"
+                            aria-label="GitHub Profile"
+                            title="GitHub Profile"
+                        >
+                            <GitHubIcon />
+                        </a>
 
-                    <a
-                        href="https://www.linkedin.com/in/abhi581b"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="cyber-icon-btn"
-                        aria-label="LinkedIn Profile"
-                    >
-                        <LinkedInIcon />
-                    </a>
+                        <a
+                            href="https://www.linkedin.com/in/abhi581b"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cyber-icon-btn hero-social-btn"
+                            aria-label="LinkedIn Profile"
+                            title="LinkedIn Profile"
+                        >
+                            <LinkedInIcon />
+                        </a>
 
-                    <a
-                        href="mailto:cisco581b@gmail.com"
-                        className="cyber-icon-btn"
-                        aria-label="Email Me"
-                    >
-                        <MailIcon />
-                    </a>
+                        <a
+                            href="mailto:cisco581b@gmail.com"
+                            className="cyber-icon-btn hero-social-btn"
+                            aria-label="Email Me"
+                            title="Email Me"
+                        >
+                            <MailIcon />
+                        </a>
+                    </div>
                 </div>
 
                 {/* CYBERPUNK SEPARATE STAT CARDS WITH DROP ANIMATION & HOVER */}
@@ -260,11 +269,11 @@ export default function Home() {
                                 className={`cyber-card ${isExpanded ? 'expanded' : ''}`}
                                 onClick={(e) => toggleProjectExpand(p.id, e)}
                             >
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem' }}>
-                                    <h3 style={{ fontSize: '1.45rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.8rem', gap: '0.6rem' }}>
+                                    <h3 style={{ fontSize: 'clamp(1.15rem, 3.2vw, 1.45rem)', fontWeight: 700, color: 'var(--text-main)', margin: 0, wordBreak: 'break-word', overflowWrap: 'break-word', minWidth: 0, lineHeight: 1.28 }}>
                                         {p.title}
                                     </h3>
-                                    <div style={{ color: 'var(--cyber-cyan)', display: 'flex', alignItems: 'center' }}>
+                                    <div style={{ color: 'var(--cyber-cyan)', display: 'flex', alignItems: 'center', flexShrink: 0, marginTop: '3px' }}>
                                         <ChevronDownIcon rotated={isExpanded} />
                                     </div>
                                 </div>
@@ -439,9 +448,10 @@ export default function Home() {
                                     <Link
                                         to={`/experience/${exp.id}`}
                                         className="cyber-action-btn primary"
-                                        style={{ padding: '0.5rem 1.1rem', fontSize: '0.82rem' }}
+                                        onClick={(e) => e.stopPropagation()}
+                                        style={{ padding: '0.5rem 1.1rem', fontSize: '0.82rem', display: 'inline-flex' }}
                                     >
-                                        <span>VIEW DEDICATED SLIDING BREAKDOWN →</span>
+                                        <span>VIEW DETAILS →</span>
                                     </Link>
                                 </div>
                             </div>

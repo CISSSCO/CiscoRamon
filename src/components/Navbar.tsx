@@ -49,53 +49,20 @@ export default function Navbar() {
         boxShadow: scrolled ? 'var(--card-shadow)' : 'none',
       }}
     >
-      <div
-        style={{
-          maxWidth: '1240px',
-          margin: '0 auto',
-          padding: '0.85rem 1.8rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="navbar-inner">
         {/* Brand with clean AR Logo */}
         <Link
           to="/"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.9rem',
-            textDecoration: 'none',
-            color: 'var(--text-main)',
-          }}
+          className="navbar-brand"
         >
-          <ARLogo size={36} />
+          <ARLogo size={32} />
           <div>
-            <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
+            <div className="brand-name">
               Abhishek Raj
             </div>
-            <div
-              style={{
-                fontSize: '0.74rem',
-                color: 'var(--text-muted)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                fontFamily: 'var(--font-mono, monospace)',
-              }}
-            >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: '#10b981',
-                  boxShadow: '0 0 8px #10b981',
-                  display: 'inline-block',
-                }}
-              />
-              HPC &amp; Systems Engineer
+            <div className="brand-role">
+              <span className="brand-status-dot" />
+              HPC Engineer
             </div>
           </div>
         </Link>
@@ -103,11 +70,6 @@ export default function Navbar() {
         {/* Desktop Nav Links */}
         <nav
           className="desktop-nav"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.8rem',
-          }}
         >
           <Link
             to="/#projects"
@@ -141,21 +103,15 @@ export default function Navbar() {
         {/* Futuristic Action Buttons */}
         <div
           className="desktop-actions"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.9rem',
-          }}
         >
-          {/* Cyberpunk Theme Mode Switcher */}
+          {/* Cyberpunk Theme Mode Switcher (Icon-only on desktop/tablet) */}
           <button
             onClick={toggleTheme}
-            className="cyber-theme-toggle-btn"
+            className="cyber-theme-toggle-btn icon-only"
             aria-label={`Toggle theme (currently ${theme})`}
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Cyber Dark'} Mode`}
           >
-            {theme === 'dark' ? <SunIcon size={16} /> : <MoonIcon size={16} />}
-            <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+            {theme === 'dark' ? <SunIcon size={18} /> : <MoonIcon size={18} />}
           </button>
 
           <a
@@ -163,7 +119,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
-            className="cyber-icon-btn"
+            className="cyber-icon-btn navbar-icon-btn"
           >
             <GitHubIcon />
           </a>
@@ -171,7 +127,7 @@ export default function Navbar() {
           <a
             href={resume}
             download="AbhishekRaj.pdf"
-            className="cyber-action-btn primary"
+            className="cyber-action-btn primary navbar-resume-btn"
           >
             <DownloadIcon />
             <span>RESUME</span>

@@ -270,19 +270,44 @@
 .markdown a,
 .markdown-link {
     color: var(--cyber-cyan);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(0, 242, 254, 0.45);
+    text-decoration: none;
     font-weight: 600;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease, text-shadow 0.2s ease;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid var(--border-cyber);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.2s ease;
     word-break: break-word;
 }
 
 .markdown a:hover,
 .markdown-link:hover {
     color: var(--cyber-yellow);
-    text-decoration-color: var(--cyber-yellow);
-    text-shadow: 0 0 10px rgba(252, 238, 10, 0.45);
+    background: rgba(0, 242, 254, 0.18);
+    border-color: var(--cyber-yellow);
+    box-shadow: 0 4px 14px rgba(0, 242, 254, 0.25);
+    transform: translateY(-1px);
+}
+
+/* HIGH-VISIBILITY LIGHT MODE STYLING */
+[data-theme="light"] .markdown a,
+[data-theme="light"] .markdown-link {
+    color: #0369a1 !important;
+    background: rgba(2, 132, 199, 0.1) !important;
+    border: 1px solid rgba(2, 132, 199, 0.4) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 1px 3px rgba(2, 132, 199, 0.08) !important;
+}
+
+[data-theme="light"] .markdown a:hover,
+[data-theme="light"] .markdown-link:hover {
+    color: #0c4a6e !important;
+    background: rgba(2, 132, 199, 0.2) !important;
+    border-color: #0284c7 !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25) !important;
 }
 
 /* ========================================================
