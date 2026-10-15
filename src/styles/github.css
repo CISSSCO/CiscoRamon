@@ -1,55 +1,142 @@
+/* ========================================================
+   GITHUB MARKDOWN STYLES & RESPONSIVE PROFILES
+   ======================================================== */
 
+.markdown {
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
 
-/* =========================
-   IMAGES (FIXED & RESPONSIVE)
-========================= */
+.markdown p {
+  color: var(--text-main);
+  font-size: 1.04rem;
+  line-height: 1.8;
+  margin-bottom: 1.4rem;
+}
+
+.markdown strong,
+.markdown b {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.markdown ul,
+.markdown ol {
+  color: var(--text-muted);
+  margin: 0.8rem 0 1.2rem 1.4rem;
+  padding: 0;
+}
+
+.markdown li {
+  margin-bottom: 0.45rem;
+  line-height: 1.65;
+}
+
+.markdown li::marker {
+  color: var(--cyber-cyan);
+}
+
+/* ========================================================
+   IMAGES & SHIELD BADGES (RESPONSIVE & ALIGNED)
+   ======================================================== */
 
 .markdown img {
-  max-width: 100%;
-  height: auto;
+  max-width: 100% !important;
+  height: auto !important;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-/* Activity graph */
-.markdown img[src*="activity-graph"] {
-  max-width: 900px;
-  width: 100%;
-  margin: 2.5rem auto;
+/* Shield badges */
+.markdown img[src*="shields.io"],
+.markdown img[src*="badge"],
+.markdown img[src*="komarev.com"] {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin: 3px 2px !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
 }
 
-/* Contribution heatmap */
+/* External typing SVG animations */
+.markdown img[src*="readme-typing-svg"],
+.markdown img[src*="demolab.com"] {
+  max-width: 100% !important;
+  height: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Capsule banner headers */
+.markdown img[src*="capsule-render"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 12px;
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Activity graph & Heatmaps */
+.markdown img[src*="activity-graph"],
+.markdown img[src*="streak-stats"],
+.markdown img[src*="github-contribution-grid-snake"] {
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 1.5rem auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+}
+
 .markdown img[src*="ghchart"] {
   max-width: 720px;
   width: 100%;
   margin: 2rem auto;
 }
 
-/* =========================
-   MARKDOWN LINKS (HIGH CONTRAST & THEMED)
-========================= */
+/* Center aligned paragraphs with flex wrap */
+.markdown p[align="center"],
+.markdown div[align="center"] {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem !important;
+  margin: 1.6rem 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
 
+/* ========================================================
+   MARKDOWN LINKS & BADGE LINKS
+   ======================================================== */
+
+/* General text links */
 .markdown a,
 .markdown-link {
   color: var(--cyber-cyan);
   text-decoration: none;
   font-weight: 600;
-
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
-
   background: rgba(0, 242, 254, 0.08);
   border: 1px solid var(--border-cyber);
   backdrop-filter: blur(8px);
-
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .markdown a:hover,
@@ -61,9 +148,137 @@
   box-shadow: 0 4px 14px rgba(0, 242, 254, 0.25);
 }
 
-/* HIGH-VISIBILITY LIGHT MODE STYLING */
-[data-theme="light"] .markdown a,
-[data-theme="light"] .markdown-link {
+/* Badge links & image links (no pill border or background wrap) */
+.markdown-badge-link,
+.markdown a.markdown-badge-link,
+.markdown a:has(img),
+.markdown a:has(svg) {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 2px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  border-radius: 0 !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+
+.markdown-badge-link:hover,
+.markdown a.markdown-badge-link:hover,
+.markdown a:has(img):hover,
+.markdown a:has(svg):hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: translateY(-2px) !important;
+  opacity: 0.88 !important;
+}
+
+/* ========================================================
+   TABLES (RAW HTML & GFM TABLES)
+   ======================================================== */
+
+.markdown table {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  margin: 2rem 0 !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-cyber) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  box-shadow: var(--card-shadow) !important;
+  table-layout: fixed !important;
+}
+
+.markdown td,
+.markdown th {
+  padding: 1.3rem 1.5rem !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-main) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.7 !important;
+  vertical-align: top !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.markdown th {
+  background: rgba(0, 242, 254, 0.08) !important;
+  color: var(--cyber-cyan) !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
+
+.markdown td b,
+.markdown td strong {
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  display: inline-block !important;
+  margin: 0.2rem 0 0.4rem !important;
+  line-height: 1.4 !important;
+}
+
+.markdown td ul,
+.markdown td ol {
+  margin: 0.6rem 0 0.6rem 1.25rem !important;
+  padding: 0 !important;
+  color: var(--text-muted) !important;
+}
+
+.markdown td li {
+  margin-bottom: 0.45rem !important;
+  line-height: 1.6 !important;
+  color: var(--text-muted) !important;
+  font-size: 0.92rem !important;
+}
+
+.markdown td li::marker {
+  color: var(--cyber-cyan) !important;
+}
+
+.markdown td br + b,
+.markdown td br + strong {
+  margin-top: 0.5rem !important;
+}
+
+/* ========================================================
+   LIGHT MODE CONTRAST & READABILITY OVERRIDES
+   ======================================================== */
+
+[data-theme="light"] .markdown {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .markdown p {
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .markdown strong,
+[data-theme="light"] .markdown b {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .markdown ul,
+[data-theme="light"] .markdown ol,
+[data-theme="light"] .markdown li {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .markdown li::marker {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .markdown a:not(.markdown-badge-link):not(:has(img)) {
   color: #0369a1 !important;
   background: rgba(2, 132, 199, 0.1) !important;
   border: 1px solid rgba(2, 132, 199, 0.4) !important;
@@ -71,33 +286,110 @@
   box-shadow: 0 1px 3px rgba(2, 132, 199, 0.08) !important;
 }
 
-[data-theme="light"] .markdown a:hover,
-[data-theme="light"] .markdown-link:hover {
+[data-theme="light"] .markdown a:not(.markdown-badge-link):not(:has(img)):hover {
   color: #0c4a6e !important;
   background: rgba(2, 132, 199, 0.2) !important;
   border-color: #0284c7 !important;
   box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25) !important;
 }
 
-/* =========================
-   MOBILE TUNING
-========================= */
+[data-theme="light"] .markdown-badge-link,
+[data-theme="light"] .markdown a.markdown-badge-link,
+[data-theme="light"] .markdown a:has(img),
+[data-theme="light"] .markdown a:has(svg) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 
-@media (max-width: 640px) {
+[data-theme="light"] .markdown table {
+  background: #ffffff !important;
+  border: 1px solid rgba(2, 132, 199, 0.35) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] .markdown td,
+[data-theme="light"] .markdown th {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .markdown th {
+  background: rgba(2, 132, 199, 0.08) !important;
+  color: #0369a1 !important;
+}
+
+[data-theme="light"] .markdown td b,
+[data-theme="light"] .markdown td strong {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .markdown td ul,
+[data-theme="light"] .markdown td ol,
+[data-theme="light"] .markdown td li {
+  color: #334155 !important;
+}
+
+/* ========================================================
+   RESPONSIVE TABLE STACKING & MOBILE TUNING
+   ======================================================== */
+
+@media (max-width: 768px) {
   .markdown {
-    padding: 0 1rem 3rem;
+    padding: 0;
   }
 
-  .markdown h1 {
-    font-size: 2rem;
+  .markdown table,
+  .markdown tbody,
+  .markdown tr,
+  .markdown td,
+  .markdown th {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  .markdown h2 {
-    font-size: 1.5rem;
+  .markdown table {
+    margin: 1.4rem 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .markdown tr {
+    margin-bottom: 1.25rem !important;
+    border-bottom: 2px solid var(--border-cyber) !important;
+  }
+
+  .markdown tr:last-child {
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .markdown td {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 1px dashed var(--border-subtle) !important;
+    padding: 1.2rem 1rem !important;
+  }
+
+  .markdown td:last-child {
+    border-bottom: none !important;
+  }
+
+  .markdown td b,
+  .markdown td strong {
+    font-size: 1rem !important;
   }
 
   .markdown p {
-    font-size: 0.95rem;
+    font-size: 0.96rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .markdown p[align="center"] {
+    gap: 0.35rem !important;
+    margin: 1.2rem 0 !important;
   }
 
   .markdown pre {

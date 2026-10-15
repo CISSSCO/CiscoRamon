@@ -20,7 +20,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
             className="site-footer-icon-btn"
-            title="GitHub"
+            title="GitHub Profile"
           >
             <GitHubIcon />
           </a>
@@ -30,7 +30,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
             className="site-footer-icon-btn"
-            title="LinkedIn"
+            title="LinkedIn Profile"
           >
             <LinkedInIcon />
           </a>

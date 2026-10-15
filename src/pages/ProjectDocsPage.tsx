@@ -13,8 +13,10 @@ import dotfilesDoc from '../data/docs/dotfiles.md?raw'
 import myvimrcDoc from '../data/docs/myvimrc.md?raw'
 import popularwebsitethemesDoc from '../data/docs/popularwebsitethemes.md?raw'
 import cissscoDoc from '../data/docs/cisssco.md?raw'
+import orgslideDoc from '../data/docs/orgslide.md?raw'
 
 import rehypeHighlight from 'rehype-highlight'
+import rehypeRaw from 'rehype-raw'
 import 'highlight.js/styles/github-dark.css'
 
 const docsMap: Record<string, string> = {
@@ -26,6 +28,7 @@ const docsMap: Record<string, string> = {
     myvimrc: myvimrcDoc,
     popularwebsitethemes: popularwebsitethemesDoc,
     cisssco: cissscoDoc,
+    orgslide: orgslideDoc,
 }
 
 const langDisplayMap: Record<string, string> = {
@@ -201,7 +204,7 @@ export default function ProjectDocsPage() {
             <div className="markdown">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[[rehypeHighlight, { ignoreMissing: true }]]}
+                    rehypePlugins={[rehypeRaw, [rehypeHighlight, { ignoreMissing: true }]]}
                     components={{
                         pre: CodeBlock,
                         a: MarkdownLink,

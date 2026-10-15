@@ -8,6 +8,9 @@ import AboutPage from '../pages/AboutPage'
 import SkillsPage from '../pages/SkillsPage'
 import ProjectDocsPage from '../pages/ProjectDocsPage'
 import GithubPage from '../pages/GitHub'
+import LinkedInPage from '../pages/LinkedIn'
+import ProjectVisualizerPage from '../pages/ProjectVisualizerPage'
+import SkillVisualizerPage from '../pages/SkillVisualizerPage'
 
 import ModernBackground from '../components/ModernBackground'
 import Navbar from '../components/Navbar'
@@ -33,8 +36,11 @@ export default function App() {
           <Route path="/experience/:id" element={<ExperiencePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/skills" element={<SkillsPage />} />
+          <Route path="/skills/visualize" element={<SkillVisualizerPage />} />
+          <Route path="/projects/visualize" element={<ProjectVisualizerPage />} />
           <Route path="/project/:id/docs" element={<ProjectDocsPage />} />
           <Route path="/github" element={<GithubPage />} />
+          <Route path="/linkedin" element={<LinkedInPage />} />
         </Routes>
       </main>
 

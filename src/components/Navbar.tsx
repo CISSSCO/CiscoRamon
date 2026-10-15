@@ -120,6 +120,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
             className="cyber-icon-btn navbar-icon-btn"
+            title="GitHub Profile"
           >
             <GitHubIcon />
           </a>
@@ -227,6 +228,7 @@ export default function Navbar() {
               href="https://github.com/CISSSCO"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
               className="cyber-icon-btn"
               style={{ flex: 1, justifyContent: 'center' }}
             >

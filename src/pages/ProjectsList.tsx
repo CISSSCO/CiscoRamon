@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState, useMemo, useEffect } from 'react'
 import projects from '../data/projects.json'
 import '../styles/home.css'
@@ -10,9 +10,16 @@ export default function ProjectsList() {
     const [selectedTopic, setSelectedTopic] = useState('All')
     const [expandedId, setExpandedId] = useState<string | null>(null)
 
+    const location = useLocation()
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'auto' })
-    }, [])
+        const state = location.state as { filterTech?: string } | null
+        if (state?.filterTech) {
+            setSearchQuery(state.filterTech)
+            setSelectedTopic('All')
+        }
+    }, [location.state])
 
     const topics = ['All', 'HPC / Cluster', 'Linux & Shell', 'Vim / Configs', 'Web / Python']
 
@@ -55,7 +62,7 @@ export default function ProjectsList() {
 
     return (
         <section className="section" style={{ maxWidth: '1240px', margin: '0 auto', padding: '10vh 1.5rem 15vh' }}>
-            <div style={{ marginBottom: '2.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <Link
                     to="/"
                     className="cyber-action-btn secondary"
@@ -63,9 +70,17 @@ export default function ProjectsList() {
                 >
                     ← BACK TO HOME
                 </Link>
+
+                <Link
+                    to="/projects/visualize"
+                    className="cyber-action-btn primary"
+                    style={{ textDecoration: 'none', display: 'inline-flex', padding: '0.5rem 1.2rem', fontSize: '0.8rem' }}
+                >
+                    <span>📊 VISUALIZE TECH STACK &amp; 3D GRAPHS →</span>
+                </Link>
             </div>
 
-            <div style={{ marginBottom: '3rem' }}>
+            <div style={{ marginBottom: '2.5rem' }}>
                 <div className="section-tag-hpc">
                     <span className="section-tag-dot" />
                     <span>CATALOG &amp; REGISTRY</span>
@@ -78,8 +93,44 @@ export default function ProjectsList() {
                 </p>
             </div>
 
+            {/* DEDICATED VISUALIZER CALLOUT BANNER */}
+            <div style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-cyber)',
+                borderRadius: '14px',
+                padding: '1.4rem 1.8rem',
+                marginBottom: '2.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1.2rem',
+                boxShadow: 'var(--card-shadow)',
+                position: 'relative',
+                overflow: 'hidden'
+            }}>
+                <div style={{ maxWidth: '680px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
+                        <span style={{ fontSize: '1.2rem' }}>🎮</span>
+                        <strong style={{ fontSize: '1.1rem', color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
+                            Interactive 3D &amp; Multi-Plot Tech Stack Visualizer
+                        </strong>
+                    </div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.55, margin: 0 }}>
+                        Switch to dedicated visualization engine featuring 3D Three.js cyber constellations, co-occurrence heatmaps, spider radar matrices, stem distributions, and stack treemaps.
+                    </p>
+                </div>
+                <Link
+                    to="/projects/visualize"
+                    className="cyber-action-btn primary"
+                    style={{ textDecoration: 'none', display: 'inline-flex', padding: '0.6rem 1.3rem', fontSize: '0.85rem' }}
+                >
+                    <span>OPEN VISUALIZER PAGE ↗</span>
+                </Link>
+            </div>
+
             {/* Interactive Search and Topic Filters */}
-            <div className="cyber-filter-bar">
+            <div id="project-catalog" className="cyber-filter-bar">
                 <div className="cyber-search-wrapper">
                     <span className="cyber-search-icon">
                         <SearchIcon />

@@ -57,7 +57,7 @@ export default function Home() {
     const [selectedSkillCategory, setSelectedSkillCategory] = useState<string>('All')
 
     const featuredProjects = useMemo(
-        () => projects.filter((p) => p.featured || ['hpccfs', 'cerrfix', 'dotfiles', 'playlisto'].includes(p.id)),
+        () => projects.filter((p) => Boolean(p.featured)),
         []
     )
 
@@ -183,27 +183,23 @@ export default function Home() {
                     </a>
 
                     <div className="hero-social-icons">
-                        <a
-                            href="https://github.com/CISSSCO"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link
+                            to="/github"
                             className="cyber-icon-btn hero-social-btn"
-                            aria-label="GitHub Profile"
-                            title="GitHub Profile"
+                            aria-label="GitHub Profile & Repositories"
+                            title="View GitHub Profile & Details"
                         >
                             <GitHubIcon />
-                        </a>
+                        </Link>
 
-                        <a
-                            href="https://www.linkedin.com/in/abhi581b"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link
+                            to="/linkedin"
                             className="cyber-icon-btn hero-social-btn"
-                            aria-label="LinkedIn Profile"
-                            title="LinkedIn Profile"
+                            aria-label="LinkedIn Profile & Experience"
+                            title="View LinkedIn Profile & Details"
                         >
                             <LinkedInIcon />
-                        </a>
+                        </Link>
 
                         <a
                             href="mailto:cisco581b@gmail.com"
@@ -232,7 +228,7 @@ export default function Home() {
                             <span className="stat-card-dot" />
                             <span>02 // REPOSITORIES</span>
                         </div>
-                        <div className="stat-card-value">8+ Projects</div>
+                        <div className="stat-card-value">9+ Projects</div>
                         <div className="stat-card-label">Open Source Infrastructure, Slurm &amp; C Utilities</div>
                     </div>
 

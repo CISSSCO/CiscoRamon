@@ -1,0 +1,396 @@
+/* ========================================================
+   CYBERPUNK INTERACTIVE DATA VISUALIZATIONS
+   ======================================================== */
+
+.cyber-graph-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-cyber);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0 3rem;
+    position: relative;
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cyber-graph-card:hover {
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: var(--card-shadow), 0 0 25px rgba(0, 242, 254, 0.1);
+}
+
+.cyber-graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1.2rem;
+}
+
+.cyber-graph-title-group {
+    flex: 1;
+    min-width: 280px;
+}
+
+.cyber-graph-title {
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin: 0.3rem 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.cyber-graph-subtitle {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    max-width: 680px;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Switcher Controls */
+.cyber-graph-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--bg-surface);
+    padding: 0.3rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+}
+
+.cyber-graph-switcher-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cyber-graph-switcher-btn:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.cyber-graph-switcher-btn.active {
+    background: rgba(0, 242, 254, 0.12);
+    color: var(--cyber-cyan);
+    border-color: var(--cyber-cyan);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+}
+
+[data-theme="light"] .cyber-graph-switcher-btn.active {
+    background: rgba(2, 132, 199, 0.12);
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 0 12px rgba(2, 132, 199, 0.2);
+}
+
+/* Filter Active Banner */
+.cyber-graph-filter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 242, 254, 0.1);
+    border: 1px solid var(--cyber-cyan);
+    color: var(--cyber-cyan);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cyber-graph-filter-badge:hover {
+    background: rgba(255, 0, 85, 0.15);
+    border-color: var(--cyber-pink);
+    color: var(--cyber-pink);
+}
+
+/* Visualization Canvas Area */
+.cyber-graph-canvas-container {
+    width: 100%;
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* ========================================================
+   VIEW 1: BUBBLE CLUSTER / NODE GRAPH
+   ======================================================== */
+.cyber-bubble-svg {
+    width: 100%;
+    max-height: 480px;
+    overflow: visible;
+    user-select: none;
+}
+
+.cyber-bubble-node {
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.cyber-bubble-node:hover {
+    filter: drop-shadow(0 0 14px rgba(0, 242, 254, 0.7));
+}
+
+.cyber-bubble-node.selected circle.outer-glow {
+    stroke: var(--cyber-yellow) !important;
+    stroke-width: 2.5px !important;
+    filter: drop-shadow(0 0 16px rgba(252, 238, 10, 0.8));
+}
+
+/* ========================================================
+   VIEW 2: STACK RANKING & DOMAIN BARS
+   ======================================================== */
+.cyber-bar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cyber-bar-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cyber-bar-card:hover {
+    border-color: var(--cyber-cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.15);
+}
+
+.cyber-bar-card.active {
+    border-color: var(--cyber-yellow);
+    background: rgba(252, 238, 10, 0.05);
+    box-shadow: 0 0 20px rgba(252, 238, 10, 0.2);
+}
+
+.cyber-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.65rem;
+}
+
+.cyber-bar-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--text-main);
+}
+
+.cyber-bar-metric {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--cyber-cyan);
+}
+
+.cyber-bar-track {
+    height: 7px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+[data-theme="light"] .cyber-bar-track {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-purple));
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-bar-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.cyber-bar-mini-pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid var(--border-subtle);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+/* ========================================================
+   VIEW 3: RADAR MATRIX (SPIDER CHART)
+   ======================================================== */
+.cyber-radar-svg {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    overflow: visible;
+    user-select: none;
+    margin: 0 auto;
+}
+
+.cyber-radar-axis-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: fill 0.2s ease;
+}
+
+.cyber-radar-axis-label:hover {
+    fill: var(--cyber-yellow) !important;
+}
+
+.cyber-radar-vertex {
+    cursor: pointer;
+    transition: transform 0.2s ease, r 0.2s ease;
+}
+
+.cyber-radar-vertex:hover {
+    r: 7px;
+    filter: drop-shadow(0 0 8px #00f2fe);
+}
+
+/* ========================================================
+   VIEW 4: RADIAL WHEEL / DONUT
+   ======================================================== */
+.cyber-wheel-svg {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    overflow: visible;
+    user-select: none;
+    margin: 0 auto;
+}
+
+.cyber-wheel-slice {
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transform-origin: center;
+}
+
+.cyber-wheel-slice:hover {
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.7));
+}
+
+.cyber-wheel-center-label {
+    text-anchor: middle;
+    font-family: var(--font-mono, monospace);
+    user-select: none;
+}
+
+/* ========================================================
+   HOVER TOOLTIP
+   ======================================================== */
+.cyber-graph-tooltip {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-surface);
+    border: 1px solid var(--cyber-cyan);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(0, 242, 254, 0.25);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8rem;
+    color: var(--text-main);
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    white-space: nowrap;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, 6px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+    .cyber-graph-card {
+        padding: 1.4rem 1.1rem;
+        margin: 1.5rem 0 2rem;
+    }
+
+    .cyber-bar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cyber-graph-switcher {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .cyber-graph-switcher-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 0.4rem 0.5rem;
+        font-size: 0.72rem;
+    }
+
+    .cyber-bubble-svg {
+        max-height: 380px;
+    }
+
+    .cyber-radar-axis-label {
+        font-size: 9px;
+    }
+
+    .cyber-graph-tooltip {
+        position: static;
+        transform: none;
+        margin-top: 1rem;
+        white-space: normal;
+        text-align: center;
+    }
+}
+

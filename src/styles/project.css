@@ -315,7 +315,8 @@
    ======================================================== */
 .markdown table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 2.2rem 0;
     background: var(--bg-card);
     border: 1px solid var(--border-cyber);
@@ -328,9 +329,16 @@
 .markdown td {
     padding: 0.9rem 1.25rem;
     border-bottom: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
     text-align: left;
     font-size: 0.95rem;
     line-height: 1.6;
+    color: var(--text-main);
+}
+
+.markdown th:last-child,
+.markdown td:last-child {
+    border-right: none;
 }
 
 .markdown th {
@@ -349,6 +357,36 @@
 
 .markdown tr:hover td {
     background: rgba(0, 242, 254, 0.03);
+}
+
+/* Light Mode Overrides for Project Docs Tables */
+[data-theme="light"] .markdown table {
+    background: #ffffff;
+    border-color: rgba(2, 132, 199, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .markdown th {
+    background: rgba(2, 132, 199, 0.08);
+    color: #0369a1;
+}
+
+[data-theme="light"] .markdown td {
+    color: #0f172a;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .markdown tr:hover td {
+    background: rgba(2, 132, 199, 0.04);
+}
+
+@media (max-width: 768px) {
+    .markdown table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 /* ========================================================
