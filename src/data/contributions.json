@@ -1,5 +1,30 @@
 [
   {
+    "id": "pr-spack-7231",
+    "number": 7231,
+    "title": "specfem3d: new package",
+    "repo": "spack/spack-packages",
+    "repo_url": "https://github.com/spack/spack-packages",
+    "url": "https://github.com/spack/spack-packages/pull/7231",
+    "state": "open",
+    "merged": false,
+    "created_at": "2026-10-23T08:22:26Z",
+    "merged_at": null,
+    "description": "Upstream contribution to spack/spack-packages (#7231).",
+    "labels": [
+      "new-package",
+      "new-version",
+      "dependencies",
+      "conflicts",
+      "maintainers",
+      "licenses",
+      "new-variant"
+    ],
+    "checks": "Verified",
+    "organization": "spack",
+    "category": "Open Source Contribution"
+  },
+  {
     "id": "pr-spack-7002",
     "number": 7002,
     "title": "asciinema & asciinema-agg: add maintainer",
