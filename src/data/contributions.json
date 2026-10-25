@@ -1,5 +1,29 @@
 [
   {
+    "id": "pr-spack-7241",
+    "number": 7241,
+    "title": "specfem2d: new package",
+    "repo": "spack/spack-packages",
+    "repo_url": "https://github.com/spack/spack-packages",
+    "url": "https://github.com/spack/spack-packages/pull/7241",
+    "state": "open",
+    "merged": false,
+    "created_at": "2026-10-24T10:37:28Z",
+    "merged_at": null,
+    "description": "Upstream contribution to spack/spack-packages (#7241).",
+    "labels": [
+      "new-package",
+      "new-version",
+      "dependencies",
+      "maintainers",
+      "licenses",
+      "new-variant"
+    ],
+    "checks": "Verified",
+    "organization": "spack",
+    "category": "Open Source Contribution"
+  },
+  {
     "id": "pr-spack-7231",
     "number": 7231,
     "title": "specfem3d: new package",
